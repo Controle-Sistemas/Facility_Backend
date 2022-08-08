@@ -1,0 +1,1 @@
+export const EXTERNAL_API_URL = `https://apilicenca.controleautomacao.com.br/api/`;

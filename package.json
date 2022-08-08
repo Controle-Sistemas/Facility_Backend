@@ -1,0 +1,46 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/cryptr": "^4.0.1",
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/multer": "^1.4.7",
+    "@types/nodemailer": "^6.4.4",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.4"
+  },
+  "scripts": {
+    "start": "nodemon  src/index.ts"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/body-parser": "^1.19.2",
+    "@types/circular-json": "^0.4.0",
+    "@types/express-fileupload": "^1.2.2",
+    "@types/mysql": "^2.15.21",
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "boom": "^7.3.0",
+    "circular-json": "^0.5.9",
+    "cloudinary": "^1.30.0",
+    "cors": "^2.8.5",
+    "cryptr": "^6.0.3",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.18.1",
+    "express-fileupload": "^1.4.0",
+    "express-validator": "^6.14.0",
+    "fastest-validator": "^1.12.0",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "nodemailer": "^6.7.5",
+    "nodemon": "^2.0.16"
+  }
+}
