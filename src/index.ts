@@ -23,6 +23,7 @@ connection.connect((err: any) => {
 		app.use(bodyParser.json()); //Para o express entender o formato json
 
 		app.use(bodyParser.urlencoded({ extended: true }));
+		
 
 
 		//Criando as tabelas do banco de dados

@@ -11,6 +11,7 @@ import rotasUserCard from './Controllers/rotasUserCard'
 import rotasDocumentos from './Controllers/rotasDocumentos'
 import rotasTutoriais from './Controllers/rotasTutoriais'
 import rotasTutoriaisCategorias from './Controllers/rotasCategoriasTutorial'
+import rotasEmails from './Controllers/rotasEmails'
 
 
 routes.use('/tabelas', rotasUserTableCustom)
@@ -24,6 +25,8 @@ routes.use('/card',rotasUserCard)
 routes.use('/documentos',rotasDocumentos)
 routes.use('/tutoriais',rotasTutoriais)
 routes.use('/categorias',rotasTutoriaisCategorias)
+routes.use('/emails',rotasEmails)
+
 
 
 

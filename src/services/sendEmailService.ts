@@ -3,7 +3,7 @@ import { SysLoginType } from '../types';
 
 class SendEmailService {
     transporter: any;
-    cliente: SysLoginType;
+    cliente: SysLoginType | any;
 
     constructor(client?: any) {
         this.transporter = nodemailer.createTransport({ //Configuração do servidor de envio de email
@@ -53,7 +53,7 @@ class SendEmailService {
                 <p> CNPJ: ${this.cliente.CNPJ} </p>
                 <p> Senha: ${password} </p>
                 <p> Acesse o portal pelo link abaixo: </p>
-                <a href="#"> dominio </a>
+                <a href="https://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>
                 <p> Em caso de dúvidas, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
                 </td>
             </tr>
@@ -108,7 +108,7 @@ class SendEmailService {
                 <h1> Olá, ${this.cliente.NOME} </h1>
                 <h5> O documento ${document.NOME} foi enviado para você no dia ${document.DATAINCLUSAO}</h5>
                 <p> Acesse o portal pelo link abaixo para consultar ele: </p>
-                <a href="#"> dominio </a>
+                <a href="https://facility.controleautomacao.com.br"> https://facility.controleautomacao.com.br </a>
                 <p> Em caso de dúvidas, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
                 </td>
             </tr>
@@ -135,6 +135,60 @@ class SendEmailService {
         });
         this.transporter.close(); //Fecha o servidor de envio de email
     
+    }
+
+    sendEmailDuvida(duvida:any){
+        const corpoEmail = `
+    
+        <table style="width:100%" cellpadding="0" cellspacing="0">
+            <tr bgcolor="#003775">
+                <th>
+                    <img src="" alt="logo" style="width:90%;height:80%;">
+                </th>
+                <th>
+                    <h2 style="color:#fff">Dúvida</h2>
+                </th>
+            </tr>
+            <tr bgcolor="#f0f0f0" color="#000"">
+                <td>
+                    <p style="margin-left:1rem"> ${duvida.email} </p>
+                </td>
+                <td>
+
+                <p> ${duvida.telefone} </p>
+            <tr bgcolor="#fff">
+                <td colSpan="2">
+    
+                <h1> Olá, ${duvida.nome} </h1>
+                <h5> Sua dúvida foi enviada ao nosso suporte</h5>
+                <p> ${duvida.mensagem} </p>
+                <p> Acesse o portal pelo link abaixo para consultar ele: </p>
+                <a href="https://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>
+                <p> Em caso de demora, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
+                </td>
+            </tr>
+        </table>
+        
+        ` //Corpo do email
+    
+        
+    
+        const emailASerEnviado = { //Dados do email a ser enviado
+            from: "envionotafiscal@controleautomacao.com.br",
+            to: duvida.email,
+            subject: duvida.assunto,
+            html: corpoEmail,
+        };
+        console.log(emailASerEnviado)
+    
+        this.transporter.sendMail(emailASerEnviado,  (error: any, info: { response: string; }) => { //Envia o email
+            if (error) {
+                console.log(error);
+            } else {
+                console.log(`Email enviado para ${this.cliente.EMAIL}:` + info.response);
+            }
+        });
+        this.transporter.close(); //Fecha o servidor de envio de email
     }
 
 
