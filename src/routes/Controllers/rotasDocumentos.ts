@@ -10,7 +10,6 @@ const upload = multer(multerConfig);
 const router = express.Router();
 
 router.get('/', (req: Request, res: Response) => {
-    
     DocumentsModel.getAllDocuments(res);
 });
 

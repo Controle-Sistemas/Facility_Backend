@@ -229,21 +229,21 @@ routes.patch('/:id', (req: Request, res: Response) => {
 	ClientesModel.updateClient(id, client, res);
 });
 
-routes.patch('/change-password/:cnpj', (req: Request, res: Response) => {
-	const CNPJ = req.params.cnpj;
-	const oldPassword = req.body.oldPassword;
-	const newPassword = req.body.newPassword;
+routes.patch('/change-password/:cnpj', (req: Request, res: Response) => { //Rota para alterar a senha de um usuário
+	const CNPJ = req.params.cnpj; //Pega o cnpj do usuário
+	const oldPassword = req.body.oldPassword;  //Pega a senha antiga
+	const newPassword = req.body.newPassword; //Pega a nova senha
 
-	conn.query(`SELECT * FROM sysloginrequest WHERE CNPJ = ${CNPJ}`, async (err: any, results: any) => {
+	conn.query(`SELECT * FROM sysloginrequest WHERE CNPJ = ${CNPJ}`, async (err: any, results: any) => { 
 		try {
 			if (err) {
 				console.log(err);
 			} else {
-				if (results.length > 0) {
-					const oldPasswordEncrypted = results[0].PASSWORD;
-					await bcrypt.compare(oldPassword, oldPasswordEncrypted).then((result) => {
-						if (result) {
-							const passwordEncrypted = bcrypt.hash(newPassword, 5);
+				if (results.length > 0) { //Verifica se existe algum usuário com o mesmo cnpj
+					const oldPasswordEncrypted = results[0].PASSWORD; //Pega a senha criptografada
+					await bcrypt.compare(oldPassword, oldPasswordEncrypted).then((result) => { //Compara a senha antiga com a senha criptografada
+						if (result) { //Se for igual, criptografa a nova senha e atualiza o usuário
+							const passwordEncrypted = bcrypt.hash(newPassword, 5); 
 							passwordEncrypted
 								.then((result) => {
 									if (result) {
@@ -284,7 +284,7 @@ routes.patch('/change-password/:cnpj', (req: Request, res: Response) => {
 	});
 });
 
-routes.patch('/forgot-password/:cnpj', (req: Request, res: Response) => {
+routes.patch('/forgot-password/:cnpj', (req: Request, res: Response) => {  //Rota para recuperar a senha de um usuário
 	const cnpj = req.params.cnpj;
 	conn.query(`SELECT * FROM sysloginrequest WHERE CNPJ = ${cnpj}`, async (err: any, results: any) => {
 		if (err) {
@@ -326,15 +326,15 @@ routes.patch('/forgot-password/:cnpj', (req: Request, res: Response) => {
 	});
 });
 
-routes.delete('/:id', (req: Request, res: Response) => {
+routes.delete('/:id', (req: Request, res: Response) => { 
 	const id = Number(req.params.id);
 	conn.query(`SELECT * FROM sysselecttablecolumn WHERE idUser = ${id}`, (err: any, results: any) => {
 		try {
 			if (err) {
 				console.log(err);
 			} else {
-				if (results.length > 0) {
-					conn.query(`DELETE FROM sysselecttablecolumn WHERE idUser = ${id}`, (err: any, result: any) => {
+				if (results.length > 0) { 
+					conn.query(`DELETE FROM sysselecttablecolumn WHERE idUser = ${id}`, (err: any, result: any) => { //Deleta as colunas do usuário
 						if (err) {
 							console.log(err);
 						} else {

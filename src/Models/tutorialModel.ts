@@ -27,10 +27,17 @@ class TutorialModel{
                 if (err) {
                     res.status(500).send(err);
                 } else {
+                    if(results.length > 0){
                     res.status(200).send({
                         data: results,
                         message: 'Tutorial retornado com sucesso'
                     });
+                    } else {
+                        res.status(404).send({
+                            data: results,
+                            message: 'Tutorial não encontrado'
+                        });
+                    }
                 }
             }
         );
@@ -44,10 +51,17 @@ class TutorialModel{
                 if (err) {
                     res.status(500).send(err);
                 } else {
+                    if(results.length > 0){
                     res.status(200).send({
                         data: results,
                         message: 'Tutorial retornado com sucesso'
                     });
+                    } else {
+                        res.status(404).send({
+                            data: results,
+                            message: 'Tutorial não encontrado'
+                        });
+                    }
                 }
             }
         );
@@ -78,10 +92,18 @@ class TutorialModel{
                 if (err) {
                     res.status(500).send(err);
                 } else {
+                    if(results.affectedRows > 0){
                     res.status(200).send({
                         data: results,
                         message: 'Tutorial atualizado com sucesso'
                     });
+                    } else {
+                        res.status(404).send({
+                            data: results,
+                            message: 'Tutorial não encontrado'
+                        });
+                    }
+
                 }
             }
         );
@@ -95,10 +117,17 @@ class TutorialModel{
                 if (err) {
                     res.status(500).send(err);
                 } else {
+                    if(results.affectedRows > 0){
                     res.status(200).send({
                         data: results,
                         message: 'Tutorial deletado com sucesso'
                     });
+                    } else {
+                        res.status(404).send({
+                            data: results,
+                            message: 'Tutorial não encontrado'
+                        });
+                    }
                 }
             }
         );

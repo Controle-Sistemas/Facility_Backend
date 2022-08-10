@@ -10,7 +10,6 @@ class DocumentsModel{
                 if (err) {
                     res.status(500).send(err);
                 } else {
-
                     res.status(200).send({
                         data: results,
                         message: 'Lista de documentos'
@@ -29,7 +28,11 @@ class DocumentsModel{
                 if (err) {
                     res.status(500).send(err);
                 } else {
-                    res.status(200).send({data:results, message: 'Documento encontrado'});
+                    if(results.length > 0){
+                        res.status(200).send({data:results, message: 'Documento encontrado'});
+                    } else {
+                        res.status(404).send({message: 'Documento não encontrado'});
+                    }
                 }
             }
         );
@@ -43,7 +46,11 @@ class DocumentsModel{
                 if (err) {
                     res.status(500).send(err);
                 } else {
-                    res.status(200).send({data:results, message: 'Documento encontrado'});
+                    if(results.length > 0){
+                        res.status(200).send({data:results, message: 'Documento encontrado'});
+                    } else {
+                        res.status(404).send({message: 'Documento não encontrado'});
+                    }
                 }
             }
         );
@@ -85,7 +92,11 @@ class DocumentsModel{
                 if (err) {
                     res.status(500).send(err);
                 } else {
-                    res.status(200).send({data:results, message: 'Documento atualizado'});
+                    if(results.affectedRows > 0){ 
+                        res.status(200).send({data:results, message: 'Documento atualizado'});
+                    } else {
+                        res.status(404).send({message: 'Documento não encontrado'});
+                    }
                 }
             }
         )
@@ -99,7 +110,11 @@ class DocumentsModel{
                 if (err) {
                     res.status(500).send(err);
                 } else {
-                    res.status(200).send({data:results, message: 'Documento deletado'});
+                    if(results.affectedRows > 0){
+                        res.status(200).send({data:results, message: 'Documento deletado'});
+                    } else {
+                        res.status(404).send({message: 'Documento não encontrado'});
+                    }
                 }
             }
         )

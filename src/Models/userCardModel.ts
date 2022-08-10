@@ -6,12 +6,12 @@ class UserCardModel {
         conn.query(
             `SELECT * FROM USERCARD WHERE id = ?`,
             [id],
-            (err, result) => {
+            (err, result:any) => {
                 if (err) {
                     console.log(err);
                 } else {
 
-                    if(result){
+                    if(result.length > 0){
                         res.status(200).json({
                             message: 'Card Encontrado',
                             data: result
@@ -28,11 +28,11 @@ class UserCardModel {
         conn.query(
             `SELECT * FROM USERCARD WHERE IDUSER = ?`,
             [id],
-            (err, result) => {
+            (err, result:any) => {
                 if (err) {
                     console.log(err);
                 } else {
-                    if(result){
+                    if(result.length > 0){
                         res.status(200).json({
                             message: 'Cards Encontrados',
                             data: result
@@ -64,16 +64,20 @@ class UserCardModel {
 
     updateUserCard(cardData: any,idUser: number,idCard: number,res: Response) {
         conn.query(
-            `UPDATE USERCARD SET ? WHERE IDUSER = ? AND IDCARD = ?`,
+            `UPDATE USERCARD SET ? WHERE IDUSER = ? AND ID = ?`,
             [cardData,idUser,idCard],
-            (err, result) => {
+            (err, result:any) => {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.status(200).json({
-                        message: 'Card Atualizado',
-                        data: result
-                    }); 
+                    if(result.affectedRows > 0){
+                        res.status(200).json({
+                            message: 'Card Atualizado',
+                            data: result
+                        }); 
+                    } else {
+                        res.status(404).json({message: 'Nenhum registro encontrado'});
+                    }
 
                 }
             }

@@ -20,8 +20,8 @@ class UserTableCustomModel {
 
                     })
                 } else {
-                    console.log(results)
-                    if(results.toString.length > 0){
+                    console.log(typeof results)
+                    if(results.toString().length > 0){
                         res.status(200).send({
                             message: 'Tabela listada com sucesso',
                             data: results
