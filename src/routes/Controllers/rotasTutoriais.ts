@@ -1,4 +1,4 @@
-import TuturialModel from '../../Models/tutorialModel'
+import TuturialModel from '../../db/Models/tutorialModel'
 import express,{ Request, Response } from 'express'
 import conn from '../../db'
 import multer from 'multer';

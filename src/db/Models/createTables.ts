@@ -1,4 +1,4 @@
-import connection from '../db';
+import connection from '..';
 
 class CreateTables {
 	tableCliente() {

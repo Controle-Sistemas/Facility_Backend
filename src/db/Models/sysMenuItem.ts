@@ -1,6 +1,6 @@
-import conn from '../db';
+import conn from '..';
 import circularJson from 'circular-json';
-import { SysMenuItemType } from '../types';
+import { SysMenuItemType } from '../../types';
 
 class MenuItemModel {
 	//Classe que conterá os métodos de acesso ao banco de dados

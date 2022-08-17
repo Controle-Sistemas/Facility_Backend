@@ -1,9 +1,9 @@
 import express from 'express';
-import routes from './routes';
+import routes from './src/routes';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import connection from './db';
-import CreateTables from './Models/createTables';
+import connection from './src/db';
+import CreateTables from './src/db/Models/createTables';
 
 const app = express();
 

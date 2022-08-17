@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import conn from '../db'
+import conn from '..'
 
 class TutorialModel{
 

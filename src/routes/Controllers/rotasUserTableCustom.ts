@@ -1,4 +1,4 @@
-import UserTableCustomModel from '../../Models/sysUserTableCustom';
+import UserTableCustomModel from '../../db/Models/sysUserTableCustom';
 import express, { Request, Response } from 'express';
 import conn from '../../db';
 

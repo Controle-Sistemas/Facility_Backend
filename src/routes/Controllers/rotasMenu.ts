@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import connection from '../../db';
-import MenuItemModel from '../../Models/sysMenuItem';
+import MenuItemModel from '../../db/Models/sysMenuItem';
 const routes = express.Router();
 
 routes.get('/item', (req: Request, res: Response) => {

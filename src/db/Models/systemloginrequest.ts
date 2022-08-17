@@ -1,5 +1,5 @@
-import connection from '../db';
-import { SysLoginType } from '../types';
+import connection from '..';
+import { SysLoginType } from '../../types';
 
 class ModeloClientes {
 	getClients(res: any) {

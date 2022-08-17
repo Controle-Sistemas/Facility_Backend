@@ -1,9 +1,9 @@
 
-import TerminalModel from '../../Models/sysTerminals';
+import TerminalModel from '../../db/Models/sysTerminals';
 import conn from '../../db';
 
 import express,{ Request, Response } from 'express';
-import terminais from '../../requests/licencas'; //Pega os dados da api antiga
+import terminais from '../requests/licencas'; //Pega os dados da api antiga
 const routes = express.Router()
 
 routes.get('/', (req: Request, res: Response) => { 
