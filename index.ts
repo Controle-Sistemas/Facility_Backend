@@ -5,10 +5,11 @@ import bodyParser from 'body-parser';
 import connection from './src/db';
 import CreateTables from './src/db/Models/createTables';
 
-const app = express();
 
+const app = express();
+const PORT = process.env.PORT || 8000;
 const corsOptions = {
-	origin: 'http://localhost:3000',
+	origin: 'http://localhost:3000' || 'http://facility.controleautomacao.com.br',
 	optionsSuccessStatus: 200
 };
 
@@ -16,6 +17,7 @@ const corsOptions = {
 connection.connect((err: any) => {
 	if (err) {
 		console.log(err);
+		console.log('Não foi possível conectar ao banco de dados');
 	} else {
 		console.log('Conectado com sucesso');
 
@@ -40,8 +42,9 @@ connection.connect((err: any) => {
 		CreateTables.tableTutoriaisCategoria()
 		//utilizar as rotas
 		app.use(routes);
-		app.listen(8000, () => {
+		app.listen(PORT, () => {
 			console.log('Server running on port 8000');
 		});
 	}
 });
+
