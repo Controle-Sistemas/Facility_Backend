@@ -11,7 +11,6 @@ if(process.env.ENVIRONMENT === 'PROD') {
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
         connectTimeout: 60 * 60 * 1000,
-        debug:true
     })
 } else {
     connection = mysql.createConnection({
