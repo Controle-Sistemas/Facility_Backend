@@ -1,22 +1,29 @@
-import mysql from 'mysql'
+import mysql from 'mysql2'
+import dotenv from 'dotenv'
+dotenv.config()
+let connection: mysql.Connection;
 
-const config = { //objeto com as configurações do banco de dados
-    host: 'apifacility.controleautomacao.com.br',
-    port:3306,
-    database:'controleautomaca_facility',
-    user: 'controleautomaca_facility_admin',
-    password: 'daniel*302104'
+if(process.env.ENVIRONMENT === 'PROD') {
+    console.log('PROD');
+    connection = mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        connectTimeout: 60 * 60 * 1000,
+        debug:true
+    })
+} else {
+    connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'controle*302109',
+        database: 'projeto-portal',
+        port: 3306
+    })
 }
 
-// const config = { //objeto com as configurações do banco de dados
-//     host: 'localhost',
-//     port:3306,
-//     database:'projeto-portal',
-//     user: 'root',
-//     password: 'controle*302109'
-// }
 
 
-const connection = mysql.createConnection(config) //fazendo a conexão com o banco
 
 export default connection //exportando a conexão o modulo da conexão
