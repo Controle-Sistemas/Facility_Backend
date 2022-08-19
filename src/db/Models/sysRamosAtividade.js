@@ -9,6 +9,7 @@ class sysRamosAtividade {
         __1.default.query('SELECT * FROM sysRamosAtividade', (error, results, fields) => {
             if (error) {
                 res.status(400).send(error);
+                console.log(error);
             }
             else {
                 res.status(200).json(results);

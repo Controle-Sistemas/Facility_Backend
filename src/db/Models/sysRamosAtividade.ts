@@ -5,6 +5,7 @@ class sysRamosAtividade {
 		connection.query('SELECT * FROM sysRamosAtividade', (error: any, results: any, fields: any) => {
 			if (error) {
 				res.status(400).send(error);
+                console.log(error);
 			} else {
 				res.status(200).json(results);
 			}
@@ -15,6 +16,7 @@ class sysRamosAtividade {
 		connection.query('SELECT * FROM sysRamosAtividade WHERE descricao = ?',	[ name ],(error: any, results: any, fields: any) => {
 				if (error) {
 					res.status(400).send(error);
+                    
 				} else {
 					if(results.length > 0){
                         res.status(200).send(results);
