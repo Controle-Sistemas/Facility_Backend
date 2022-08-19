@@ -26,9 +26,8 @@ class UserCardModel {
         } catch (error) {
             res.status(500).send(error);
             console.log(error);
-        } finally {
-            conn.end();
-        }
+        }  
+
     }
 
     getUserCardByUser(id: number,res: Response) {
@@ -76,9 +75,8 @@ class UserCardModel {
         } catch (error) {
             res.status(500).send(error);
             console.log(error);
-        } finally {
-            conn.end();
-        }
+        }  
+
     }
 
     updateUserCard(cardData: any,idUser: number,idCard: number,res: Response) {
@@ -105,9 +103,7 @@ class UserCardModel {
         } catch (error) {
             res.status(500).send(error);
             console.log(error);
-        } finally {
-            conn.end();
-        }
+        }  
     }
 
     deleteUserCard(idUser: number,idCard: number,res: Response) {
@@ -130,9 +126,7 @@ class UserCardModel {
         } catch (error) {
             res.status(500).send(error);
             console.log(error);
-        } finally {
-            conn.end();
-        }
+        }  
     }
 }
 

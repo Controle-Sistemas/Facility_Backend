@@ -13,9 +13,8 @@ class sysRamosAtividade {
 			});
 		} catch (error) {
 			console.error(error);
-		} finally {
-			connection.end();
-		}
+		}  
+			  
 	}
 
 	getSysRamosAtividadeByName(name: string, res: any) {
@@ -39,9 +38,7 @@ class sysRamosAtividade {
 			);
 		} catch (error) {
 			console.error(error);
-		} finally {
-			connection.end();
-		}
+		}  
 	}
 
 	addSysRamosAtividade(sysRamosAtividade: any, res: any) {
@@ -59,9 +56,8 @@ class sysRamosAtividade {
 			);
 		} catch (error) {
 			console.error(error);
-		} finally {
-			connection.end();
-		}
+		}  
+			  
 	}
 
 	updateSysRamosAtividade(name: string, sysRamosAtividade: any, res: any) {
@@ -79,9 +75,8 @@ class sysRamosAtividade {
 			);
 		} catch (error) {
 			console.error(error);
-		} finally {
-			connection.end();
-		}
+		}  
+
 	}
 
 	deleteSysRamosAtividade(name: string, res: any) {
@@ -99,9 +94,7 @@ class sysRamosAtividade {
 			);
 		} catch (error) {
 			console.error(error);
-		} finally {
-			connection.end();
-		}
+		}  
 	}
 }
 

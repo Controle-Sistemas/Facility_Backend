@@ -11,9 +11,8 @@ class UserTableCustomModel {
 		} catch (error) {
 			res.status(500).send(error);
 			console.log(error);
-		} finally {
-			conn.end();
-		}
+		}  
+			
 	}
 
 	getTable(idUser: number, idTable: number, res: Response) {
@@ -43,9 +42,8 @@ class UserTableCustomModel {
 		} catch (error) {
 			res.status(500).send(error);
 			console.log(error);
-		} finally {
-			conn.end();
-		}
+		}  
+			
 	}
 
 	createTable(tableData: any, res: Response) {
@@ -58,9 +56,8 @@ class UserTableCustomModel {
 		} catch (error) {
 			res.status(500).send(error);
 			console.log(error);
-		} finally {
-			conn.end();
-		}
+		}  
+			
 	}
 
 	deleteTable(idTable: number, res: Response) {
@@ -79,9 +76,8 @@ class UserTableCustomModel {
 		} catch (error) {
 			res.status(500).send(error);
 			console.log(error);
-		} finally {
-			conn.end();
-		}
+		}  
+			
 	}
 
 	deleteTableByUser(idUser: number, res: Response) {
@@ -90,10 +86,8 @@ class UserTableCustomModel {
 		} catch (error) {
 			res.status(500).send(error);
 			console.log(error);
-		} finally {
-			conn.end();
-		}
-	}
+		}  
+    }
 }
 
 export default new UserTableCustomModel();

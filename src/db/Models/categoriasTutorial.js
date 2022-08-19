@@ -19,9 +19,6 @@ class CategoriasModel {
         catch (error) {
             res.status(500).send(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     getById(id, res) {
         try {
@@ -43,9 +40,6 @@ class CategoriasModel {
         }
         catch (error) {
             res.status(500).send(error);
-        }
-        finally {
-            __1.default.end();
         }
     }
     getByNome(nome, res) {

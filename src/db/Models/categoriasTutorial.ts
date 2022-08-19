@@ -17,9 +17,8 @@ class CategoriasModel {
             res.status(500).send(error)
 
             
-        } finally {
-            conn.end()
-        }
+        }  
+             
        
     }
 
@@ -41,9 +40,8 @@ class CategoriasModel {
       } catch (error) {
         res.status(500).send(error)
 
-      } finally {
-        conn.end()
-      }
+      }  
+         
     }
 
     getByNome(nome: string, res: Response) {

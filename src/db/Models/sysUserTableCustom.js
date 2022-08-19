@@ -13,9 +13,6 @@ class UserTableCustomModel {
             res.status(500).send(error);
             console.log(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     getTable(idUser, idTable, res) {
         try {
@@ -45,9 +42,6 @@ class UserTableCustomModel {
             res.status(500).send(error);
             console.log(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     createTable(tableData, res) {
         try {
@@ -60,9 +54,6 @@ class UserTableCustomModel {
         catch (error) {
             res.status(500).send(error);
             console.log(error);
-        }
-        finally {
-            __1.default.end();
         }
     }
     deleteTable(idTable, res) {
@@ -84,9 +75,6 @@ class UserTableCustomModel {
             res.status(500).send(error);
             console.log(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     deleteTableByUser(idUser, res) {
         try {
@@ -95,9 +83,6 @@ class UserTableCustomModel {
         catch (error) {
             res.status(500).send(error);
             console.log(error);
-        }
-        finally {
-            __1.default.end();
         }
     }
 }

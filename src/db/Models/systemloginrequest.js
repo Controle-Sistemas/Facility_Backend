@@ -19,7 +19,6 @@ class ModeloClientes {
                         message: 'Clientes listados com sucesso',
                         data: results
                     });
-                    __1.default.end();
                 }
             });
         }
@@ -54,9 +53,6 @@ class ModeloClientes {
         catch (error) {
             console.error(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     getClientByCNPJ(cnpj, res) {
         //Retorna um cliente pelo cnpj
@@ -85,9 +81,6 @@ class ModeloClientes {
         catch (error) {
             console.error(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     getFields(res) {
         //Retorna todos os campos de um cliente
@@ -115,9 +108,6 @@ class ModeloClientes {
         catch (error) {
             console.error(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     createClient(sysLogin, res) {
         //Cria um cliente
@@ -126,9 +116,6 @@ class ModeloClientes {
         }
         catch (error) {
             console.error(error);
-        }
-        finally {
-            __1.default.end();
         }
     }
     updateClient(id, sysLogin, res) {
@@ -151,9 +138,6 @@ class ModeloClientes {
         catch (error) {
             console.error(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     deleteClient(id, res) {
         //Deleta um cliente
@@ -174,9 +158,6 @@ class ModeloClientes {
         }
         catch (error) {
             console.error(error);
-        }
-        finally {
-            __1.default.end();
         }
     }
 }

@@ -23,9 +23,6 @@ class TutorialModel {
             res.status(500).send(error);
             console.log(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     getTutorialById(id, res) {
         __1.default.query('SELECT * FROM tutoriais WHERE ID = ?', [id], (err, results) => {

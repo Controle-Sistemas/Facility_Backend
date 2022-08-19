@@ -20,8 +20,6 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
-        } finally{
-            connection.end()
         }
     }
 
@@ -42,9 +40,8 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
-        } finally {
-            connection.end()
-        }
+        }  
+               
     }
 
     createSysApiConf(sysApiConf: SysApiConfType, res: any) {
@@ -63,9 +60,8 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
-        } finally {
-            connection.end()
-        }
+        }  
+               
     }
 
     editSysApiConf(id: number, sysApiConf: SysApiConfType, res: any) {
@@ -85,9 +81,8 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
-        } finally {
-            connection.end()
-        }
+        }  
+               
 
     }
 
@@ -107,9 +102,8 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
-        } finally {
-            connection.end()
-        }
+        }  
+               
     }
 }
 

@@ -28,9 +28,6 @@ class UserCardModel {
             res.status(500).send(error);
             console.log(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     getUserCardByUser(id, res) {
         try {
@@ -74,9 +71,6 @@ class UserCardModel {
             res.status(500).send(error);
             console.log(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     updateUserCard(cardData, idUser, idCard, res) {
         try {
@@ -101,9 +95,6 @@ class UserCardModel {
             res.status(500).send(error);
             console.log(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     deleteUserCard(idUser, idCard, res) {
         try {
@@ -122,9 +113,6 @@ class UserCardModel {
         catch (error) {
             res.status(500).send(error);
             console.log(error);
-        }
-        finally {
-            __1.default.end();
         }
     }
 }

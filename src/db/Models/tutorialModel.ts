@@ -21,9 +21,8 @@ class TutorialModel{
         } catch (error) {
             res.status(500).send(error);
             console.log(error);
-        } finally {
-            conn.end();
-        }
+        }  
+            
     }
 
     getTutorialById(id: number, res: Response){

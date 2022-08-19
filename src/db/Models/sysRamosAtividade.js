@@ -20,9 +20,6 @@ class sysRamosAtividade {
         catch (error) {
             console.error(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     getSysRamosAtividadeByName(name, res) {
         try {
@@ -45,9 +42,6 @@ class sysRamosAtividade {
         catch (error) {
             console.error(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     addSysRamosAtividade(sysRamosAtividade, res) {
         try {
@@ -62,9 +56,6 @@ class sysRamosAtividade {
         }
         catch (error) {
             console.error(error);
-        }
-        finally {
-            __1.default.end();
         }
     }
     updateSysRamosAtividade(name, sysRamosAtividade, res) {
@@ -81,9 +72,6 @@ class sysRamosAtividade {
         catch (error) {
             console.error(error);
         }
-        finally {
-            __1.default.end();
-        }
     }
     deleteSysRamosAtividade(name, res) {
         try {
@@ -98,9 +86,6 @@ class sysRamosAtividade {
         }
         catch (error) {
             console.error(error);
-        }
-        finally {
-            __1.default.end();
         }
     }
 }

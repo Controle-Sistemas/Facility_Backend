@@ -40,7 +40,7 @@ db_1.default.connect((err) => {
         createTables_1.default.tableTutoriaisCategoria();
         //utilizar as rotas
         app.use(routes_1.default);
-        app.listen(PORT, () => {
+        app.listen(8000, () => {
             console.log('Server running on port 8000');
         });
     }

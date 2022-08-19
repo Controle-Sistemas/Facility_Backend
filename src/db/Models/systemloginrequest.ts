@@ -15,7 +15,6 @@ class ModeloClientes {
 						message: 'Clientes listados com sucesso',
 						data: results
 					});
-					connection.end();
 				}
 			});
 		} catch (error) {
@@ -46,9 +45,7 @@ class ModeloClientes {
 			});
 		} catch (error) {
 			console.error(error);
-		} finally {
-			connection.end();
-		}
+		} 
 	}
 
 	getClientByCNPJ(cnpj: number, res: any) {
@@ -74,9 +71,7 @@ class ModeloClientes {
 			});
 		} catch (error) {
 			console.error(error);
-		} finally {
-			connection.end();
-		}
+		} 
 	}
 
 	getFields(res: any) {
@@ -102,9 +97,7 @@ class ModeloClientes {
 			});
 		} catch (error) {
 			console.error(error);
-		} finally {
-			connection.end();
-		}
+		} 
 	}
 
 	createClient(sysLogin: SysLoginType, res: any) {
@@ -113,9 +106,7 @@ class ModeloClientes {
 			connection.query('INSERT INTO sysloginrequest SET ?', [ sysLogin ]);
 		} catch (error) {
 			console.error(error);
-		} finally {
-			connection.end();
-		}
+		} 
 	}
 
 	updateClient(id: number, sysLogin: SysLoginType, res: any) {
@@ -139,9 +130,7 @@ class ModeloClientes {
 			);
 		} catch (error) {
 			console.error(error);
-		} finally {
-			connection.end();
-		}
+		} 
 	}
 
 	deleteClient(id: number, res: any) {
@@ -161,9 +150,7 @@ class ModeloClientes {
 			});
 		} catch (error) {
 			console.error(error);
-		} finally {
-			connection.end();
-		}
+		} 
 	}
 }
 
