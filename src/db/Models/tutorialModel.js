@@ -6,17 +6,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const __1 = __importDefault(require(".."));
 class TutorialModel {
     getTutorials(res) {
-        __1.default.query('SELECT * FROM tutoriais', (err, results) => {
-            if (err) {
-                res.status(500).send(err);
-            }
-            else {
-                res.status(200).send({
-                    data: results,
-                    message: 'Tutoriais retornados com sucesso'
-                });
-            }
-        });
+        try {
+            __1.default.query('SELECT * FROM tutoriais', (err, results) => {
+                if (err) {
+                    res.status(500).send(err);
+                }
+                else {
+                    res.status(200).send({
+                        data: results,
+                        message: 'Tutoriais retornados com sucesso'
+                    });
+                }
+            });
+        }
+        catch (error) {
+            res.status(500).send(error);
+            console.log(error);
+        }
+        finally {
+            __1.default.end();
+        }
     }
     getTutorialById(id, res) {
         __1.default.query('SELECT * FROM tutoriais WHERE ID = ?', [id], (err, results) => {

@@ -29,4 +29,39 @@ routes.use('/documentos', rotasDocumentos_1.default);
 routes.use('/tutoriais', rotasTutoriais_1.default);
 routes.use('/categorias', rotasCategoriasTutorial_1.default);
 routes.use('/emails', rotasEmails_1.default);
+routes.get('/', (req, res) => {
+    res.send(`
+        <h1>API Facility</h1>
+        <ul>
+            <li>
+                <a href="/clientes">Clientes</a>
+            </li>
+            <li>
+                <a href="/api-config">API Config</a>
+            </li>
+            <li>
+                <a href="/menu">Menu</a>
+            </li>
+            <li>
+                <a href="/ramos">Ramos</a>
+            </li>
+            <li>
+                <a href="/card">Card</a>
+            </li>
+            <li>
+                <a href="/documentos">Documentos</a>
+            </li>
+            <li>
+                <a href="/tutoriais">Tutoriais</a>
+            </li>
+            <li>
+                <a href="/categorias">Categorias</a>
+            </li>
+            <li>
+                <a href="/emails">Emails</a>
+            </li>
+        </ul>
+        
+    `);
+});
 exports.default = routes;
