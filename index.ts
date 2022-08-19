@@ -9,7 +9,7 @@ import CreateTables from './src/db/Models/createTables';
 const app = express();
 const PORT = process.env.PORT || 8000;
 const corsOptions = {
-	origin: 'http://localhost:3000' || 'https://facility.controleautomacao.com.br',
+	origin: 'http://localhost:3000' || 'http://facility.controleautomacao.com.br',
 	optionsSuccessStatus: 200
 };
 

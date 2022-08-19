@@ -19,7 +19,7 @@ class ModeloClientes {
                         message: 'Clientes listados com sucesso',
                         data: results
                     });
-                    return results;
+                    __1.default.end();
                 }
             });
         }
@@ -42,11 +42,13 @@ class ModeloClientes {
                             message: 'Cliente listado com sucesso',
                             data: results
                         });
+                        __1.default.end();
                     }
                     else {
                         res.status(404).send({
-                            message: 'Cliente não encontrado',
+                            message: 'Cliente não encontrado'
                         });
+                        __1.default.end();
                     }
                 }
             });
@@ -70,11 +72,13 @@ class ModeloClientes {
                             message: 'Cliente listado com sucesso',
                             data: results
                         });
+                        __1.default.end();
                     }
                     else {
                         res.status(404).send({
-                            message: 'Cliente não encontrado, verifique se o CNPJ está correto',
+                            message: 'Cliente não encontrado, verifique se o CNPJ está correto'
                         });
+                        __1.default.end();
                     }
                 }
             });
@@ -103,6 +107,7 @@ class ModeloClientes {
                         message: 'Campos listados com sucesso',
                         data: results
                     });
+                    __1.default.end();
                 }
             });
         }
@@ -133,6 +138,7 @@ class ModeloClientes {
                         message: 'Cliente atualizado com sucesso',
                         data: results
                     });
+                    __1.default.end();
                 }
             });
         }
