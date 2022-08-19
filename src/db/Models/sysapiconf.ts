@@ -20,6 +20,8 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
+        } finally{
+            connection.end()
         }
     }
 
@@ -40,6 +42,8 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
+        } finally {
+            connection.end()
         }
     }
 
@@ -59,6 +63,8 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
+        } finally {
+            connection.end()
         }
     }
 
@@ -79,7 +85,10 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
+        } finally {
+            connection.end()
         }
+
     }
 
     deleteSysApiConf(id: number, res: any) {
@@ -98,8 +107,9 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
+        } finally {
+            connection.end()
         }
-
     }
 }
 

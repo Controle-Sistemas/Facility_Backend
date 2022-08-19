@@ -24,6 +24,9 @@ class ModeloSysApiConf {
         catch (error) {
             console.error(error);
         }
+        finally {
+            __1.default.end();
+        }
     }
     getSysApiConfById(id, res) {
         try {
@@ -43,6 +46,9 @@ class ModeloSysApiConf {
         }
         catch (error) {
             console.error(error);
+        }
+        finally {
+            __1.default.end();
         }
     }
     createSysApiConf(sysApiConf, res) {
@@ -64,6 +70,9 @@ class ModeloSysApiConf {
         catch (error) {
             console.error(error);
         }
+        finally {
+            __1.default.end();
+        }
     }
     editSysApiConf(id, sysApiConf, res) {
         try {
@@ -84,6 +93,9 @@ class ModeloSysApiConf {
         catch (error) {
             console.error(error);
         }
+        finally {
+            __1.default.end();
+        }
     }
     deleteSysApiConf(id, res) {
         try {
@@ -103,6 +115,9 @@ class ModeloSysApiConf {
         }
         catch (error) {
             console.error(error);
+        }
+        finally {
+            __1.default.end();
         }
     }
 }

@@ -42,19 +42,20 @@ class ModeloClientes {
                             message: 'Cliente listado com sucesso',
                             data: results
                         });
-                        __1.default.end();
                     }
                     else {
                         res.status(404).send({
                             message: 'Cliente não encontrado'
                         });
-                        __1.default.end();
                     }
                 }
             });
         }
         catch (error) {
             console.error(error);
+        }
+        finally {
+            __1.default.end();
         }
     }
     getClientByCNPJ(cnpj, res) {
@@ -72,19 +73,20 @@ class ModeloClientes {
                             message: 'Cliente listado com sucesso',
                             data: results
                         });
-                        __1.default.end();
                     }
                     else {
                         res.status(404).send({
                             message: 'Cliente não encontrado, verifique se o CNPJ está correto'
                         });
-                        __1.default.end();
                     }
                 }
             });
         }
         catch (error) {
             console.error(error);
+        }
+        finally {
+            __1.default.end();
         }
     }
     getFields(res) {
@@ -107,12 +109,14 @@ class ModeloClientes {
                         message: 'Campos listados com sucesso',
                         data: results
                     });
-                    __1.default.end();
                 }
             });
         }
         catch (error) {
             console.error(error);
+        }
+        finally {
+            __1.default.end();
         }
     }
     createClient(sysLogin, res) {
@@ -122,6 +126,9 @@ class ModeloClientes {
         }
         catch (error) {
             console.error(error);
+        }
+        finally {
+            __1.default.end();
         }
     }
     updateClient(id, sysLogin, res) {
@@ -138,12 +145,14 @@ class ModeloClientes {
                         message: 'Cliente atualizado com sucesso',
                         data: results
                     });
-                    __1.default.end();
                 }
             });
         }
         catch (error) {
             console.error(error);
+        }
+        finally {
+            __1.default.end();
         }
     }
     deleteClient(id, res) {
@@ -165,6 +174,9 @@ class ModeloClientes {
         }
         catch (error) {
             console.error(error);
+        }
+        finally {
+            __1.default.end();
         }
     }
 }

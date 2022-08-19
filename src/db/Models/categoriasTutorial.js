@@ -6,31 +6,47 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const __1 = __importDefault(require(".."));
 class CategoriasModel {
     getAll(res) {
-        __1.default.query('SELECT * FROM tutoriaiscategoria', (err, results) => {
-            if (err) {
-                res.status(500).send(err);
-            }
-            else {
-                res.status(200).send(results);
-            }
-        });
-    }
-    getById(id, res) {
-        __1.default.query('SELECT * FROM tutoriaiscategoria WHERE id = ?', [id], (err, results) => {
-            if (err) {
-                res.status(500).send(err);
-            }
-            else {
-                if (results.length > 0) {
-                    res.status(200).send(results);
+        try {
+            __1.default.query('SELECT * FROM tutoriaiscategoria', (err, results) => {
+                if (err) {
+                    res.status(503).send(err);
                 }
                 else {
-                    res.status(404).send({
-                        message: 'Categoria não encontrada'
-                    });
+                    res.status(200).send(results);
                 }
-            }
-        });
+            });
+        }
+        catch (error) {
+            res.status(500).send(error);
+        }
+        finally {
+            __1.default.end();
+        }
+    }
+    getById(id, res) {
+        try {
+            __1.default.query('SELECT * FROM tutoriaiscategoria WHERE id = ?', [id], (err, results) => {
+                if (err) {
+                    res.status(500).send(err);
+                }
+                else {
+                    if (results.length > 0) {
+                        res.status(200).send(results);
+                    }
+                    else {
+                        res.status(404).send({
+                            message: 'Categoria não encontrada'
+                        });
+                    }
+                }
+            });
+        }
+        catch (error) {
+            res.status(500).send(error);
+        }
+        finally {
+            __1.default.end();
+        }
     }
     getByNome(nome, res) {
         __1.default.query('SELECT * FROM tutoriaiscategoria WHERE nome = ?', [nome], (err, results) => {

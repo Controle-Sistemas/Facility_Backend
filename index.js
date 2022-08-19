@@ -11,10 +11,10 @@ const db_1 = __importDefault(require("./src/db"));
 const createTables_1 = __importDefault(require("./src/db/Models/createTables"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 8000;
-const corsOptions = {
-    origin: 'http://localhost:3000' || 'http://facility.controleautomacao.com.br',
-    optionsSuccessStatus: 200
-};
+// const corsOptions = {
+// 	origin: 'http://localhost:3000' || 'http://facility.controleautomacao.com.br',
+// 	optionsSuccessStatus: 200,
+// };
 //Verificando se a conexão com o banco de dados está funcionando
 db_1.default.connect((err) => {
     if (err) {
@@ -23,7 +23,7 @@ db_1.default.connect((err) => {
     }
     else {
         console.log('Conectado com sucesso');
-        app.use((0, cors_1.default)(corsOptions));
+        app.use(cors_1.default);
         app.use(body_parser_1.default.json()); //Para o express entender o formato json
         app.use(body_parser_1.default.urlencoded({ extended: true }));
         //Criando as tabelas do banco de dados

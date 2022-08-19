@@ -37,17 +37,17 @@ class ModeloClientes {
 							message: 'Cliente listado com sucesso',
 							data: results
 						});
-						connection.end();
 					} else {
 						res.status(404).send({
 							message: 'Cliente não encontrado'
 						});
-						connection.end();
 					}
 				}
 			});
 		} catch (error) {
 			console.error(error);
+		} finally {
+			connection.end();
 		}
 	}
 
@@ -65,17 +65,17 @@ class ModeloClientes {
 							message: 'Cliente listado com sucesso',
 							data: results
 						});
-						connection.end();
 					} else {
 						res.status(404).send({
 							message: 'Cliente não encontrado, verifique se o CNPJ está correto'
 						});
-						connection.end();
 					}
 				}
 			});
 		} catch (error) {
 			console.error(error);
+		} finally {
+			connection.end();
 		}
 	}
 
@@ -98,11 +98,12 @@ class ModeloClientes {
 						message: 'Campos listados com sucesso',
 						data: results
 					});
-					connection.end();
 				}
 			});
 		} catch (error) {
 			console.error(error);
+		} finally {
+			connection.end();
 		}
 	}
 
@@ -112,6 +113,8 @@ class ModeloClientes {
 			connection.query('INSERT INTO sysloginrequest SET ?', [ sysLogin ]);
 		} catch (error) {
 			console.error(error);
+		} finally {
+			connection.end();
 		}
 	}
 
@@ -131,12 +134,13 @@ class ModeloClientes {
 							message: 'Cliente atualizado com sucesso',
 							data: results
 						});
-						connection.end();
 					}
 				}
 			);
 		} catch (error) {
 			console.error(error);
+		} finally {
+			connection.end();
 		}
 	}
 
@@ -157,6 +161,8 @@ class ModeloClientes {
 			});
 		} catch (error) {
 			console.error(error);
+		} finally {
+			connection.end();
 		}
 	}
 }

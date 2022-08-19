@@ -8,10 +8,11 @@ import CreateTables from './src/db/Models/createTables';
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-const corsOptions = {
-	origin: 'http://localhost:3000' || 'http://facility.controleautomacao.com.br',
-	optionsSuccessStatus: 200
-};
+// const corsOptions = {
+// 	origin: 'http://localhost:3000' || 'http://facility.controleautomacao.com.br',
+// 	optionsSuccessStatus: 200,
+
+// };
 
 //Verificando se a conexão com o banco de dados está funcionando
 connection.connect((err: any) => {
@@ -21,7 +22,7 @@ connection.connect((err: any) => {
 	} else {
 		console.log('Conectado com sucesso');
 
-		app.use(cors(corsOptions));
+		app.use(cors);
 		app.use(bodyParser.json()); //Para o express entender o formato json
 
 		app.use(bodyParser.urlencoded({ extended: true }));
