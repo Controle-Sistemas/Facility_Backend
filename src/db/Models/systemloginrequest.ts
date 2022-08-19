@@ -15,8 +15,7 @@ class ModeloClientes {
 						message: 'Clientes listados com sucesso',
 						data: results
 					});
-
-					return results;
+					connection.end();
 				}
 			});
 		} catch (error) {
@@ -33,15 +32,17 @@ class ModeloClientes {
 						message: err
 					});
 				} else {
-					if(results.length > 0) {
+					if (results.length > 0) {
 						res.status(200).send({
 							message: 'Cliente listado com sucesso',
 							data: results
 						});
+						connection.end();
 					} else {
 						res.status(404).send({
-							message: 'Cliente não encontrado',
+							message: 'Cliente não encontrado'
 						});
+						connection.end();
 					}
 				}
 			});
@@ -64,10 +65,12 @@ class ModeloClientes {
 							message: 'Cliente listado com sucesso',
 							data: results
 						});
+						connection.end();
 					} else {
 						res.status(404).send({
-							message: 'Cliente não encontrado, verifique se o CNPJ está correto',
+							message: 'Cliente não encontrado, verifique se o CNPJ está correto'
 						});
+						connection.end();
 					}
 				}
 			});
@@ -95,6 +98,7 @@ class ModeloClientes {
 						message: 'Campos listados com sucesso',
 						data: results
 					});
+					connection.end();
 				}
 			});
 		} catch (error) {
@@ -127,6 +131,7 @@ class ModeloClientes {
 							message: 'Cliente atualizado com sucesso',
 							data: results
 						});
+						connection.end();
 					}
 				}
 			);
