@@ -6,10 +6,10 @@ let connection: mysql.Connection;
 if(process.env.ENVIRONMENT === 'PROD') {
     console.log('PROD');
     connection = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
+        host: "us-cdbr-east-06.cleardb.net",
+        user: "b7d2057b60237e",
+        password: "ad282879",
+        database: "heroku_b720c4485f58516",
         connectTimeout: 60 * 60 * 1000,
     })
 } else {
