@@ -7,7 +7,7 @@ const __1 = __importDefault(require(".."));
 class sysRamosAtividade {
     getAllSysRamosAtividade(res) {
         try {
-            __1.default.query('SELECT * FROM sysRamosAtividade', (error, results, fields) => {
+            __1.default.query('SELECT * FROM sysramosatividade', (error, results, fields) => {
                 if (error) {
                     res.status(400).send(error);
                     console.log(error);
@@ -20,13 +20,10 @@ class sysRamosAtividade {
         catch (error) {
             console.error(error);
         }
-        finally {
-            __1.default.destroy();
-        }
     }
     getSysRamosAtividadeByName(name, res) {
         try {
-            __1.default.query('SELECT * FROM sysRamosAtividade WHERE descricao = ?', [name], (error, results, fields) => {
+            __1.default.query('SELECT * FROM sysramosatividade WHERE descricao = ?', [name], (error, results, fields) => {
                 if (error) {
                     res.status(400).send(error);
                 }
@@ -45,13 +42,10 @@ class sysRamosAtividade {
         catch (error) {
             console.error(error);
         }
-        finally {
-            __1.default.destroy();
-        }
     }
     addSysRamosAtividade(sysRamosAtividade, res) {
         try {
-            __1.default.query('INSERT INTO sysRamosAtividade SET ?', sysRamosAtividade, (error, results, fields) => {
+            __1.default.query('INSERT INTO sysramosatividade SET ?', sysRamosAtividade, (error, results, fields) => {
                 if (error) {
                     res.status(400).send(error);
                 }
@@ -62,14 +56,11 @@ class sysRamosAtividade {
         }
         catch (error) {
             console.error(error);
-        }
-        finally {
-            __1.default.destroy();
         }
     }
     updateSysRamosAtividade(name, sysRamosAtividade, res) {
         try {
-            __1.default.query('UPDATE sysRamosAtividade SET ? WHERE descricao = ?', [sysRamosAtividade, name], (error, results, fields) => {
+            __1.default.query('UPDATE sysramosatividade SET ? WHERE descricao = ?', [sysRamosAtividade, name], (error, results, fields) => {
                 if (error) {
                     res.status(400).send(error);
                 }
@@ -80,14 +71,11 @@ class sysRamosAtividade {
         }
         catch (error) {
             console.error(error);
-        }
-        finally {
-            __1.default.destroy();
         }
     }
     deleteSysRamosAtividade(name, res) {
         try {
-            __1.default.query('DELETE FROM sysRamosAtividade WHERE descricao = ?', [name], (error, results, fields) => {
+            __1.default.query('DELETE FROM sysramosatividade WHERE descricao = ?', [name], (error, results, fields) => {
                 if (error) {
                     res.status(400).send(error);
                 }
@@ -98,9 +86,6 @@ class sysRamosAtividade {
         }
         catch (error) {
             console.error(error);
-        }
-        finally {
-            __1.default.destroy();
         }
     }
 }

@@ -3,7 +3,7 @@ import connection from '..';
 class sysRamosAtividade {
 	getAllSysRamosAtividade(res: any) {
 		try {
-			connection.query('SELECT * FROM sysRamosAtividade', (error: any, results: any, fields: any) => {
+			connection.query('SELECT * FROM sysramosatividade', (error: any, results: any, fields: any) => {
 				if (error) {
 					res.status(400).send(error);
 					console.log(error);
@@ -13,16 +13,14 @@ class sysRamosAtividade {
 			});
 		} catch (error) {
 			console.error(error);
-		}  finally{
-			connection.destroy()
-		}
+		}  
 			  
 	}
 
 	getSysRamosAtividadeByName(name: string, res: any) {
 		try {
 			connection.query(
-				'SELECT * FROM sysRamosAtividade WHERE descricao = ?',
+				'SELECT * FROM sysramosatividade WHERE descricao = ?',
 				[ name ],
 				(error: any, results: any, fields: any) => {
 					if (error) {
@@ -40,15 +38,13 @@ class sysRamosAtividade {
 			);
 		} catch (error) {
 			console.error(error);
-		}  finally{
-			connection.destroy()
-		}
+		}  
 	}
 
 	addSysRamosAtividade(sysRamosAtividade: any, res: any) {
 		try {
 			connection.query(
-				'INSERT INTO sysRamosAtividade SET ?',
+				'INSERT INTO sysramosatividade SET ?',
 				sysRamosAtividade,
 				(error: any, results: any, fields: any) => {
 					if (error) {
@@ -60,16 +56,14 @@ class sysRamosAtividade {
 			);
 		} catch (error) {
 			console.error(error);
-		}  finally{
-			connection.destroy()
-		}
+		}  
 			  
 	}
 
 	updateSysRamosAtividade(name: string, sysRamosAtividade: any, res: any) {
 		try {
 			connection.query(
-				'UPDATE sysRamosAtividade SET ? WHERE descricao = ?',
+				'UPDATE sysramosatividade SET ? WHERE descricao = ?',
 				[ sysRamosAtividade, name ],
 				(error: any, results: any, fields: any) => {
 					if (error) {
@@ -81,16 +75,14 @@ class sysRamosAtividade {
 			);
 		} catch (error) {
 			console.error(error);
-		}  finally{
-			connection.destroy()
-		}
+		}  
 
 	}
 
 	deleteSysRamosAtividade(name: string, res: any) {
 		try {
 			connection.query(
-				'DELETE FROM sysRamosAtividade WHERE descricao = ?',
+				'DELETE FROM sysramosatividade WHERE descricao = ?',
 				[ name ],
 				(error: any, results: any, fields: any) => {
 					if (error) {
@@ -102,9 +94,7 @@ class sysRamosAtividade {
 			);
 		} catch (error) {
 			console.error(error);
-		}  finally {
-			connection.destroy()
-		}
+		}  
 	}
 }
 
