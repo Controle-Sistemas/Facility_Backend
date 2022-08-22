@@ -10,7 +10,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const db_1 = __importDefault(require("./src/db"));
 const createTables_1 = __importDefault(require("./src/db/Models/createTables"));
 const app = (0, express_1.default)();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 // const corsOptions = {
 // 	origin: 'http://localhost:3000' || 'http://facility.controleautomacao.com.br',
 // 	optionsSuccessStatus: 200,
@@ -23,7 +23,10 @@ db_1.default.connect((err) => {
     }
     else {
         console.log('Conectado com sucesso');
-        app.use(cors_1.default);
+        app.use((0, cors_1.default)({
+            origin: 'http://localhost:3000' || 'http://facility.controleautomacao.com.br',
+            optionsSuccessStatus: 200,
+        }));
         app.use(body_parser_1.default.json()); //Para o express entender o formato json
         app.use(body_parser_1.default.urlencoded({ extended: true }));
         //Criando as tabelas do banco de dados
@@ -40,8 +43,8 @@ db_1.default.connect((err) => {
         createTables_1.default.tableTutoriaisCategoria();
         //utilizar as rotas
         app.use(routes_1.default);
-        app.listen(8000, () => {
-            console.log('Server running on port 8000');
+        app.listen(PORT, () => {
+            console.log('Server running on port ' + PORT);
         });
     }
 });

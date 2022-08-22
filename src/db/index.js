@@ -10,6 +10,6 @@ connection = mysql2_1.default.createConnection({
     user: 'b7d2057b60237e',
     password: 'ad282879',
     database: 'heroku_b720c4485f58516',
-    connectTimeout: 60 * 60 * 1000
+    connectTimeout: 60 * 60 * 1000,
 });
 exports.default = connection; //exportando a conexão o modulo da conexão
