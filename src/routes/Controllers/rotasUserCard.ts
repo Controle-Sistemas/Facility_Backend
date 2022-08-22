@@ -1,4 +1,4 @@
-import CardsModel from '../../Models/userCardModel';
+import CardsModel from '../../db/Models/userCardModel';
 import Express,{Request,Response} from 'express'; 
 
 const routes = Express.Router();

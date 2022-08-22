@@ -1,4 +1,4 @@
-import connection from '../db';
+import connection from '..';
 
 class CreateTables {
 	tableCliente() {
@@ -290,6 +290,118 @@ class CreateTables {
 			}
 		})
 	}
+
+	tableSetores(){
+		connection.query(`
+			CREATE TABLE IF NOT EXISTS SETORES (
+				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+				NOME VARCHAR(200) NOT NULL,
+				DESCRICAO VARCHAR(200)
+				)
+		`, (err) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('Tabela SETORES criada com sucesso');
+			}
+		})
+	}
+
+	tableInternos(){
+		connection.query(`
+			CREATE TABLE IF NOT EXISTS INTERNOS (
+				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+				NOME VARCHAR(200) NOT NULL,
+				USUARIO VARCHAR(200) NOT NULL,
+				SENHA VARCHAR(200) NOT NULL,
+				EMAIL VARCHAR(200) NOT NULL,
+				SETOR INT NOT NULL,
+				ATIVO BOOLEAN NOT NULL DEFAULT 1,
+				FOREIGN KEY(SETOR) REFERENCES SETORES(ID)
+				)
+		`, (err) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('Tabela INTERNOS criada com sucesso');
+			}
+			}
+		)
+	}
+	
+	tableChamados(){
+		connection.query(`
+			CREATE TABLE IF NOT EXISTS CHAMADOS (
+				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+				IDINTERNO INT NOT NULL,
+				IDCLIENTE INT NOT NULL,
+				SETOR INT NOT NULL,
+				TITULO VARCHAR(200) NOT NULL,
+				DESCRICAO TEXT NOT NULL,
+				STATUS INT NOT NULL DEFAULT 0,
+				DATAINCLUSAO VARCHAR(20) NOT NULL,
+				DATAVENCIMENTO VARCHAR(20) NOT NULL,
+				PRIORIDADE INT NOT NULL DEFAULT 1,
+				ULTIMAATUALIZACAO VARCHAR(40) NOT NULL,
+				ATIVO BOOLEAN NOT NULL DEFAULT 1,
+				FOREIGN KEY(SETOR) REFERENCES SETORES(ID),
+				FOREIGN KEY(IDCLIENTE) REFERENCES SYSLOGINREQUEST(ID),
+				FOREIGN KEY(IDINTERNO) REFERENCES INTERNOS(ID),
+				FOREIGN KEY (STATUS) REFERENCES STATUSCHAMADOS(ID)
+				)
+		`, (err) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('Tabela CHAMADOS criada com sucesso');
+			}
+		}
+		)
+	}
+
+	tableStatusChamados(){
+		connection.query(`
+			CREATE TABLE IF NOT EXISTS STATUSCHAMADOS (
+				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+				NOME VARCHAR(200) NOT NULL,
+				DESCRICAO VARCHAR(200) NOT NULL
+				)
+		`, (err) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('Tabela CHAMADOSSTATUS criada com sucesso');
+			}
+		}
+		)
+	}
+
+	tableOcorrencias(){
+		connection.query(`
+			CREATE TABLE IF NOT EXISTS OCORRENCIAS (
+				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+				IDCHAMADO INT NOT NULL,
+				IDINTERNO INT NOT NULL,
+				SETOR INT NOT NULL,
+				DESCRICAO TEXT NOT NULL,
+				DATAINCLUSAO VARCHAR(20) NOT NULL,
+				ATIVO BOOLEAN NOT NULL DEFAULT 1,
+				STATUS INT NOT NULL DEFAULT 0,
+				FOREIGN KEY(IDCHAMADO) REFERENCES CHAMADOS(ID),
+				FOREIGN KEY(IDINTERNO) REFERENCES INTERNOS(ID),
+				FOREIGN KEY(STATUS) REFERENCES STATUSCHAMADOS(ID),
+				FOREIGN KEY(SETOR) REFERENCES SETORES(ID)
+				)
+		`, (err) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('Tabela OCORRENCIAS criada com sucesso');
+			}
+		}
+		)
+	}
+	
 }
 
 export default new CreateTables();

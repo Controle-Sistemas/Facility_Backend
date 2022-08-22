@@ -1,5 +1,5 @@
-import connection from '../db'
-import { SysApiConfType } from '../types'
+import connection from '..'
+import { SysApiConfType } from '../../types'
 
 
 class ModeloSysApiConf {

@@ -1,4 +1,4 @@
-import conn from '../db';
+import conn from '..';
 import {Response} from 'express';
 import path from 'path';
 class DocumentsModel{

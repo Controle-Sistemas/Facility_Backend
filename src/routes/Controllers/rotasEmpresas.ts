@@ -1,4 +1,4 @@
-import EnterprisesModel from '../../Models/enterprisesModel';
+import EnterprisesModel from '../../db/Models/enterprisesModel';
 import Express,{Request,Response} from 'express'; 
 import Empresas from '../../requests/empresas'; //Pega os dados da api antiga
 

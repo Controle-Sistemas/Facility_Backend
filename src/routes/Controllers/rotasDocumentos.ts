@@ -1,4 +1,4 @@
-import DocumentsModel from '../../Models/documentsModel';
+import DocumentsModel from '../../db/Models/documentsModel';
 import express,{ Request, Response } from 'express';
 import multer from 'multer';
 import multerConfig from '../../config/multer';

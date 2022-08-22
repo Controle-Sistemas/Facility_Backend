@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import conn from '../../db';
-import ClientesModel from '../../Models/systemloginrequest';
-import UserTableCustomModel from '../../Models/sysUserTableCustom';
+import ClientesModel from '../../db/Models/systemloginrequest';
+import UserTableCustomModel from '../../db/Models/sysUserTableCustom';
 import sendEmailService from '../../services/sendEmailService';
 const routes = express.Router();
 import bcrypt from 'bcrypt';

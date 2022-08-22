@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import ApiRamosModel from '../../Models/sysRamosAtividade'
+import ApiRamosModel from '../../db/Models/sysRamosAtividade'
 const routes = express.Router()
 
 routes.get("/", (req: Request, res: Response) => {

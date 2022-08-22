@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import ApiConfModel from '../../Models/sysapiconf'
+import ApiConfModel from '../../db/Models/sysapiconf'
 const routes = express.Router()
 
 routes.get("/", (req: Request, res: Response) => {

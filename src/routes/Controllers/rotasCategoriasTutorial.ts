@@ -1,4 +1,4 @@
-import CategoriasTutorial from "../../Models/categoriasTutorial";
+import CategoriasTutorial from "../../db/Models/categoriasTutorial";
 import express,{ Request, Response } from "express";
 
 const router = express.Router();

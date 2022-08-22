@@ -1,5 +1,5 @@
 
-import TerminalModel from '../../Models/sysTerminals';
+import TerminalModel from '../../db/Models/sysTerminals';
 import conn from '../../db';
 
 import express,{ Request, Response } from 'express';

@@ -1,4 +1,4 @@
-import connection from "../db";
+import connection from "..";
 import { Request, Response } from "express";
 
 class TerminalModel{

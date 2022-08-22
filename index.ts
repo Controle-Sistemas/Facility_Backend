@@ -1,9 +1,9 @@
 import express from 'express';
-import routes from './routes';
+import routes from './src/routes';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import connection from './db';
-import CreateTables from './Models/createTables';
+import connection from './src/db';
+import CreateTables from './src/db/Models/createTables';
 
 const app = express();
 
@@ -37,7 +37,12 @@ connection.connect((err: any) => {
 		CreateTables.tableUserCard();
 		CreateTables.tableDocumentos();
 		CreateTables.tableTutoriais();
-		CreateTables.tableTutoriaisCategoria()
+		CreateTables.tableTutoriaisCategoria();
+		CreateTables.tableSetores();
+		CreateTables.tableInternos();
+		CreateTables.tableChamados();
+		CreateTables.tableOcorrencias();
+		CreateTables.tableStatusChamados();
 		//utilizar as rotas
 		app.use(routes);
 		app.listen(8000, () => {
