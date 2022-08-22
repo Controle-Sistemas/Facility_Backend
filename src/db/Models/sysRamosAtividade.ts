@@ -13,7 +13,9 @@ class sysRamosAtividade {
 			});
 		} catch (error) {
 			console.error(error);
-		}  
+		}  finally{
+			connection.destroy()
+		}
 			  
 	}
 
@@ -38,7 +40,9 @@ class sysRamosAtividade {
 			);
 		} catch (error) {
 			console.error(error);
-		}  
+		}  finally{
+			connection.destroy()
+		}
 	}
 
 	addSysRamosAtividade(sysRamosAtividade: any, res: any) {
@@ -56,7 +60,9 @@ class sysRamosAtividade {
 			);
 		} catch (error) {
 			console.error(error);
-		}  
+		}  finally{
+			connection.destroy()
+		}
 			  
 	}
 
@@ -75,7 +81,9 @@ class sysRamosAtividade {
 			);
 		} catch (error) {
 			console.error(error);
-		}  
+		}  finally{
+			connection.destroy()
+		}
 
 	}
 
@@ -94,7 +102,9 @@ class sysRamosAtividade {
 			);
 		} catch (error) {
 			console.error(error);
-		}  
+		}  finally {
+			connection.destroy()
+		}
 	}
 }
 
