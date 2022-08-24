@@ -2,6 +2,7 @@ import connection from '..';
 
 class sysRamosAtividade {
 	getAllSysRamosAtividade(res: any) {
+ 
 		connection.query('SELECT * FROM sysRamosAtividade', (error: any, results: any, fields: any) => {
 			if (error) {
 				res.status(400).send(error);

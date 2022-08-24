@@ -4,16 +4,26 @@ import { Response } from 'express'
 class CategoriasModel { 
 
     getAll(res: Response) {
-        conn.query('SELECT * FROM tutoriaiscategoria', (err, results) => {
-            if (err) {
-                res.status(500).send(err)
-            } else {
-                res.status(200).send(results)
-            }
-        })
+        try {
+            conn.query('SELECT * FROM tutoriaiscategoria', (err, results) => {
+                if (err) {
+                    res.status(503).send(err)
+                } else {
+                    res.status(200).send(results)
+                }
+            })
+            
+        } catch (error) {
+            res.status(500).send(error)
+
+            
+        }  
+             
+       
     }
 
     getById(id: number, res: Response) {
+      try {
         conn.query('SELECT * FROM tutoriaiscategoria WHERE id = ?', [id], (err, results:any) => {
             if (err) {
                 res.status(500).send(err)
@@ -26,7 +36,12 @@ class CategoriasModel {
                     })
                 }
             }
-        })
+        }) 
+      } catch (error) {
+        res.status(500).send(error)
+
+      }  
+         
     }
 
     getByNome(nome: string, res: Response) {

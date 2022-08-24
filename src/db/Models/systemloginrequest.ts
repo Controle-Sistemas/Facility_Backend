@@ -15,8 +15,6 @@ class ModeloClientes {
 						message: 'Clientes listados com sucesso',
 						data: results
 					});
-
-					return results;
 				}
 			});
 		} catch (error) {
@@ -33,21 +31,21 @@ class ModeloClientes {
 						message: err
 					});
 				} else {
-					if(results.length > 0) {
+					if (results.length > 0) {
 						res.status(200).send({
 							message: 'Cliente listado com sucesso',
 							data: results
 						});
 					} else {
 						res.status(404).send({
-							message: 'Cliente não encontrado',
+							message: 'Cliente não encontrado'
 						});
 					}
 				}
 			});
 		} catch (error) {
 			console.error(error);
-		}
+		} 
 	}
 
 	getClientByCNPJ(cnpj: number, res: any) {
@@ -66,14 +64,14 @@ class ModeloClientes {
 						});
 					} else {
 						res.status(404).send({
-							message: 'Cliente não encontrado, verifique se o CNPJ está correto',
+							message: 'Cliente não encontrado, verifique se o CNPJ está correto'
 						});
 					}
 				}
 			});
 		} catch (error) {
 			console.error(error);
-		}
+		} 
 	}
 
 	getFields(res: any) {
@@ -99,7 +97,7 @@ class ModeloClientes {
 			});
 		} catch (error) {
 			console.error(error);
-		}
+		} 
 	}
 
 	createClient(sysLogin: SysLoginType, res: any) {
@@ -108,7 +106,7 @@ class ModeloClientes {
 			connection.query('INSERT INTO sysloginrequest SET ?', [ sysLogin ]);
 		} catch (error) {
 			console.error(error);
-		}
+		} 
 	}
 
 	updateClient(id: number, sysLogin: SysLoginType, res: any) {
@@ -132,7 +130,7 @@ class ModeloClientes {
 			);
 		} catch (error) {
 			console.error(error);
-		}
+		} 
 	}
 
 	deleteClient(id: number, res: any) {
@@ -152,7 +150,7 @@ class ModeloClientes {
 			});
 		} catch (error) {
 			console.error(error);
-		}
+		} 
 	}
 }
 

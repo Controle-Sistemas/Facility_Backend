@@ -40,7 +40,8 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
-        }
+        }  
+               
     }
 
     createSysApiConf(sysApiConf: SysApiConfType, res: any) {
@@ -59,7 +60,8 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
-        }
+        }  
+               
     }
 
     editSysApiConf(id: number, sysApiConf: SysApiConfType, res: any) {
@@ -79,7 +81,9 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
-        }
+        }  
+               
+
     }
 
     deleteSysApiConf(id: number, res: any) {
@@ -98,8 +102,8 @@ class ModeloSysApiConf {
             })
         } catch (error) {
             console.error(error)
-        }
-
+        }  
+               
     }
 }
 

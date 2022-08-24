@@ -3,6 +3,7 @@ import { Response } from 'express';
 
 class UserCardModel {
     getUserCard(id: number,res: Response) {
+ 
         conn.query(
             `SELECT * FROM USERCARD WHERE id = ?`,
             [id],
@@ -101,9 +102,6 @@ class UserCardModel {
             }
         )
     }
-
-
-
 }
 
 export default new UserCardModel();

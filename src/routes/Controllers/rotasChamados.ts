@@ -1,5 +1,9 @@
 import express,{Request,Response} from 'express';
 import chamadosModel from '../../db/Models/chamadosModel';
+import multer from 'multer';
+import  conn  from '../../db';
+import multerConfig from '../../config/multer';
+const upload = multer(multerConfig);
 
 const router = express.Router();
 
@@ -32,9 +36,37 @@ router.get('/user/:user', (req:Request,res:Response) => {
     chamadosModel.getChamadoByUserId(idUser,res);
 })
 
-router.post('/', (req:Request,res:Response) => {
+router.post('/', 
+upload.array('FILE', 10),
+(req:Request,res:Response) => {
     const chamadoData = req.body;
-    chamadosModel.createChamado(chamadoData,res);
+
+    const files = req.files as Express.Multer.File[];
+    
+
+
+    console.log(typeof files)
+    if (files) {
+        files.forEach(file => {
+            chamadoData.FILE += file.filename + ';'
+        })
+    }
+
+    conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = '${chamadoData.CLIENTE}' `, (err,result:any) => {
+        if(err){
+            console.log(err)
+        } else {
+            chamadoData.IDCLIENTE = result[0].ID
+            delete chamadoData.CLIENTE
+            
+            console.log(chamadoData)
+            chamadosModel.createChamado(chamadoData,res);
+
+        }
+    })
+
+
+    
 })
 
 router.patch('/:id', (req:Request,res:Response) => {

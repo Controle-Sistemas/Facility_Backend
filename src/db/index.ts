@@ -1,15 +1,20 @@
-import mysql from 'mysql2'
+import mysql from 'mysql2';
+let connection: mysql.Connection;
+
+// connection = mysql.createConnection({
+// 	host: 'us-cdbr-east-06.cleardb.net',
+// 	user: 'b7d2057b60237e',
+// 	password: 'ad282879',
+// 	database: 'heroku_b720c4485f58516',
+// 	connectTimeout: 60 * 60 * 1000,
+// });
 
 
-const config = { //objeto com as configurações do banco de dados
-    host: 'localhost',
-    port:3306,
-    database:'projeto-portal',
-    user: 'root',
-    password: 'controle*302109'
-}
+connection = mysql.createConnection({
+	host:"localhost",
+	user:"root",
+	password:"controle*302109",
+	database:"projeto-portal" 
+})
 
-
-const connection = mysql.createConnection(config) //fazendo a conexão com o banco
-
-export default connection //exportando a conexão o modulo da conexão
+export default connection; //exportando a conexão o modulo da conexão

@@ -85,7 +85,47 @@ router.patch('/:id', (req: Request, res: Response) => {
 	const internalUserData = req.body;
 	internalUserModel.updateInternal(id, internalUserData, res);
 });
-
+router.patch('/forgot-password/:user', (req: Request, res: Response) => {  //Rota para recuperar a senha de um usuário
+	const user = req.params.user;
+	connection.query(`SELECT * FROM internos WHERE USUARIO = '${user}'`, async (err: any, results: any) => {
+		if (err) {
+			console.log(err);
+		} else {
+			if (results.length > 0) {
+				let password = Math.random().toString(36).substring(2, 8); //Gera uma senha aleatória
+				const passwordEncrypted = bcrypt.hash(password, 5); //Criptografa a senha
+				passwordEncrypted
+					.then((result) => {
+						if (result) {
+							const data = {
+								SENHA: result
+							};
+							connection.query(`UPDATE internos SET ? WHERE USUARIO = '${user}'`, [ data ], (err: any) => {
+								if (err) {
+									console.log(err);
+								} else {
+									const SendEmailService = new sendEmailService(results[0])
+									SendEmailService.sendPasswordEmail(password); //Envia o email com a senha
+									res
+										.status(200)
+										.json({
+											message: `Um email com a nova senha foi enviado para ${results[0].EMAIL}`
+										});
+								}
+							});
+						} else {
+							res.status(400).json({ message: `Erro ao atualizar a senha` });
+						}
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			} else {
+				res.status(400).json({ message: `Usuário não encontrado` });
+			}
+		}
+	});
+});
 router.delete('/:id', (req: Request, res: Response) => {
 	const id = Number(req.params.id);
 	internalUserModel.deleteInternal(id, res);

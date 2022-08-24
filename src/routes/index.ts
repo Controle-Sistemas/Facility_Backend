@@ -1,4 +1,4 @@
-import express from 'express'
+import express,{Request,Response} from 'express'
 const routes = express.Router()
 import rotasClientes from './Controllers/rotasClientes'
 import rotasApis from './Controllers/rotasConfApi'
@@ -35,5 +35,46 @@ routes.use('/internos',rotasUsuarioInterno)
 routes.use('/chamados',rotasChamados)
 routes.use('/status-chamado',rotasStatusChamado)
 routes.use('/ocorrencias',rotasOcorrencias)
+
+routes.get('/', (req: Request, res: Response) => {
+    res.send(`
+        <h1>API Facility</h1>
+        <ul>
+            <li>
+                <a href="/clientes/">Clientes</a>
+            </li>
+            <li>
+                <a href="/api-config/">API Config</a>
+            </li>
+            <li>
+                <a href="/menu/">Menu</a>
+            </li>
+            <li>
+                <a href="/ramos/">Ramos</a>
+            </li>
+            <li>
+                <a href="/card/">Card</a>
+            </li>
+            <li>
+                <a href="/documentos/">Documentos</a>
+            </li>
+            <li>
+                <a href="/tutoriais/">Tutoriais</a>
+            </li>
+            <li>
+                <a href="/categorias/">Categorias</a>
+            </li>
+            <li>
+                <a href="/emails/">Emails</a>
+            </li>
+        </ul>
+        
+    `)
+})
+
+
+
+
+
 
 export default routes;

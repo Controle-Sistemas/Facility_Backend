@@ -4,7 +4,7 @@ import { Response } from 'express';
 class StatusChamado {
     getAll(res: Response) {
         try {
-            connection.query(`SELECT * FROM STATUSCHAMADO`, (err, results: any) => {
+            connection.query(`SELECT * FROM STATUSCHAMADOS`, (err, results: any) => {
                 if (err) {
                     console.log(err);
                     res.status(400).send(err);
@@ -29,7 +29,7 @@ class StatusChamado {
 
     getStatusChamadoById(id: number, res: Response) {
         try {
-            connection.query(`SELECT * FROM STATUSCHAMADO WHERE ID = ${id}`, (err, results: any) => {
+            connection.query(`SELECT * FROM STATUSCHAMADOS WHERE ID = ${id}`, (err, results: any) => {
                 if (err) {
                     console.log(err);
                     res.status(400).send(err);
@@ -54,7 +54,7 @@ class StatusChamado {
 
     getStatusChamadoByName(nome: string, res: Response) {
         try {
-            connection.query(`SELECT * FROM STATUSCHAMADO WHERE NOME = ${nome}`, (err, results: any) => {
+            connection.query(`SELECT * FROM STATUSCHAMADOS WHERE NOME = ${nome}`, (err, results: any) => {
                 if (err) {
                     console.log(err);
                     res.status(400).send(err);
@@ -79,7 +79,7 @@ class StatusChamado {
 
     createStatusChamado(statusChamado: any, res: Response) {
         try {
-            connection.query(`INSERT INTO STATUSCHAMADO SET ?`, statusChamado, (err, results: any) => {
+            connection.query(`INSERT INTO STATUSCHAMADOS SET ?`, statusChamado, (err, results: any) => {
                 if (err) {
                     console.log(err);
                     res.status(400).send(err);
@@ -98,7 +98,7 @@ class StatusChamado {
 
     updateStatusChamado(id: number, statusChamado: any, res: Response) {
         try {
-            connection.query(`UPDATE STATUSCHAMADO SET ? WHERE ID = ${id}`, statusChamado, (err, results: any) => {
+            connection.query(`UPDATE STATUSCHAMADOS SET ? WHERE ID = ${id}`, statusChamado, (err, results: any) => {
                 if (err) {
                     console.log(err);
                     res.status(400).send(err);
@@ -123,7 +123,7 @@ class StatusChamado {
 
     deleteStatusChamado(id: number, res: Response) {
         try {
-            connection.query(`DELETE FROM STATUSCHAMADO WHERE ID = ${id}`, (err, results: any) => {
+            connection.query(`DELETE FROM STATUSCHAMADOS WHERE ID = ${id}`, (err, results: any) => {
                 if (err) {
                     console.log(err);
                     res.status(400).send(err);

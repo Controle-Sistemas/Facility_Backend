@@ -4,19 +4,25 @@ import conn from '..'
 class TutorialModel{
 
     getTutorials(res: Response){
-        conn.query(
-            'SELECT * FROM tutoriais',
-            (err: any, results: any) => {
-                if (err) {
-                    res.status(500).send(err);
-                } else {
-                    res.status(200).send({
-                        data: results,
-                        message: 'Tutoriais retornados com sucesso'
-                    });
+        try {
+            conn.query(
+                'SELECT * FROM tutoriais',
+                (err: any, results: any) => {
+                    if (err) {
+                        res.status(500).send(err);
+                    } else {
+                        res.status(200).send({
+                            data: results,
+                            message: 'Tutoriais retornados com sucesso'
+                        });
+                    }
                 }
-            }
-        );
+            );
+        } catch (error) {
+            res.status(500).send(error);
+            console.log(error);
+        }  
+            
     }
 
     getTutorialById(id: number, res: Response){

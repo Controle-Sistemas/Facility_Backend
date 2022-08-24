@@ -10,14 +10,17 @@
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/multer": "^1.4.7",
+    "@types/node": "^18.7.6",
     "@types/nodemailer": "^6.4.4",
-    "ts-node-dev": "^1.1.8",
-    "typescript": "^4.6.4"
+    "nodemon": "^2.0.19",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.7.4"
   },
   "scripts": {
     "dev": "nodemon  index.ts",
     "start": "node index.ts",
     "build": "tsc"
+
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
@@ -28,21 +31,17 @@
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
-    "boom": "^7.3.0",
     "circular-json": "^0.5.9",
-    "cloudinary": "^1.30.0",
     "cors": "^2.8.5",
     "cryptr": "^6.0.3",
     "dotenv-safe": "^8.2.0",
     "express": "^4.18.1",
-    "express-fileupload": "^1.4.0",
     "express-validator": "^6.14.0",
     "fastest-validator": "^1.12.0",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
-    "nodemailer": "^6.7.5",
-    "nodemon": "^2.0.16"
+    "nodemailer": "^6.7.5"
   }
 }
