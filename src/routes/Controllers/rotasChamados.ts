@@ -52,7 +52,7 @@ upload.array('FILE', 10),
         })
     }
 
-    conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = '${chamadoData.CLIENTE}' `, (err,result:any) => {
+    conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE NOME = '${chamadoData.CLIENTE}' `, (err,result:any) => {
         if(err){
             console.log(err)
         } else {

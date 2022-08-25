@@ -67,7 +67,7 @@ router.post('/login', (req: Request, res: Response) => {
 									expiresIn: auth.expireIn
 								})
 
-						res.status(200).json({ message: `Interno logado com sucesso`, token, id:results[0].ID}); //Retorna o token e se o usuário é admin
+						res.status(200).json({ message: `Interno logado com sucesso`, token, id:results[0].ID,isAdmin:false}); //Retorna o token e se o usuário é admin
 						
 					} else {
 						res.status(400).json({ message: `Senha incorreta` }); //Retorna uma mensagem de erro
