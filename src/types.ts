@@ -28,3 +28,19 @@ export type SysMenuItemType = {
     urlitem: string,
     idmenu: number
 }
+
+export type ChamadosType = {
+    ID: number,
+    IDINTERNO: number, 
+    IDCLIENTE: number, 
+    SETOR: number, 
+    TITULO: string, 
+    DESCRICAO: string, 
+    STATUS: number, 
+    DATAINCLUSAO: string, 
+    PREVISAO: string, 
+    PRIORIDADE: number, 
+    ULTIMAATUALIZACAO: string, 
+    ATIVO: number, 
+    FILE: string
+}

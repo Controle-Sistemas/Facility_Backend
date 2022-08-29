@@ -24,7 +24,13 @@ router.get('/setor/:setor', (req:Request,res:Response) => {
 router.get('/interno/:interno', (req:Request,res:Response) => {
     const idInterno = Number(req.params.interno);
     chamadosModel.getChamadoByInternalId(idInterno,res);
-} )
+})
+
+router.get('/interno/usuario/:usuario', (req:Request,res:Response) => {
+    const internoUsername = req.params.usuario
+    chamadosModel.getChamadoByInternalUsername(internoUsername,res);
+})
+
 
 router.get('/status/:status', (req:Request,res:Response) => {
     const idStatus = Number(req.params.status);
