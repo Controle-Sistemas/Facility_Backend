@@ -39,7 +39,7 @@ router.post('/', async (req: Request, res: Response) => {
 		} else {
 			console.log(internalUserData);
 			internalUserModel.createInternal(internalUserData, res); //Cria o usuário
-			const SendEmailService = new sendEmailService(internalUserData);
+			const SendEmailService = new sendEmailService(2,internalUserData);
 			SendEmailService.sendPasswordEmail(password); //Envia o email com a senha
 		}
 	}
@@ -104,7 +104,7 @@ router.patch('/forgot-password/:user', (req: Request, res: Response) => {  //Rot
 								if (err) {
 									console.log(err);
 								} else {
-									const SendEmailService = new sendEmailService(results[0])
+									const SendEmailService = new sendEmailService(2,results[0])
 									SendEmailService.sendPasswordEmail(password); //Envia o email com a senha
 									res
 										.status(200)

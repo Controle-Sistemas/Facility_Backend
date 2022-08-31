@@ -208,6 +208,7 @@ class Chamados {
 							data: results
 						});
 					} else {
+						console.log(results)
 						res.status(404).send({
 							message: 'Nenhum chamado encontrado'
 						});

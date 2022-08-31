@@ -103,7 +103,8 @@ class Internos {
                     console.log(err);
                     res.status(400).send(err);
                 } else {
-                    if (results.length > 0) {
+                    console.log(results)
+                    if (results.affectedRows > 0) {
                         res.status(200).send({
                             message: "Interno atualizado",
                             data: results
@@ -128,7 +129,7 @@ class Internos {
                     console.log(err);
                     res.status(400).send(err);
                 } else {
-                    if (results.length > 0) {
+                    if (results.affectedRows > 0) {
                         res.status(200).send({
                             message: "Interno deletado",
                             data: results

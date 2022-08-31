@@ -1,89 +1,130 @@
-import express,{Request,Response} from 'express';
+import express, { Request, Response } from 'express';
 import chamadosModel from '../../db/Models/chamadosModel';
 import multer from 'multer';
-import  conn  from '../../db';
+import conn from '../../db';
 import multerConfig from '../../config/multer';
+import cron from 'node-cron';
+import SendEmailService from '../../services/sendEmailService';
 const upload = multer(multerConfig);
 
 const router = express.Router();
 
-router.get('/', (req:Request,res:Response) => {
-    chamadosModel.getAll(res);
-})
+router.get('/', (req: Request, res: Response) => {
+	chamadosModel.getAll(res);
+});
 
-router.get('/:id', (req:Request,res:Response) => {
-    const id = Number(req.params.id);
-    chamadosModel.getChamadoById(id,res);
-})
+router.get('/:id', (req: Request, res: Response) => {
+	const id = Number(req.params.id);
+	chamadosModel.getChamadoById(id, res);
+});
 
-router.get('/setor/:setor', (req:Request,res:Response) => {
-    const idSetor = Number(req.params.setor);
-    chamadosModel.getChamadoBySector(idSetor,res);
-})
+router.get('/setor/:setor', (req: Request, res: Response) => {
+	const idSetor = Number(req.params.setor);
+	chamadosModel.getChamadoBySector(idSetor, res);
+});
 
-router.get('/interno/:interno', (req:Request,res:Response) => {
-    const idInterno = Number(req.params.interno);
-    chamadosModel.getChamadoByInternalId(idInterno,res);
-})
+router.get('/interno/:interno', (req: Request, res: Response) => {
+	const idInterno = Number(req.params.interno);
+	chamadosModel.getChamadoByInternalId(idInterno, res);
+});
 
-router.get('/interno/usuario/:usuario', (req:Request,res:Response) => {
-    const internoUsername = req.params.usuario
-    chamadosModel.getChamadoByInternalUsername(internoUsername,res);
-})
+router.get('/interno/usuario/:usuario', (req: Request, res: Response) => {
+	const internoUsername = req.params.usuario;
+	chamadosModel.getChamadoByInternalUsername(internoUsername, res);
+});
 
+router.get('/status/:status', (req: Request, res: Response) => {
+	const idStatus = Number(req.params.status);
+	chamadosModel.getChamadoByStatus(idStatus, res);
+});
+cron.schedule(' * * 1 * *', async () => {
+	async function getChamados() {
+		return await conn
+			.promise()
+			.query(`SELECT * FROM CHAMADOS WHERE RECORRENTE = 1 `)
+			.then((response: any) => {
+				return response[0];
+			})
+			.catch((err) => {
+				return err;
+			});
+	}
 
-router.get('/status/:status', (req:Request,res:Response) => {
-    const idStatus = Number(req.params.status);
-    chamadosModel.getChamadoByStatus(idStatus,res);
-})
+	async function getInternos() {
+		return await conn
+			.promise()
+			.query(`SELECT * FROM INTERNOS `)
+			.then((response: any) => {
+				return response[0];
+			})
+			.catch((err) => {
+				return err;
+			});
+	}
 
-router.get('/user/:user', (req:Request,res:Response) => {
-    const idUser = Number(req.params.user);
-    chamadosModel.getChamadoByUserId(idUser,res);
-})
-
-router.post('/', 
-upload.array('FILE', 10),
-(req:Request,res:Response) => {
-    const chamadoData = req.body;
-
-    const files = req.files as Express.Multer.File[];
+	const chamados = await getChamados();
+	const internos = await getInternos();
+    const aux = chamados.map((chamado:any) => {   
+        return internos.filter((interno:any) => chamado.INTERNORECEPTOR === interno.USUARIO)
+    })
+    internos.forEach((interno:any) => {
     
-
-
-    console.log(typeof files)
-    if (files) {
-        files.forEach(file => {
-            chamadoData.FILE += file.filename + ';'
-        })
-    }
-
-    conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE NOME = '${chamadoData.CLIENTE}' `, (err,result:any) => {
-        if(err){
-            console.log(err)
-        } else {
-            chamadoData.IDCLIENTE = result[0].ID
-            delete chamadoData.CLIENTE
-            
-            console.log(chamadoData)
-            chamadosModel.createChamado(chamadoData,res);
-
+        if(aux.find((item:any) => item[0].ID === interno.ID)){
+            console.log(interno)
+            let sendEmailChamado = new SendEmailService(2,interno)
+            sendEmailChamado.sendEmailChamadosRecorrentes(chamados.filter((chamado:any) => chamado.INTERNORECEPTOR === interno.USUARIO))
         }
     })
 
 
-    
-})
+});
 
-router.patch('/:id', (req:Request,res:Response) => {
-    const id = Number(req.params.id);
-    const chamadoData = req.body;
-    chamadosModel.updateChamado(id,chamadoData,res);
-})
+router.get('/user/:user', (req: Request, res: Response) => {
+	const idUser = Number(req.params.user);
+	chamadosModel.getChamadoByUserId(idUser, res);
+});
 
-router.delete('/:id', (req:Request,res:Response) => {
-    const id = Number(req.params.id);
-    chamadosModel.deleteChamado(id,res);
-})
+router.post('/', upload.array('FILE', 10), (req: Request, res: Response) => {
+	const chamadoData = req.body;
+
+	const files = req.files as Express.Multer.File[];
+
+	console.log(typeof files);
+	if (files) {
+		files.forEach((file) => {
+			chamadoData.FILE += file.filename + ';';
+		});
+	}
+	console.log(chamadoData);
+	conn.query(`SELECT * FROM INTERNOS WHERE USUARIO = '${chamadoData.INTERNORECEPTOR}'`, (err, results: any) => {
+		if (err) {
+			console.log(err);
+		} else {
+			const emailService = new SendEmailService(2, results[0]);
+			emailService.sendEmailChamado(chamadoData);
+		}
+	});
+
+	conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE NOME = '${chamadoData.CLIENTE}' `, (err, result: any) => {
+		if (err) {
+			console.log(err);
+		} else {
+			chamadoData.IDCLIENTE = result[0].ID;
+			delete chamadoData.CLIENTE;
+			chamadosModel.createChamado(chamadoData, res);
+		}
+	});
+});
+
+router.patch('/:id', (req: Request, res: Response) => {
+	const id = Number(req.params.id);
+	const chamadoData = req.body;
+	chamadosModel.updateChamado(id, chamadoData, res);
+});
+
+router.delete('/:id', (req: Request, res: Response) => {
+	const id = Number(req.params.id);
+	chamadosModel.deleteChamado(id, res);
+});
 
 export default router;

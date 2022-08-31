@@ -79,7 +79,7 @@ routes.post(
 						} else {
 							try {
 								ClientesModel.createClient(client, res); //Cria o usuário
-								const SendEmailService = new sendEmailService(client)
+								const SendEmailService = new sendEmailService(1,client)
 								SendEmailService.sendPasswordEmail(password); //Envia o email com a senha
 								conn.query(
 									`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = '${cnpj}'`,
@@ -303,7 +303,7 @@ routes.patch('/forgot-password/:cnpj', (req: Request, res: Response) => {  //Rot
 								if (err) {
 									console.log(err);
 								} else {
-									const SendEmailService = new sendEmailService(results[0])
+									const SendEmailService = new sendEmailService(1,results[0])
 									SendEmailService.sendPasswordEmail(password); //Envia o email com a senha
 									res
 										.status(200)

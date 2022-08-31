@@ -45,13 +45,13 @@ router.post('/',
     }
     console.log(document)
     if(document.ENVIAREMAIL === "1"){
-        conn.query(`SELECT * FROM sysloginrequest WHERE CNPJ = '${document.CNPJ}'`, (err, result) => {
+        conn.query(`SELECT * FROM sysloginrequest WHERE CNPJ = '${document.CNPJ}'`, (err, result:any) => {
             if(err){
                 console.log(err)
             }else{
                 if(result){
                     console.log(result)
-                    const SendEmailService = new sendEmailService(result);
+                    const SendEmailService = new sendEmailService(1,result[0]);
                     SendEmailService.sendDocumentEmail(document);
                     console.log('Email enviado com sucesso')
                 } else {
