@@ -3,6 +3,8 @@ import express,{ Request, Response } from 'express'
 import conn from '../../db'
 import multer from 'multer';
 import multerConfig from '../../config/multer';
+import UploadImageService from '../../services/uploadImageService'
+
 const upload = multer(multerConfig);
 
 
@@ -22,21 +24,28 @@ router.get('/categoria/:categoria', (req: Request, res: Response) => {
     TuturialModel.getTutorialByCategoria(categoria, res)
 })
 
-router.post('/',  upload.array('files', 10), (req: Request, res: Response) => {
+router.post('/',  upload.array('files', 10), async(req: Request, res: Response) => {
     const tutorial = req.body
     const files = req.files as Express.Multer.File[];
+    const uploadImageService = new UploadImageService()
+    await uploadImageService.execute(files,'tutoriais').then(result =>{
+        if (files) {
+            files.forEach(file => {
+                tutorial.FILE += file.filename + ';'
+            })
+            delete tutorial.file
+        }
+        TuturialModel.createTutorial(tutorial, res)
+    }).catch(err => {
+        console.log(err)
+        res.status(400).json({
+            message:"Erro ao adicionar imagem na AmazonS3"
+        })
+    })
     
 
 
-    console.log(typeof files)
-    if (files) {
-        files.forEach(file => {
-            tutorial.FILE += file.filename + ';'
-        })
-        delete tutorial.file
-    }
-    console.log(tutorial)
-    TuturialModel.createTutorial(tutorial, res)
+    
 })
 
 router.patch('/:id', (req: Request, res: Response) => {

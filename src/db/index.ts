@@ -11,10 +11,11 @@ let connection: mysql.Connection;
 
 
 connection = mysql.createConnection({
-	host:"localhost",
+	host:"127.0.0.1",
 	user:"root",
 	password:"controle*302109",
-	database:"projeto-portal" 
+	database:"projeto-portal" ,
+	port: 3306
 })
 
 export default connection; //exportando a conexão o modulo da conexão

@@ -5,6 +5,8 @@ import conn from '../../db';
 import multerConfig from '../../config/multer';
 import cron from 'node-cron';
 import SendEmailService from '../../services/sendEmailService';
+import UploadImageService from '../../services/uploadImageService'
+
 const upload = multer(multerConfig);
 
 const router = express.Router();
@@ -87,36 +89,45 @@ router.get('/user/:user', (req: Request, res: Response) => {
 	chamadosModel.getChamadoByUserId(idUser, res);
 });
 
-router.post('/', upload.array('FILE', 10), (req: Request, res: Response) => {
+router.post('/', upload.array('FILE', 10), async(req: Request, res: Response) => {
 	const chamadoData = req.body;
 
 	const files = req.files as Express.Multer.File[];
+	const uploadImageService = new UploadImageService()
+    await uploadImageService.execute(files,'chamados').then(result =>{
+		if (files) {
+			files.forEach((file) => {
+				chamadoData.FILE += file.filename + ';';
+			});
+		}
+		console.log(chamadoData);
+		conn.query(`SELECT * FROM INTERNOS WHERE USUARIO = '${chamadoData.INTERNORECEPTOR}'`, (err, results: any) => {
+			if (err) {
+				console.log(err);
+			} else {
+				const emailService = new SendEmailService(2, results[0]);
+				emailService.sendEmailChamado(chamadoData);
+			}
+		});
+	
+		conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE NOME = '${chamadoData.CLIENTE}' `, (err, result: any) => {
+			if (err) {
+				console.log(err);
+			} else {
+				chamadoData.IDCLIENTE = result[0].ID;
+				delete chamadoData.CLIENTE;
+				chamadosModel.createChamado(chamadoData, res);
+			}
+		});
+	}).then(err => {
+		console.log(err)
+        res.status(400).json({
+            message:"Erro ao adicionar imagem na AmazonS3"
+        })
+	})
 
 	console.log(typeof files);
-	if (files) {
-		files.forEach((file) => {
-			chamadoData.FILE += file.filename + ';';
-		});
-	}
-	console.log(chamadoData);
-	conn.query(`SELECT * FROM INTERNOS WHERE USUARIO = '${chamadoData.INTERNORECEPTOR}'`, (err, results: any) => {
-		if (err) {
-			console.log(err);
-		} else {
-			const emailService = new SendEmailService(2, results[0]);
-			emailService.sendEmailChamado(chamadoData);
-		}
-	});
-
-	conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE NOME = '${chamadoData.CLIENTE}' `, (err, result: any) => {
-		if (err) {
-			console.log(err);
-		} else {
-			chamadoData.IDCLIENTE = result[0].ID;
-			delete chamadoData.CLIENTE;
-			chamadosModel.createChamado(chamadoData, res);
-		}
-	});
+	
 });
 
 router.patch('/:id', (req: Request, res: Response) => {
