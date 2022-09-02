@@ -4,6 +4,9 @@ import multer from 'multer';
 import multerConfig from '../../config/multer';
 import  conn  from '../../db';
 import sendEmailService from '../../services/sendEmailService';
+import UploadImageService from '../../services/uploadImageService'
+import DeleteImageService from '../../services/deleteImageService'
+
 const upload = multer(multerConfig);
 
 
@@ -30,9 +33,11 @@ router.get('/user/:id', (req: Request, res: Response) => {
 
 router.post('/',
     upload.array('files', 10),
- (req: Request, res: Response) => {
+ async(req: Request, res: Response) => {
     const document = req.body
     const files = req.files as Express.Multer.File[];
+    const uploadImageService = new UploadImageService()
+    await uploadImageService.execute(files)
     
 
 

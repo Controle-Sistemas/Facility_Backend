@@ -20,7 +20,7 @@ connection.connect((err: any) => {
 		console.log('Não foi possível conectar ao banco de dados');
 	} else {
 		console.log('Conectado com sucesso');
-
+		
 		app.use(cors({
 			origin: 'http://localhost:3000' || 'http://facility.controleautomacao.com.br',
 			optionsSuccessStatus: 200,

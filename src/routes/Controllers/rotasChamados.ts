@@ -37,11 +37,14 @@ router.get('/status/:status', (req: Request, res: Response) => {
 	const idStatus = Number(req.params.status);
 	chamadosModel.getChamadoByStatus(idStatus, res);
 });
-cron.schedule(' * * 1 * *', async () => {
+cron.schedule(' 15 09 * * *', async () => {
+	const date = new Date()
+	const diaAtual = date.getDate().toString().length === 1 ? `0${date.getDate()}` : date.getDate().toString()
+	console.log(diaAtual)
 	async function getChamados() {
 		return await conn
 			.promise()
-			.query(`SELECT * FROM CHAMADOS WHERE RECORRENTE = 1 `)
+			.query(`SELECT * FROM CHAMADOS WHERE RECORRENTE = 1 AND DATARECORRENCIA = '${diaAtual}'`)
 			.then((response: any) => {
 				return response[0];
 			})
