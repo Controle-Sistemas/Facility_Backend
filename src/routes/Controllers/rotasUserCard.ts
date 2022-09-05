@@ -5,6 +5,9 @@ const routes = Express.Router();
 
 routes.get('/:id', async (req: Request, res: Response) => {
     const id = Number(req.params.id);
+    console.log(id)
+    console.log(req.params.id)
+
     CardsModel.getUserCard(id,res); //Pega todas as cartões da base de dados
 }
 )

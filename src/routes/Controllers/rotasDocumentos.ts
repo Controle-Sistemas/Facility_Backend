@@ -40,7 +40,8 @@ router.post('/',
     await uploadImageService.execute(files,'documentos').then(result =>{
         if (files) {
             files.forEach(file => {
-                document.FILE += file.filename + ';'
+                document.FILE !== undefined ? document.FILE += file.filename.replace(/ /g,'+') + ';' : document.FILE = file.filename.replace(/ /g,'+')+ ';'
+                console.log(file.filename)
             })
             delete document.file
         }
@@ -93,6 +94,7 @@ router.delete('/:id', async(req: Request, res: Response) => {
         } else {
 
             const files = results[0].FILE.split(';')
+            console.log(files)
             await deleteImageService.execute(files,"documentos").then(result => {
                 DocumentsModel.deleteDocument(id, res);
 

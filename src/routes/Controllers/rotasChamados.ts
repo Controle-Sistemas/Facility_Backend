@@ -6,6 +6,7 @@ import multerConfig from '../../config/multer';
 import cron from 'node-cron';
 import SendEmailService from '../../services/sendEmailService';
 import UploadImageService from '../../services/uploadImageService'
+import DeleteImageService from '../../services/deleteImageService';
 
 const upload = multer(multerConfig);
 
@@ -39,16 +40,23 @@ router.get('/status/:status', (req: Request, res: Response) => {
 	const idStatus = Number(req.params.status);
 	chamadosModel.getChamadoByStatus(idStatus, res);
 });
-cron.schedule(' 15 09 * * *', async () => {
+cron.schedule(' 00 10 * * *', async () => {
 	const date = new Date()
 	const diaAtual = date.getDate().toString().length === 1 ? `0${date.getDate()}` : date.getDate().toString()
-	console.log(diaAtual)
+	const diaSemanaAtual = date.getDay()
 	async function getChamados() {
 		return await conn
 			.promise()
-			.query(`SELECT * FROM CHAMADOS WHERE RECORRENTE = 1 AND DATARECORRENCIA = '${diaAtual}'`)
+			.query(`SELECT * FROM CHAMADOS WHERE RECORRENTE = 1 `)
 			.then((response: any) => {
-				return response[0];
+				const aux = response[0].map((chamado:any) => {
+					if(chamado.TIPORECORRENCIA === 0){
+						return chamado.DATARECORRENCIA === diaAtual && chamado 
+					} else if(chamado.TIPORECORRENCIA === 1){
+						return chamado.DATARECORRENCIA === diaSemanaAtual && chamado 
+					}
+				})
+				return aux
 			})
 			.catch((err) => {
 				return err;
@@ -71,11 +79,10 @@ cron.schedule(' 15 09 * * *', async () => {
 	const internos = await getInternos();
     const aux = chamados.map((chamado:any) => {   
         return internos.filter((interno:any) => chamado.INTERNORECEPTOR === interno.USUARIO)
-    })
-    internos.forEach((interno:any) => {
-    
+    }).filter((item:any[]) => item.length > 0)
+
+    internos.forEach((interno:any) => {    
         if(aux.find((item:any) => item[0].ID === interno.ID)){
-            console.log(interno)
             let sendEmailChamado = new SendEmailService(2,interno)
             sendEmailChamado.sendEmailChamadosRecorrentes(chamados.filter((chamado:any) => chamado.INTERNORECEPTOR === interno.USUARIO))
         }
@@ -96,9 +103,9 @@ router.post('/', upload.array('FILE', 10), async(req: Request, res: Response) =>
 	const uploadImageService = new UploadImageService()
     await uploadImageService.execute(files,'chamados').then(result =>{
 		if (files) {
-			files.forEach((file) => {
-				chamadoData.FILE += file.filename + ';';
-			});
+			files.forEach(file => {
+                chamadoData.FILE !== undefined ? chamadoData.FILE += file.filename.replace(/ /g,'+') + ';' : chamadoData.FILE = file.filename.replace(/ /g,'+')+ ';'
+            })
 		}
 		console.log(chamadoData);
 		conn.query(`SELECT * FROM INTERNOS WHERE USUARIO = '${chamadoData.INTERNORECEPTOR}'`, (err, results: any) => {
@@ -119,14 +126,12 @@ router.post('/', upload.array('FILE', 10), async(req: Request, res: Response) =>
 				chamadosModel.createChamado(chamadoData, res);
 			}
 		});
-	}).then(err => {
+	}).catch(err => {
 		console.log(err)
         res.status(400).json({
             message:"Erro ao adicionar imagem na AmazonS3"
         })
 	})
-
-	console.log(typeof files);
 	
 });
 
@@ -138,7 +143,24 @@ router.patch('/:id', (req: Request, res: Response) => {
 
 router.delete('/:id', (req: Request, res: Response) => {
 	const id = Number(req.params.id);
-	chamadosModel.deleteChamado(id, res);
+	const deleteImageService = new DeleteImageService()
+    conn.query(`SELECT * FROM chamados WHERE ID = ${id}`,async (err, results: any) => {
+        if(err){
+            console.log(err)
+        } else {
+
+            const files = results[0].FILE.split(';')
+            await deleteImageService.execute(files,"chamados").then(result => {
+                chamadosModel.deleteChamado(id, res);
+
+            }).catch( err => {
+                console.log(err)
+                res.status(400).json({
+                    message:"Erro ao deletar a imagem na AmazonS3"
+                })
+            })
+        }
+    })
 });
 
 export default router;

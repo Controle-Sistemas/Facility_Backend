@@ -21,7 +21,6 @@ class S3Storage{
         if(!ContentType){
             throw new Error("Arquivo não encontrado")
         }
-
         const fileContent =  await fs.promises.readFile(originalPath);
         
         this.client.putObject({
@@ -38,7 +37,7 @@ class S3Storage{
     async deleteFile(filename:string,route:string): Promise<void> {
         await this.client.deleteObject({
             Bucket:`uploadcontrolesistemas/${route}`,
-            Key: filename
+            Key: filename.includes('+') ?  filename.replace(/[+]/g,' ') : filename
         }).promise()
     }
 

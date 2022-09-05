@@ -7,23 +7,22 @@ class Chamados {
 		const date = new Date();
 		const ano = date.getFullYear();
 		const mes = (date.getMonth() + 1).toString().length === 1 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
-		const dia = date.getDate();
+		const dia = date.getDate().toString().length === 1 ? `0${date.getDate().toString()}` : date.getDate().toString()
 		const hora =
 			date.getHours().toString() + ':' + date.getMinutes().toString() + ':' + date.getSeconds().toString();
 
-		return `${dia}-${mes}-${ano}`;
+		return `${dia}/${mes}/${ano}`;
 	}
 
 	isLate(data: ChamadosType[]) {
 		const date = this.getDate();
 
 		data.forEach((item: ChamadosType) => {
-			const [ ano, mes, dia ] = item.PREVISAO.split('-');
+			const [ano, mes, dia] = item.PREVISAO.split('-');
+			const dataPrevisao = `${dia}/${mes}/${ano}`
 			if (
 				item.ATIVO === 1 &&
-				date.split('-')[0] > dia &&
-				date.split('-')[1] >= mes &&
-				date.split('-')[2] >= ano
+				dataPrevisao < date
 			) {
 				item.STATUS = 5;
 			}
@@ -192,8 +191,8 @@ class Chamados {
 			res.status(400).send(error);
 		}
 	}
-	
-	getChamadoByInternalUsername(username: string, res:Response){
+
+	getChamadoByInternalUsername(username: string, res: Response) {
 		try {
 			connection.query(`SELECT * FROM CHAMADOS WHERE INTERNORECEPTOR = '${username}'`, (err, results: any) => {
 				if (err) {

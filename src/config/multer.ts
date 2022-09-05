@@ -15,6 +15,7 @@ export default {
                 } 
 
                 file.key = `${hash.toString('hex')}-${file.originalname}` //Nome do arquivo com o hash
+                console.log(file.key)
 
                 cb(null, file.key)
             })
