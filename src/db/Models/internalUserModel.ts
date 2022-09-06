@@ -111,7 +111,7 @@ class Internos {
                         });
                     } else {
                         res.status(404).send({
-                            message: "Nenhum interno atualizado"
+                            message: "Nenhum interno Encontrado"
                         });
                     }
                 }

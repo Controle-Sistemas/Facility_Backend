@@ -149,16 +149,20 @@ router.delete('/:id', (req: Request, res: Response) => {
             console.log(err)
         } else {
 
-            const files = results[0].FILE.split(';')
-            await deleteImageService.execute(files,"chamados").then(result => {
-                chamadosModel.deleteChamado(id, res);
-
-            }).catch( err => {
-                console.log(err)
-                res.status(400).json({
-                    message:"Erro ao deletar a imagem na AmazonS3"
-                })
-            })
+			if(results[0].FILE){
+				const files = results[0].FILE.split(';')
+				await deleteImageService.execute(files,"chamados").then(result => {
+					chamadosModel.deleteChamado(id, res);
+	
+				}).catch( err => {
+					console.log(err)
+					res.status(400).json({
+						message:"Erro ao deletar a imagem na AmazonS3"
+					})
+				})
+			} else {
+				chamadosModel.deleteChamado(id, res);
+			}
         }
     })
 });

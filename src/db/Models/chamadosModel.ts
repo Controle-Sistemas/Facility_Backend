@@ -167,7 +167,7 @@ class Chamados {
 
 	getChamadoByUserId(id: number, res: Response) {
 		try {
-			connection.query(`SELECT * FROM CHAMADOS WHERE IDUSUARIO = ${id}`, (err, results: any) => {
+			connection.query(`SELECT * FROM CHAMADOS WHERE IDCLIENTE = ${id}`, (err, results: any) => {
 				if (err) {
 					console.log(err);
 					res.status(400).send(err);

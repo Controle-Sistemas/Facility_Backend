@@ -24,7 +24,7 @@ class S3Storage{
         const fileContent =  await fs.promises.readFile(originalPath);
         
         this.client.putObject({
-            Bucket:`uploadcontrolesistemas/${route}`,
+            Bucket:`controlesistemasupload/${route}`,
             Key: filename,
             Body: fileContent,
             ACL:"public-read",
@@ -36,7 +36,7 @@ class S3Storage{
 
     async deleteFile(filename:string,route:string): Promise<void> {
         await this.client.deleteObject({
-            Bucket:`uploadcontrolesistemas/${route}`,
+            Bucket:`controlesistemasupload/${route}`,
             Key: filename.includes('+') ?  filename.replace(/[+]/g,' ') : filename
         }).promise()
     }
