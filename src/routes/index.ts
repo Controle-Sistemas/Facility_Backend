@@ -18,6 +18,7 @@ import rotasUsuarioInterno from './Controllers/rotasUsuarioInterno'
 import rotasSetores from './Controllers/rotasSetores'
 import rotasChamados from './Controllers/rotasChamados'
 import rotasRequisicaoProdutos from './Controllers/rotasRequisicaoProdutos'
+import rotasRequisicaoDashboard from './Controllers/rotasRequisicaoDashboard'
 
 routes.use('/tabelas', rotasUserTableCustom)
 routes.use('/empresas', rotasEmpresas)
@@ -37,6 +38,7 @@ routes.use('/chamados',rotasChamados)
 routes.use('/status-chamado',rotasStatusChamado)
 routes.use('/ocorrencias',rotasOcorrencias)
 routes.use('/produtos',rotasRequisicaoProdutos)
+routes.use('/dashboard',rotasRequisicaoDashboard)
 
 routes.get('/', (req: Request, res: Response) => {
     res.send(`

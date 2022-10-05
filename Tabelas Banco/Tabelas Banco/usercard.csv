@@ -1,0 +1,5 @@
+"ID";"IDUSER";"TITLE";"INFO";"TIPOCARD";"TIPOVALOR";"ICON";"SUBTEXTO";"LINK";"VALUE"
+16;27;"Teste";"GASTOS MENSAIS";1;1;"fa-solid fa-money-bill";"Gastos de Janeiro";"/user/relatorios/gastos";"999"
+18;27;"Lucro";"LUCROS ANUAIS";2;2;"fa-solid fa-percent";"Lucro Janeiro";"/user/relatorios/lucros";"999"
+19;25;"Vendas";"VENDAS MENSAIS";2;1;"fa-solid fa-money-bill";"Vendas desse mês";"/user/relatorios/vendas";"999"
+20;25;"Despesas Efetuadas";"GASTOS MENSAIS";2;1;"fa-solid fa-chart-line";"Gastos do mes por periodo";"/user/relatorios/gastos";"999"

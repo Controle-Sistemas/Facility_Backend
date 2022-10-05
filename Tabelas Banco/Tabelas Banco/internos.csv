@@ -1,0 +1,6 @@
+"ID";"NOME";"USUARIO";"SENHA";"EMAIL";"SETOR";"ATIVO"
+1;"Ruan ";"Suporte_Ruan";"$2b$05$CSMNTR1wVrw0qBczOqyyH.1lTeJYkFet/x9f8Td.oEVAY57rK.tfK";"controlesistemasgithub@gmail.com";1;1
+2;"Lucas";"Suporte_Lucas";"$2b$05$yXTmMBAKrSmrPuDD2sHfH.wh9SD2EptVg2i1OiJXh175f6Us1os8G";"controlesistemasgithub@gmail.com";1;1
+3;"Jécika Paixão";"Jecika";"$2b$05$bqriH7/SQyymbsmtHsj.SOr.Z47Lis6cb8Gpirqbc.wAe.E73IDKG";"controlesistemasgithub@gmail.com";4;1
+99;"Admin";"Admin";"$2b$05$NglLJ4qtE/ixVUbxv17NN.ONQUxfbdrHvZYtBwqeozZDskT8xLEcG";"controlesistemasgithub@gmail.com";5;1
+100;"Admin";"Admin";"$2b$05$NglLJ4qtE/ixVUbxv17NN.ONQUxfbdrHvZYtBwqeozZDskT8xLEcG";"controlesistemasgithub@gmail.com";3;1

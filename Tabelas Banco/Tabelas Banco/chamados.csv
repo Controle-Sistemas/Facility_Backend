@@ -1,0 +1,41 @@
+"ID";"IDINTERNO";"IDCLIENTE";"SETOR";"TITULO";"DESCRICAO";"STATUS";"DATAINCLUSAO";"PREVISAO";"PRIORIDADE";"ULTIMAATUALIZACAO";"ATIVO";"FILE";"INTERNORECEPTOR";"VISTO";"RECORRENTE";"DATARECORRENCIA";"TIPORECORRENCIA"
+2;0;27;1;"Vendas";"<p>teste</p>";1;"2022-08-23 11:2:35";"2022-08-23";2;"2022-08-30 17:2:37";0;"undefinedfe192d6af1ed2d1698a228125696c06d-API - Rotas Clientes.pdf;";"Suporte_Lucas";1;0;"";0
+3;0;27;3;"Fazer notas";"Teste teset";1;"2022-08-23 16:1:12";"2022-08-29";3;"";1;"";"Suporte_Ruan";1;0;"";0
+4;0;27;4;"Perdas";"Boleto para pagamento";1;"2022-08-23 16:2:7";"2022-08-30";1;"";1;"";"Suporte_Ruan";1;0;"";0
+5;0;25;5;"bOLETO";"<p>Teste teste</p>
+<h1>Titulo teste</h1>
+<p><strong>Teste teste teste</strong></p>
+<p style=""text-align: right;""><strong>Teste?</strong></p>
+<p style=""text-align: right;""><em><strong>Testet</strong></em></p>";1;"2022-08-24 8:51:29";"2022-08-30";3;"";1;"undefinedd191d9a027d1a7882e53e7adafc45936-API - Rotas Menu.pdf;62a4117272f28854f282e1b5c758ff77-API - Rotas ramos.pdf;e23c7c70216e518ee2b67965c0cddf5a-API - Rotas Tabelas Dinamicas.pdf;";"Suporte_Ruan";1;1;"";0
+6;0;27;4;"Gastos";"<blockquote>
+<p style=""text-align: left;"">aaaaaaaa</p>
+</blockquote>";3;"2022-08-24 9:29:2";"2022-08-24";2;"";1;"";"Suporte_Ruan";1;1;"";0
+7;0;25;3;"Gastos";"<p>afadgvdszc</p>";3;"2022-08-24 9:31:59";"2022-08-24";2;"";1;"";"Suporte_Ruan";1;1;"";0
+8;0;24;3;"Teste Teste";"<p>Teste teste testet etatjv</p>";2;"2022-08-25 9:13:14";"2022-08-27";2;"";1;"undefined56b5e671b43fbdc60bc2f2406465bab5-API - Rotas Clientes.pdf;144f0835268d3bcda654e89f4dd85fac-API - Rotas Empresas.pdf;1c55df9a0d31786e102e54bc241ac276-API - Rotas Menu.pdf;b2c4a56297f092ec35bf84c779aa85f6-API - Rotas ramos.pdf;be744b700f4a1fa88f806076ebb3c1a9-API - Rotas Tabelas Dinamicas.pdf;";"Suporte_Ruan";1;1;"";0
+9;1;27;5;"Resolver servidos";"<p>descri&ccedil;&atilde;o simples blablabla</p>";1;"2022-08-25 9:15:43";"2022-08-26";1;"";1;"";"Suporte_Ruan";1;1;"";0
+10;1;24;3;"Vendas";"<p>sdgsg</p>";3;"2022-08-25 9:17:46";"2022-08-26";4;"";0;"";"Suporte_Lucas";1;0;"";0
+11;0;33;5;"Erro de nota";"<p>teste test&nbsp;</p>";1;"2022-08-25 14:10:44";"2022-08-31";1;"";1;"";"Suporte_Lucas";1;0;"";0
+12;0;33;5;"Erro de nota";"<p>teste test&nbsp;</p>";1;"2022-08-25 14:10:46";"2022-08-31";1;"";1;"";"Suporte_Lucas";1;0;"";0
+13;0;33;5;"Erro de nota";"<p>teste test&nbsp;</p>";1;"2022-08-25 14:10:56";"2022-08-31";1;"";1;"";"Suporte_Lucas";1;0;"";0
+14;0;33;5;"Erro de nota";"<p>teste test&nbsp;</p>";1;"2022-08-25 14:11:29";"2022-08-31";1;"";1;"";"Suporte_Lucas";1;0;"";0
+15;2;27;1;"Erro 404 sistema";"<p>Erro 404 sistema</p>";1;"2022-08-29 9:21:52";"2022-08-31";4;"2022-09-2 9:3:21";1;"";"Suporte_Ruan";1;1;"02";0
+16;2;24;1;"Fazer notas";"<p>Fazer notas xxx</p>";2;"2022-08-29 9:22:22";"2022-09-01";1;"";1;"";"Jecika";0;0;"";0
+17;0;24;4;"teste";"<p>teste e era eavasvsSSV</p>";2;"2022-08-29 14:49:54";"2022-08-30";2;"2022-08-29 15:28:1";1;"";"Jecika";1;0;"";0
+18;2;27;1;"Vendas";"<p>dsgsdfsd</p>";1;"2022-08-29 17:42:18";"2022-08-31";3;"2022-08-30 16:34:21";1;"";"Suporte_Ruan";1;1;"";0
+19;0;25;4;"sgsd";"<p>dfsfdsfsd</p>";2;"2022-08-30 10:10:34";"2022-08-31";2;"2022-08-30 11:0:0";1;"";"Jecika";1;1;"";0
+20;0;24;1;"teste";"<p>fasfsa</p>";2;"2022-08-31 10:48:8";"2022-09-01";2;"";1;"";"Suporte_Lucas";0;0;"";0
+22;0;25;1;"gsddsgds";"<p>fsdfdsfd</p>";1;"2022-08-31 10:52:30";"2022-09-08";4;"";1;"";"Suporte_Ruan";1;0;"";0
+23;0;27;4;"Fazer notas";"<p>hgDASPubygucsaj,</p>";1;"2022-08-31 10:54:20";"2022-09-01";2;"";1;"";"Jecika";0;0;"";0
+24;0;33;1;"Gastos";"<p>hjajasvasghajashvjd</p>";3;"2022-08-31 10:57:29";"2022-08-31";3;"";1;"";"Suporte_Ruan";1;0;"";0
+25;0;24;1;"Vendas";"<p>fghdgm</p>";1;"2022-09-5 11:23:40";"2022-09-07";1;"";1;"bf89b829963104a09c5ee57cbed8a87a-API+-+Rotas+ramos.pdf;1740afae71a1ac7310948ac311c4c7c4-API+-+Rotas+Tabelas+Dinamicas.pdf;";"Suporte_Lucas";1;0;"undefined";0
+26;0;24;1;"Vendas";"<p>fghdgm</p>";1;"2022-09-5 11:28:16";"2022-09-07";1;"";1;"8878a6c51754db7366553990d93459b4-API+-+Rotas+ramos.pdf;f877b91a12fb6dd075eb4acb4ead45d7-API+-+Rotas+Tabelas+Dinamicas.pdf;";"Suporte_Lucas";1;0;"undefined";0
+27;0;24;4;"Vendas";"<p>ultimo teste?</p>";2;"2022-09-5 13:44:22";"2022-09-07";2;"";1;"1de08acaf15708fa6eefea3929828dcd-API+-+Rotas+Empresas.pdf;";"Jecika";1;0;"";0
+29;0;25;1;"Vendas";"<p>fdsfsdfsd</p>";1;"2022-09-05 14:25:40";"2022-09-07";1;"";1;"4fde44d3ded8cc7145233dc6355b65a4-API+-+Rotas+Clientes.pdf;a0f18973e546e860f993940e797f8faf-API+-+Rotas+Empresas.pdf;a132e7a88ec8d2b1afa1b5c69be9ae79-API+-+Rotas+Menu.pdf;07ad8d9ba450fab8eb522c9aa4080593-API+-+Rotas+ramos.pdf;34ad55edee27f465ce4933242d35ce77-API+-+Rotas+Tabelas+Dinamicas.pdf;";"Suporte_Ruan";1;0;"";0
+30;0;27;1;"Teste Chamado recorrente";"<p>teste</p>";2;"2022-09-05 15:27:11";"2022-09-08";1;"";1;"";"Suporte_Ruan";1;1;"undefined";0
+31;0;27;1;"Teste recorrencia 2";"<p>dasdasdasads</p>";2;"2022-09-05 15:36:33";"2022-09-07";2;"";1;"";"Suporte_Lucas";1;1;"undefined";0
+32;0;25;4;"teste";"<p>zxc zx</p>";3;"2022-09-05 15:47:52";"2022-09-07";3;"";1;"";"Jecika";0;1;"2";0
+33;0;27;1;"teste";"<p>gsdfadafs</p>";2;"2022-09-05 15:48:45";"2022-09-14";2;"";1;"";"Suporte_Lucas";0;1;"3";0
+34;0;27;1;"teste 123";"<p>afsafsa asda</p>";2;"2022-09-05 16:10:8";"2022-09-13";2;"";1;"";"Suporte_Ruan";0;1;"1";1
+35;0;25;4;"teste 321";"<p>sadsadas</p>";3;"2022-09-05 16:10:49";"2022-09-08";2;"";1;"";"Jecika";0;1;"05";0
+36;0;24;1;"bOLETO";"<p>fcaafsd</p>";1;"2022-09-06 15:50:7";"2022-09-08";2;"";1;"4f2b1d9f8bcc14194f92e504aef687c9-api-rotas-menu.html;c1146613135ffb207e567f7a1a17c84f-api-rotas-ramos.html;c794b509231ce3c411fc61de78c6f12a-api-rotas-tabelas-dinamicas.html;";"Suporte_Lucas";0;0;"";0
+37;0;24;1;"bOLETO";"<p>asass</p>";1;"2022-09-06 15:58:30";"2022-09-23";1;"";1;"9f807a1acee7c1d6e83b7c9bd546dfde-api-rotas-ramos.html;a0da69c320d539d59944f4840e0ed323-api-rotas-tabelas-dinamicas.html;";"Suporte_Lucas";0;0;"";0

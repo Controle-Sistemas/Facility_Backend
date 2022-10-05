@@ -44,7 +44,7 @@ routes.post(
 		const client = req.body; //Pega os dados do usuário
 		const cnpj = client.CNPJ.replace('&#x2F;', '/').replace(/\D/g, '');
 		client.CNPJ = cnpj;
-		conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = '${cnpj}'`, async (err: any, results: any) => {
+		conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ =${cnpj}`, async (err: any, results: any) => {
 			//Verifica se existe algum usuário com o mesmo cnpj
 			try {
 				if (err) {
@@ -82,7 +82,7 @@ routes.post(
 								const SendEmailService = new sendEmailService(1,client)
 								SendEmailService.sendPasswordEmail(password); //Envia o email com a senha
 								conn.query(
-									`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = '${cnpj}'`,
+									`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ =${cnpj}`,
 									async (err: any, results: any) => {
 										//Verifica se existe algum usuário com o mesmo cnpj
 										try {
@@ -153,8 +153,7 @@ routes.post(
 //Rota para Login de um usuário
 routes.post('/login', (req: Request, res: Response) => {
 	const { CNPJ, PASSWORD } = req.body; //Pega os dados do usuário
-
-	conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = '${CNPJ}'`, async (err: any, results: any) => {
+	conn.query('SELECT * FROM SYSLOGINREQUEST WHERE CNPJ =' + parseInt(CNPJ), async (err: any, results: any) => {
 		//Verifica se existe algum usuário com o mesmo cnpj
 		try {
 			if (err) {
