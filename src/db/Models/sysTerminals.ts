@@ -11,7 +11,7 @@ class TerminalModel{
                 });
             } else {
                 res.status(200).send({
-                    message: 'Terminais listados com sucesso',
+                    message: 'TERMINAIS listados com sucesso',
                     data: results
                 });
             }
