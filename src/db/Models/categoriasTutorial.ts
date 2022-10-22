@@ -5,7 +5,7 @@ class CategoriasModel {
 
     getAll(res: Response) {
         try {
-            conn.query('SELECT * FROM tutoriaiscategoria', (err, results) => {
+            conn.query('SELECT * FROM TUTORIAISCATEGORIA', (err, results) => {
                 if (err) {
                     res.status(503).send(err)
                 } else {
@@ -24,7 +24,7 @@ class CategoriasModel {
 
     getById(id: number, res: Response) {
       try {
-        conn.query('SELECT * FROM tutoriaiscategoria WHERE id = ?', [id], (err, results:any) => {
+        conn.query('SELECT * FROM TUTORIAISCATEGORIA WHERE id = ?', [id], (err, results:any) => {
             if (err) {
                 res.status(500).send(err)
             } else {
@@ -45,7 +45,7 @@ class CategoriasModel {
     }
 
     getByNome(nome: string, res: Response) {
-        conn.query('SELECT * FROM tutoriaiscategoria WHERE nome = ?', [nome], (err, results:any) => {
+        conn.query('SELECT * FROM TUTORIAISCATEGORIA WHERE nome = ?', [nome], (err, results:any) => {
             if (err) {
                 res.status(500).send(err)
             } else {
@@ -61,7 +61,7 @@ class CategoriasModel {
     }
 
     create(categoria: any, res: Response) {
-        conn.query('INSERT INTO tutoriaiscategoria SET ?', [categoria], (err, results) => {
+        conn.query('INSERT INTO TUTORIAISCATEGORIA SET ?', [categoria], (err, results) => {
             if (err) {
                 res.status(500).send(err)
             } else {
@@ -74,7 +74,7 @@ class CategoriasModel {
     }
 
     update(id: number, categoria: any, res: Response) {
-        conn.query('UPDATE tutoriaiscategoria SET ? WHERE id = ?', [categoria, id], (err, results:any) => {
+        conn.query('UPDATE TUTORIAISCATEGORIA SET ? WHERE id = ?', [categoria, id], (err, results:any) => {
             if (err) {
                 res.status(500).send(err)
             } else {
@@ -93,7 +93,7 @@ class CategoriasModel {
     }
 
     delete(id: number, res: Response) {
-        conn.query('DELETE FROM tutoriaiscategoria WHERE id = ?', [id], (err, results:any) => {
+        conn.query('DELETE FROM TUTORIAISCATEGORIA WHERE id = ?', [id], (err, results:any) => {
             if (err) {
                 res.status(500).send(err)
             } else {

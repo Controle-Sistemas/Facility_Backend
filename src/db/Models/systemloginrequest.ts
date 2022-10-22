@@ -5,7 +5,7 @@ class ModeloClientes {
 	getClients(res: any) {
 		//Retorna todos os clientes
 		try {
-			connection.query('SELECT * FROM sysloginrequest', (err: any, results: any) => {
+			connection.query('SELECT * FROM SYSLOGINREQUEST', (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -25,7 +25,7 @@ class ModeloClientes {
 	getClientById(id: number, res: any) {
 		//Retorna um cliente pelo id
 		try {
-			connection.query('SELECT * FROM sysloginrequest WHERE id = ?', [ id ], (err: any, results: any) => {
+			connection.query('SELECT * FROM SYSLOGINREQUEST WHERE id = ?', [ id ], (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -51,7 +51,7 @@ class ModeloClientes {
 	getClientByCNPJ(cnpj: number, res: any) {
 		//Retorna um cliente pelo cnpj
 		try {
-			connection.query(`SELECT * FROM sysloginrequest WHERE CNPJ = ${cnpj}`, (err: any, results: any) => {
+			connection.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = ${cnpj}`, (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -77,7 +77,7 @@ class ModeloClientes {
 	getFields(res: any) {
 		//Retorna todos os campos de um cliente
 		try {
-			connection.query('DESCRIBE sysloginrequest', (err: any, results: any) => {
+			connection.query('DESCRIBE SYSLOGINREQUEST', (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -103,7 +103,7 @@ class ModeloClientes {
 	createClient(sysLogin: SysLoginType, res: any) {
 		//Cria um cliente
 		try {
-			connection.query('INSERT INTO sysloginrequest SET ?', [ sysLogin ]);
+			connection.query('INSERT INTO SYSLOGINREQUEST SET ?', [ sysLogin ]);
 		} catch (error) {
 			console.error(error);
 		} 
@@ -113,7 +113,7 @@ class ModeloClientes {
 		//Atualiza um cliente
 		try {
 			connection.query(
-				'UPDATE sysloginrequest SET ? WHERE id = ?',
+				'UPDATE SYSLOGINREQUEST SET ? WHERE id = ?',
 				[ sysLogin, id ],
 				(err: any, results: any) => {
 					if (err) {
@@ -136,7 +136,7 @@ class ModeloClientes {
 	deleteClient(id: number, res: any) {
 		//Deleta um cliente
 		try {
-			connection.query('DELETE FROM sysloginrequest WHERE id = ?', [ id ], (err: any, results: any) => {
+			connection.query('DELETE FROM SYSLOGINREQUEST WHERE id = ?', [ id ], (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err

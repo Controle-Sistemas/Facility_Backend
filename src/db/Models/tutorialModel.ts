@@ -6,14 +6,14 @@ class TutorialModel{
     getTutorials(res: Response){
         try {
             conn.query(
-                'SELECT * FROM tutoriais',
+                'SELECT * FROM TUTORIAIS',
                 (err: any, results: any) => {
                     if (err) {
                         res.status(500).send(err);
                     } else {
                         res.status(200).send({
                             data: results,
-                            message: 'Tutoriais retornados com sucesso'
+                            message: 'TUTORIAIS retornados com sucesso'
                         });
                     }
                 }
@@ -27,7 +27,7 @@ class TutorialModel{
 
     getTutorialById(id: number, res: Response){
         conn.query(
-            'SELECT * FROM tutoriais WHERE ID = ?',
+            'SELECT * FROM TUTORIAIS WHERE ID = ?',
             [id],
             (err: any, results: any) => {
                 if (err) {
@@ -51,7 +51,7 @@ class TutorialModel{
 
     getTutorialByCategoria(categoria: number, res: Response){
         conn.query(
-            'SELECT * FROM tutoriais WHERE CATEGORIA = ?',
+            'SELECT * FROM TUTORIAIS WHERE CATEGORIA = ?',
             [categoria],
             (err: any, results: any) => {
                 if (err) {
@@ -75,7 +75,7 @@ class TutorialModel{
 
     createTutorial(tutoriais: any, res: Response){
         conn.query(
-            'INSERT INTO tutoriais SET ?',
+            'INSERT INTO TUTORIAIS SET ?',
             tutoriais,
             (err: any, results: any) => {
                 if (err) {
@@ -92,7 +92,7 @@ class TutorialModel{
 
     updateTutorial(id: number, tutoriais: any, res: Response){
         conn.query(
-            'UPDATE tutoriais SET ? WHERE ID = ?',
+            'UPDATE TUTORIAIS SET ? WHERE ID = ?',
             [tutoriais, id],
             (err: any, results: any) => {
                 if (err) {
@@ -117,7 +117,7 @@ class TutorialModel{
 
     deleteTutorial(id: number, res: Response){
         conn.query(
-            'DELETE FROM tutoriais WHERE ID = ?',
+            'DELETE FROM TUTORIAIS WHERE ID = ?',
             [id],
             (err: any, results: any) => {
                 if (err) {

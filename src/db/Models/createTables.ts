@@ -412,3 +412,4 @@ class CreateTables {
 }
 
 export default new CreateTables();
+

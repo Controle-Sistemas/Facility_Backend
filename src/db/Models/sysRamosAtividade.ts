@@ -3,7 +3,7 @@ import connection from '..';
 class sysRamosAtividade {
 	getAllSysRamosAtividade(res: any) {
  
-		connection.query('SELECT * FROM sysRamosAtividade', (error: any, results: any, fields: any) => {
+		connection.query('SELECT * FROM SYSRAMOSATIVIDADE', (error: any, results: any, fields: any) => {
 			if (error) {
 				res.status(400).send(error);
 			} else {
@@ -13,7 +13,7 @@ class sysRamosAtividade {
 	}
 
 	getSysRamosAtividadeByName(name: string, res: any) {
-		connection.query('SELECT * FROM sysRamosAtividade WHERE descricao = ?',	[ name ],(error: any, results: any, fields: any) => {
+		connection.query('SELECT * FROM SYSRAMOSATIVIDADE WHERE descricao = ?',	[ name ],(error: any, results: any, fields: any) => {
 				if (error) {
 					res.status(400).send(error);
 				} else {
@@ -30,7 +30,7 @@ class sysRamosAtividade {
 	}
 
     addSysRamosAtividade(sysRamosAtividade: any, res: any) {
-        connection.query('INSERT INTO sysRamosAtividade SET ?', sysRamosAtividade, (error: any, results: any, fields: any) => {
+        connection.query('INSERT INTO SYSRAMOSATIVIDADE SET ?', sysRamosAtividade, (error: any, results: any, fields: any) => {
             if (error) {
                 res.status(400).send(error);
             } else {
@@ -40,7 +40,7 @@ class sysRamosAtividade {
     }
 
     updateSysRamosAtividade(name:string,sysRamosAtividade: any, res: any) {
-        connection.query('UPDATE sysRamosAtividade SET ? WHERE descricao = ?', [sysRamosAtividade, name], (error: any, results: any, fields: any) => {
+        connection.query('UPDATE SYSRAMOSATIVIDADE SET ? WHERE descricao = ?', [sysRamosAtividade, name], (error: any, results: any, fields: any) => {
             if (error) {
                 res.status(400).send(error);
             } else {
@@ -51,7 +51,7 @@ class sysRamosAtividade {
     }
 
     deleteSysRamosAtividade(name:string, res: any) {
-        connection.query('DELETE FROM sysRamosAtividade WHERE descricao = ?', [name], (error: any, results: any, fields: any) => {
+        connection.query('DELETE FROM SYSRAMOSATIVIDADE WHERE descricao = ?', [name], (error: any, results: any, fields: any) => {
             if (error) {
                 res.status(400).send(error);
             } else {

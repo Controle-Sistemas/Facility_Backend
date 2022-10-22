@@ -8,7 +8,7 @@ class MenuItemModel {
 	getAllMenuItems(res: any) {
 		//Retorna todos os itens do menu
 		try {
-			conn.query('SELECT * FROM sysmenuitem', (err: any, results: any) => {
+			conn.query('SELECT * FROM SYSMENUITEM', (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -28,7 +28,7 @@ class MenuItemModel {
 	getItemsByRamoDeAtividade(ramoAtividade: string, res: any) {
 		//Retorna todos os itens do menu de acordo com o ramo de atividade
 		try {
-			conn.query(`SELECT * FROM sysmenuitem`, (err: any, results: any) => {
+			conn.query(`SELECT * FROM SYSMENUITEM`, (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -89,7 +89,7 @@ class MenuItemModel {
 	getMenuItemById(id: number, res: any) {
 		//Retorna um item do menu pelo id
 		try {
-			conn.query(`SELECT * FROM sysmenuitem WHERE id = ${id}`, (err: any, results: any) => {
+			conn.query(`SELECT * FROM SYSMENUITEM WHERE id = ${id}`, (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -115,7 +115,7 @@ class MenuItemModel {
 	createMenuItem(menuItem: SysMenuItemType, res: any) {
 		//Cria um item para o menu
 		try {
-			conn.query('INSERT INTO sysmenuitem SET ?', [ menuItem ], (err: any, results: any) => {
+			conn.query('INSERT INTO SYSMENUITEM SET ?', [ menuItem ], (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -135,7 +135,7 @@ class MenuItemModel {
 	updateMenuItem(id: number, menuItem: SysMenuItemType, res: any) {
 		//Atualiza um item do menu
 		try {
-			conn.query(`UPDATE sysmenuitem SET ? WHERE id = ${id}`, [ menuItem ], (err: any, results: any) => {
+			conn.query(`UPDATE SYSMENUITEM SET ? WHERE id = ${id}`, [ menuItem ], (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -155,7 +155,7 @@ class MenuItemModel {
 	deleteMenuItem(id: number, res: any) {
 		//Deleta um item do menu
 		try {
-			conn.query(`DELETE FROM sysmenuitem WHERE id = ${id}`, (err: any, results: any) => {
+			conn.query(`DELETE FROM SYSMENUITEM WHERE id = ${id}`, (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err

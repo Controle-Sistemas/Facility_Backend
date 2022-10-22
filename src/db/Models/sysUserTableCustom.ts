@@ -7,13 +7,13 @@ class UserTableCustomModel {
     editTable(tableData: any,idUser:number,res:Response) {
         
         conn.query(
-            `UPDATE sysselecttablecolumn SET ? WHERE  idUser = ${idUser} and idTable = ${tableData.idTable} AND id = ${tableData.id}`,[tableData],
+            `UPDATE SYSSELECTTABLECOLUMN SET ? WHERE  idUser = ${idUser} and idTable = ${tableData.idTable} AND id = ${tableData.id}`,[tableData],
         )
     }
 
     getTable(idUser:number,idTable:number,res:Response) {
         conn.query(
-            `SELECT * FROM sysselecttablecolumn WHERE idUser = ${idUser} AND idTable = ${idTable}`,
+            `SELECT * FROM SYSSELECTTABLECOLUMN WHERE idUser = ${idUser} AND idTable = ${idTable}`,
             (err,results) => {
                 if (err) {
                     res.status(400).send({
@@ -39,7 +39,7 @@ class UserTableCustomModel {
 
     createTable(tableData: any,res:Response) {
         conn.query(
-            `INSERT INTO sysselecttablecolumn SET ?`,[tableData],
+            `INSERT INTO SYSSELECTTABLECOLUMN SET ?`,[tableData],
             (err) => {
                 if (err) {
                     console.log(err)
@@ -50,7 +50,7 @@ class UserTableCustomModel {
 
     deleteTable(idTable:number,res:Response) {
         conn.query(
-            `DELETE FROM sysselecttablecolumn WHERE idUser = ${idTable}`,
+            `DELETE FROM SYSSELECTTABLECOLUMN WHERE idUser = ${idTable}`,
             (err) => {
                 if (err) {
                     res.status(400).send({
@@ -68,7 +68,7 @@ class UserTableCustomModel {
 
     deleteTableByUser(idUser:number,res:Response) {
         conn.query(
-            `DELETE FROM sysselecttablecolumn WHERE  idUser = ${idUser}`);
+            `DELETE FROM SYSSELECTTABLECOLUMN WHERE  idUser = ${idUser}`);
     }
 
    
