@@ -7,7 +7,7 @@ import CreateTables from './src/db/Models/createTables';
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 // const corsOptions = {
 // 	origin: 'http://localhost:3000' || 'http://facility.controleautomacao.com.br',
 // 	optionsSuccessStatus: 200,
@@ -19,7 +19,6 @@ connection.connect((err: any) => {
 	if (err) {
 		console.log(err);
 		console.log('Não foi possível conectar ao banco de dados');
-		window.alert("Conexão bem sucedida!")
 	} else {
 		console.log('Conectado com sucesso');
 		

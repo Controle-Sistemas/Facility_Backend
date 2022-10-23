@@ -4,6 +4,7 @@ import { Response } from 'express';
 class UserCardModel {
     getUserCard(id: number,res: Response) {
  
+       if(id){
         conn.query(
             `SELECT * FROM USERCARD WHERE id = ?`,
             [id],
@@ -23,6 +24,7 @@ class UserCardModel {
                 }
             }
         )
+       }
     }
 
     getUserCardByUser(id: number,res: Response) {
