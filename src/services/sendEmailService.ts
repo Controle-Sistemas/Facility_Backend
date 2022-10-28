@@ -67,7 +67,7 @@ class SendEmailService {
                 <p> CNPJ: ${this.cliente.CNPJ} </p>
                 <p> Senha: ${password} </p>
                 <p> Acesse o portal pelo link abaixo: </p>
-                <a href="https://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>
+                <a href="http://facility-frontend-deploy.s3-website-sa-east-1.amazonaws.com/login"> facility.controleautomacao.com.br </a>
                 <p> Em caso de dúvidas, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
                 </td>
             </tr>
@@ -95,7 +95,7 @@ class SendEmailService {
                 <p> Usuário: ${this.interno.USUARIO} </p>
                 <p> Senha: ${password} </p>
                 <p> Acesse o portal pelo link abaixo: </p>
-                <a href="https://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>
+                <a href="http://facility-frontend-deploy.s3-website-sa-east-1.amazonaws.com/login"> facility.controleautomacao.com.br </a>
                 <p> Em caso de dúvidas, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
                 </td>
             </tr>
@@ -152,7 +152,7 @@ class SendEmailService {
                 <h1> Olá, ${this.cliente.NOME} </h1>
                 <h5> O documento ${document.NOME} foi enviado para você no dia ${document.DATAINCLUSAO}</h5>
                 <p> Acesse o portal pelo link abaixo para consultar ele: </p>
-                <a href="https://facility.controleautomacao.com.br"> https://facility.controleautomacao.com.br </a>
+                <a href="http://facility-frontend-deploy.s3-website-sa-east-1.amazonaws.com/login"> https://facility.controleautomacao.com.br </a>
                 <p> Em caso de dúvidas, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
                 </td>
             </tr>
@@ -207,7 +207,7 @@ class SendEmailService {
                 <h5> Sua dúvida foi enviada ao nosso suporte</h5>
                 <p> ${duvida.mensagem} </p>
                 <p> Acesse o portal pelo link abaixo para consultar ele: </p>
-                <a href="https://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>
+                <a href="http://facility-frontend-deploy.s3-website-sa-east-1.amazonaws.com/login"> facility.controleautomacao.com.br </a>
                 <p> Em caso de demora, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
                 </td>
             </tr>
@@ -257,7 +257,7 @@ class SendEmailService {
                 <h5> Você tem recebeu um novo chamado</h5>
                 <h3> ${chamado.TITULO} </h3>
                 <p> Acesse o portal pelo link abaixo para consultar ele: </p>
-                <a href="https://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>
+                <a href="http://facility-frontend-deploy.s3-website-sa-east-1.amazonaws.com/login"> facility.controleautomacao.com.br </a>
                 <p> Em caso de demora, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
                 </td>
             </tr>
@@ -305,7 +305,7 @@ class SendEmailService {
                 <h1> Olá, ${this.interno.NOME} </h1>
                 <h5> Você tem ${chamados.length} chamados recorrentes que devem ser efetuados</h5>
                 <p> Acesse o portal pelo link abaixo para consultar ele: </p>
-                <a href="https://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>
+                <a href="http://facility-frontend-deploy.s3-website-sa-east-1.amazonaws.com/login"> facility.controleautomacao.com.br </a>
                 <p> Em caso de demora, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
                 </td>
             </tr>
