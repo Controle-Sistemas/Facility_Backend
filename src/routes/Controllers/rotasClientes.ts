@@ -153,7 +153,7 @@ routes.post(
 //Rota para Login de um usuário
 routes.post('/login', (req: Request, res: Response) => {
 	const { CNPJ, PASSWORD } = req.body; //Pega os dados do usuário
-	conn.query('SELECT * FROM SYSLOGINREQUEST WHERE CNPJ =' + parseInt(CNPJ), async (err: any, results: any) => {
+	conn.query('SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = ' + parseInt(CNPJ), async (err: any, results: any) => {
 		//Verifica se existe algum usuário com o mesmo cnpj
 		try {
 			if (err) {
@@ -233,7 +233,7 @@ routes.patch('/change-password/:cnpj', (req: Request, res: Response) => { //Rota
 	const oldPassword = req.body.oldPassword;  //Pega a senha antiga
 	const newPassword = req.body.newPassword; //Pega a nova senha
 
-	conn.query(`SELECT * FROM sysloginrequest WHERE CNPJ = ${CNPJ}`, async (err: any, results: any) => { 
+	conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = ${CNPJ}`, async (err: any, results: any) => { 
 		try {
 			if (err) {
 				console.log(err);
@@ -250,7 +250,7 @@ routes.patch('/change-password/:cnpj', (req: Request, res: Response) => { //Rota
 											PASSWORD: result
 										};
 										conn.query(
-											`UPDATE sysloginrequest SET ? WHERE CNPJ = ${CNPJ}`,
+											`UPDATE SYSLOGINREQUEST SET ? WHERE CNPJ = ${CNPJ}`,
 											[ data ],
 											(err: any, results: any) => {
 												if (err) {
@@ -285,7 +285,7 @@ routes.patch('/change-password/:cnpj', (req: Request, res: Response) => { //Rota
 
 routes.patch('/forgot-password/:cnpj', (req: Request, res: Response) => {  //Rota para recuperar a senha de um usuário
 	const cnpj = req.params.cnpj;
-	conn.query(`SELECT * FROM sysloginrequest WHERE CNPJ = ${cnpj}`, async (err: any, results: any) => {
+	conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = ${cnpj}`, async (err: any, results: any) => {
 		if (err) {
 			console.log(err);
 		} else {
@@ -298,7 +298,7 @@ routes.patch('/forgot-password/:cnpj', (req: Request, res: Response) => {  //Rot
 							const data = {
 								PASSWORD: result
 							};
-							conn.query(`UPDATE sysloginrequest SET ? WHERE CNPJ = ${cnpj}`, [ data ], (err: any) => {
+							conn.query(`UPDATE SYSLOGINREQUEST SET ? WHERE CNPJ = ${cnpj}`, [ data ], (err: any) => {
 								if (err) {
 									console.log(err);
 								} else {
@@ -327,13 +327,13 @@ routes.patch('/forgot-password/:cnpj', (req: Request, res: Response) => {  //Rot
 
 routes.delete('/:id', (req: Request, res: Response) => { 
 	const id = Number(req.params.id);
-	conn.query(`SELECT * FROM sysselecttablecolumn WHERE idUser = ${id}`, (err: any, results: any) => {
+	conn.query(`SELECT * FROM SYSSELECTTABLECOLUMN WHERE idUser = ${id}`, (err: any, results: any) => {
 		try {
 			if (err) {
 				console.log(err);
 			} else {
 				if (results.length > 0) { 
-					conn.query(`DELETE FROM sysselecttablecolumn WHERE idUser = ${id}`, (err: any, result: any) => { //Deleta as colunas do usuário
+					conn.query(`DELETE FROM SYSSELECTTABLECOLUMN WHERE idUser = ${id}`, (err: any, result: any) => { //Deleta as colunas do usuário
 						if (err) {
 							console.log(err);
 						} else {
