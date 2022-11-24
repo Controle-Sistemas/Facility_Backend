@@ -40,6 +40,7 @@ router.get('/status/:status', (req: Request, res: Response) => {
 	const idStatus = Number(req.params.status);
 	chamadosModel.getChamadoByStatus(idStatus, res);
 });
+
 cron.schedule(' 00 10 * * *', async () => {
 	const date = new Date()
 	const diaAtual = date.getDate().toString().length === 1 ? `0${date.getDate()}` : date.getDate().toString()
