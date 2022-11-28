@@ -8,7 +8,7 @@ class MenuItemModel {
 	getAllMenuItems(res: any) {
 		//Retorna todos os itens do menu
 		try {
-			conn.query('SELECT * FROM SYSMENUITEM', (err: any, results: any) => {
+			conn.query('SELECT * FROM SYSMENUITEM ORDER BY descricao', (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err

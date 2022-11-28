@@ -62,3 +62,9 @@ export type DashboardDataType = {
     ConsumosEmAbertoValor: number,            
     EvolucaoVendasMes:[{Mes: string,Valor: number}]      
 }
+
+export type MatrizDashType = {
+    ID: number,
+    IDCLOUDMATRIZ: number,
+    CNPJMATRIZ: string,
+}

@@ -195,7 +195,7 @@ class CreateTables {
 		);
 	}
 
-	tableUserCard(){
+	tableUserCard() {
 		connection.query(
 			`
 			CREATE TABLE IF NOT EXISTS USERCARD (
@@ -223,7 +223,7 @@ class CreateTables {
 		);
 	}
 
-	tableDocumentos(){
+	tableDocumentos() {
 		connection.query(`
 			CREATE TABLE IF NOT EXISTS DOCUMENTOS (
 				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -252,7 +252,7 @@ class CreateTables {
 		})
 	}
 
-	tableTutoriais(){
+	tableTutoriais() {
 		connection.query(`
 			CREATE TABLE IF NOT EXISTS TUTORIAIS (
 				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -275,7 +275,7 @@ class CreateTables {
 		})
 	}
 
-	tableTutoriaisCategoria(){
+	tableTutoriaisCategoria() {
 		connection.query(`
 			CREATE TABLE IF NOT EXISTS TUTORIAISCATEGORIA (
 				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -291,7 +291,7 @@ class CreateTables {
 		})
 	}
 
-	tableSetores(){
+	tableSetores() {
 		connection.query(`
 			CREATE TABLE IF NOT EXISTS SETORES (
 				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -307,7 +307,7 @@ class CreateTables {
 		})
 	}
 
-	tableInternos(){
+	tableInternos() {
 		connection.query(`
 			CREATE TABLE IF NOT EXISTS INTERNOS (
 				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -325,11 +325,11 @@ class CreateTables {
 			} else {
 				console.log('Tabela INTERNOS criada com sucesso');
 			}
-			}
+		}
 		)
 	}
-	
-	tableChamados(){
+
+	tableChamados() {
 		connection.query(`
 			CREATE TABLE IF NOT EXISTS CHAMADOS (
 				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -367,7 +367,7 @@ class CreateTables {
 		)
 	}
 
-	tableStatusChamados(){
+	tableStatusChamados() {
 		connection.query(`
 			CREATE TABLE IF NOT EXISTS STATUSCHAMADOS (
 				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -384,7 +384,7 @@ class CreateTables {
 		)
 	}
 
-	tableOcorrencias(){
+	tableOcorrencias() {
 		connection.query(`
 			CREATE TABLE IF NOT EXISTS OCORRENCIAS (
 				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -409,7 +409,46 @@ class CreateTables {
 		}
 		)
 	}
-	
+
+	tableMatrizes() {
+		connection.query(`
+			CREATE TABLE IF NOT EXISTS MATRIZES (
+				ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+				IDCLOUDMATRIZ INTEGER NOT NULL,
+				CNPJ VARCHAR(20) NOT NULL,
+				)
+		`, (err) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('Tabela MATRIZES criada com sucesso');
+			}
+		}
+		)
+	}
+
+	tableFiliais() {
+		connection.query(`
+			CREATE TABLE IF NOT EXISTS FILIAIS (
+				ID INTEGER AUTO INCREMENT NO NULL,
+				IDMATRIZ INTEGER NOT NULL,
+				IDCLOUD INTEGER NOT NULL,
+				CNPJ INTEGER NOT NULL,
+				PRIMARY KEY(ID),
+				FOREIGN KEY(IDMATRIZ) 
+					REFERENCES MATRIZES(ID)
+					ON DELETE CASCADE
+				)
+		`, (err) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('Tabela FILIAIS criada com sucesso');
+			}
+		}
+		)
+	}
+
 }
 
 export default new CreateTables();
