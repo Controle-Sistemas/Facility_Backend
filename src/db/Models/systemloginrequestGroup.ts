@@ -1,11 +1,11 @@
 import connection from '..';
-import { MatrizDashType, SysLoginType } from '../../types';
+import { MatrizType, FiliaisType, SysLoginType } from '../../types';
 
 class ModeloGrupoEmpresas {
 
 	getAllFiliais(res: any){
 		try {
-			connection.query('SELECT * FROM FILIAISDASHBOARD WHERE IDMATRIZ IN (SELECT ID FROM MATRIZESDASHBOARD)', (err: any, results: any) => {
+			connection.query('SELECT * FROM FILIAIS WHERE IDMATRIZ IN (SELECT ID FROM MATRIZES)', (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -17,6 +17,7 @@ class ModeloGrupoEmpresas {
 					});
 				}
 			});
+			
 		} catch (error) {
 			console.error(error);
 		}
@@ -25,7 +26,7 @@ class ModeloGrupoEmpresas {
 	getMatrizes(res: any) {
 		//Retorna todos as contas Matrizes
 		try {
-			connection.query('SELECT * FROM MATRIZESDASHBOARD', (err: any, results: any) => {
+			connection.query('SELECT * FROM MATRIZES', (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -45,7 +46,7 @@ class ModeloGrupoEmpresas {
 	getMatrizById(id: number, res: any) {
 		//Retorna um cliente pelo id
 		try {
-			connection.query('SELECT * FROM MATRIZESDASHBOARD WHERE id = ?', [ id ], (err: any, results: any) => {
+			connection.query('SELECT * FROM MATRIZES WHERE id = ?', [ id ], (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -71,7 +72,7 @@ class ModeloGrupoEmpresas {
 	getFiliaisByMatriz(id: number, res: any) {
 		//Retorna as filiais de um grupo pelo id da Matriz do grupo
 		try {
-			connection.query(`SELECT * FROM FILIAISDASHBOARD WHERE IDMATRIZ = ${id}`, (err: any, results: any) => {
+			connection.query(`SELECT * FROM FILIAIS WHERE IDMATRIZ = ${id}`, (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -94,23 +95,19 @@ class ModeloGrupoEmpresas {
 		} 
 	}
 
-	getFields(res: any) {
-		//Retorna todos os campos de um cliente
+
+	createFilial(filial: FiliaisType, res: any) {
+		//Cria uma filial
 		try {
-			connection.query('DESCRIBE SYSLOGINREQUEST', (err: any, results: any) => {
+			connection.query('INSERT INTO FILIAIS SET ?', [ filial ],
+			(err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
 					});
 				} else {
-					results.push({
-						Field: 'Ações',
-						Type: 'button',
-						Null: 'NO',
-						Key: ''
-					});
 					res.status(200).send({
-						message: 'Campos listados com sucesso',
+						message: `Filial vinculada a matriz ${filial.IDMATRIZ} adicionada com sucesso`,
 						data: results
 					});
 				}
@@ -120,20 +117,33 @@ class ModeloGrupoEmpresas {
 		} 
 	}
 
-	createMatriz(matrizDash: MatrizDashType, res: any) {
+	createMatriz(matrizDash: MatrizType, res: any) {
 		//Cria uma matriz
 		try {
-			connection.query('INSERT INTO MATRIZESDASHBOARD SET ?', [ matrizDash ]);
+			connection.query('INSERT INTO MATRIZES SET ?', [ matrizDash ],
+			(err: any, results: any) => {
+				if (err) {
+					res.status(500).send({
+						message: err
+					});
+				} else {
+					res.status(200).send({
+						message: 'Matriz adicionada com sucesso',
+						data: results
+					});
+				}
+			});
+			
 		} catch (error) {
 			console.error(error);
 		} 
 	}
 
-	updateMatriz(id: number, matrizDash: MatrizDashType, res: any) {
+	updateMatriz(id: number, matrizDash: MatrizType, res: any) {
 		//Atualiza uma matriz
 		try {
 			connection.query(
-				'UPDATE MATRIZESDASHBOARD SET ? WHERE id = ?',
+				'UPDATE MATRIZES SET ? WHERE id = ?',
 				[ matrizDash, id ],
 				(err: any, results: any) => {
 					if (err) {
@@ -154,9 +164,9 @@ class ModeloGrupoEmpresas {
 	}
 
 	deleteMatriz(id: number, res: any) {
-		//Deleta um cliente
+		//Deleta uma matriz
 		try {
-			connection.query('DELETE FROM MATRIZESDASHBOARD WHERE id = ?', [ id ], (err: any, results: any) => {
+			connection.query('DELETE FROM MATRIZES WHERE id = ?', [ id ], (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -164,6 +174,26 @@ class ModeloGrupoEmpresas {
 				} else {
 					res.status(200).send({
 						message: 'Matriz deletada com sucesso',
+						data: results
+					});
+				}
+			});
+		} catch (error) {
+			console.error(error);
+		} 
+	}
+
+	deleteFilial(id: number, res: any) {
+		//Deleta uma filial
+		try {
+			connection.query('DELETE FROM FILIAIS WHERE id = ?', [ id ], (err: any, results: any) => {
+				if (err) {
+					res.status(500).send({
+						message: err
+					});
+				} else {
+					res.status(200).send({
+						message: 'Filial deletada com sucesso',
 						data: results
 					});
 				}

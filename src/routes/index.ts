@@ -19,6 +19,7 @@ import rotasSetores from './Controllers/rotasSetores'
 import rotasChamados from './Controllers/rotasChamados'
 import rotasRequisicaoProdutos from './Controllers/rotasRequisicaoProdutos'
 import rotasRequisicaoDashboard from './Controllers/rotasRequisicaoDashboard'
+import rotasGrupos from './Controllers/rotasGrupos'
 
 routes.use('/tabelas', rotasUserTableCustom)
 routes.use('/empresas', rotasEmpresas)
@@ -39,6 +40,7 @@ routes.use('/status-chamado',rotasStatusChamado)
 routes.use('/ocorrencias',rotasOcorrencias)
 routes.use('/produtos',rotasRequisicaoProdutos)
 routes.use('/dashboard',rotasRequisicaoDashboard)
+routes.use('/grupos',rotasGrupos)
 
 routes.get('/', (req: Request, res: Response) => {
     res.send(`
@@ -71,6 +73,9 @@ routes.get('/', (req: Request, res: Response) => {
             <li>
                 <a href="/emails/">Emails</a>
             </li>
+            <li>
+            <a href="/grupos/">Grupos</a>
+        </li>
         </ul>
         
     `)

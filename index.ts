@@ -50,6 +50,9 @@ connection.connect((err: any) => {
 		CreateTables.tableChamados();
 		CreateTables.tableOcorrencias();
 		CreateTables.tableStatusChamados();
+		CreateTables.tableMatrizes();
+		CreateTables.tableFiliais();
+
 		//utilizar as rotas
 		app.use(routes);
 		app.listen(PORT, () => {

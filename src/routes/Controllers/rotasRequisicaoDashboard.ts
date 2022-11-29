@@ -46,26 +46,6 @@ routes.get('/real-time', (req: Request, res: Response) => {
 
 })
 
-routes.get('/filiais/:idMatriz', (req: Request, res: Response) => {
-    
-    const dashboardRequest = new DashboardRequest(req.params.MatrizId)
-    const dataPromise = dashboardRequest.getRealTime()
-    console.log('Entrou na Promisse')
-    Promise.resolve(dataPromise).then(response => {
-        if(response.error){
-            res.status(400).json({
-                message:"Erro!",
-                data:response.data,
-            })
-        } else {
-            console.log(response)
-            return res.status(200).json({ message: `Dados em tempo real recuperados com sucesso`, data:response})
-
-        }
-
-    })
-
-})
 
 
 export default routes;
