@@ -44,19 +44,20 @@ class ModeloGrupoEmpresas {
 	}
 
 	getMatrizById(id: number, res: any) {
-		//Retorna um cliente pelo id
+		//Retorna uma matriz pelo id
 		try {
-			connection.query('SELECT * FROM MATRIZES WHERE id = ?', [ id ], (err: any, results: any) => {
+			connection.query('SELECT * FROM MATRIZES WHERE id = '+id, (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
 					});
 				} else {
-					if (results.length > 0) {
+					if (results) {
 						res.status(200).send({
 							message: 'Matriz listada com sucesso',
 							data: results
 						});
+						console.log(res.data)
 					} else {
 						res.status(404).send({
 							message: 'Matriz não encontrada'
