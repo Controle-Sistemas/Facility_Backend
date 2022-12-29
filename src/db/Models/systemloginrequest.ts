@@ -2,17 +2,64 @@ import connection from '..';
 import { SysLoginType } from '../../types';
 
 class ModeloClientes {
-	getClients(res: any) {
-		//Retorna todos os clientes
+
+	getClientsWithoutGroup(res: any) {
+		//lista todas os clientes cadastradas sem grupo
 		try {
-			connection.query('SELECT * FROM SYSLOGINREQUEST', (err: any, results: any) => {
+			connection.query(
+				`SELECT ID, NOME, NOMEESTABELECIMENTO AS 'ESTABELECIMENTO', IDCLOUD, CNPJ 
+				FROM SYSLOGINREQUEST 
+				WHERE ADMIN = 0 AND SYSLOGINREQUEST.CNPJ NOT IN 
+				(SELECT CNPJ FROM FILIAIS UNION SELECT CNPJ FROM  MATRIZES)`, (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
 					});
 				} else {
 					res.status(200).send({
+						message: 'Clientes disponível para grupo listados com sucesso',
+						data: results
+					});
+				}
+			});
+
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	getClients(res: any) {
+		//Retorna todos os clientes
+		try {
+			connection.query('SELECT * FROM SYSLOGINREQUEST', (err: any, results: any) => {
+				if (err) {
+						res.status(500).send({
+						message: err
+					});
+				} else {
+					res.status(200).send({
 						message: 'Clientes listados com sucesso',
+						data: results
+					});
+					console.log(results)
+				}
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	getAdmins(res: any) {
+		//Retorna todos os clientes
+		try {
+			connection.query('SELECT * FROM SYSLOGINREQUEST WHERE ADMIN = 1', (err: any, results: any) => {
+				if (err) {
+					res.status(500).send({
+						message: err
+					});
+				} else {
+					res.status(200).send({
+						message: 'Admins listados com sucesso',
 						data: results
 					});
 				}

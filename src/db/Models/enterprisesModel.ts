@@ -2,8 +2,9 @@ import connection from '..';
 import { Request, Response } from 'express';
 
 class EnterprisesModel {
+	
 	getEnterprises(res: Response) {
-		//lista todas as empresas
+		//lista todas as contas de cnpj cadastradas
 		connection.query(`SELECT * FROM EMPRESAS`, (err: any, results: any) => {
 			if (err) {
 				res.status(500).send({

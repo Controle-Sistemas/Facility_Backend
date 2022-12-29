@@ -9,6 +9,14 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import auth from '../../config/auth';
 
+routes.get('/', (req: Request, res: Response) => {
+	ClientesModel.getClients(res);
+});
+
+routes.get('/sem-grupo', (req: Request, res: Response) => {
+	ClientesModel.getClientsWithoutGroup(res);
+});
+
 routes.get('/admin', (req: Request, res: Response) => {
 	ClientesModel.getClients(res);
 });

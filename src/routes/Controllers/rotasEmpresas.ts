@@ -9,6 +9,8 @@ routes.get('/', async (req: Request, res: Response) => {
     EnterprisesModel.getEnterprises(res); //Pega todas as empresas da base de dados
 })
 
+
+
 routes.get('/:idCloud', async (req: Request, res: Response) => { 
     const id = Number(req.params.idCloud); //Pega o id da empresa
     EnterprisesModel.getEnterprise(id, res); //Pega a empresa pelo id

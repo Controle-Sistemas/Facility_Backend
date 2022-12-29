@@ -3,7 +3,8 @@ import { MatrizType, FiliaisType, SysLoginType } from '../../types';
 
 class ModeloGrupoEmpresas {
 
-	getAllFiliais(res: any){
+	
+	getAllFiliais(res: any) {
 		try {
 			connection.query('SELECT * FROM FILIAIS WHERE IDMATRIZ IN (SELECT ID FROM MATRIZES)', (err: any, results: any) => {
 				if (err) {
@@ -17,7 +18,7 @@ class ModeloGrupoEmpresas {
 					});
 				}
 			});
-			
+
 		} catch (error) {
 			console.error(error);
 		}
@@ -43,10 +44,39 @@ class ModeloGrupoEmpresas {
 		}
 	}
 
+	getAllGroups(res: any) {
+		try {
+			connection.query(
+				`SELECT SYSLOGINREQUEST.ID, NOME, NOMEESTABELECIMENTO AS 'ESTABELECIMENTO', SYSLOGINREQUEST.CNPJ AS 'CNPJ', 'MATRIZ' AS 'TIPO', MATRIZES.ID AS 'GRUPO'
+			FROM MATRIZES
+			INNER JOIN SYSLOGINREQUEST
+			ON SYSLOGINREQUEST.IDCLOUD = MATRIZES.IDCLOUDMATRIZ
+			UNION
+			SELECT SYSLOGINREQUEST.ID, NOME, NOMEESTABELECIMENTO AS 'ESTABELECIMENTO', SYSLOGINREQUEST.CNPJ AS 'CNPJ', 'FILIAL' AS 'TIPO', FILIAIS.IDMATRIZ AS 'GRUPO'
+			FROM FILIAIS
+			INNER JOIN SYSLOGINREQUEST
+			ON SYSLOGINREQUEST.CNPJ = FILIAIS.CNPJ`, (err: any, results: any) => {
+				if (err) {
+					res.status(500).send({
+						message: err
+					});
+				} else {
+					res.status(200).send({
+						message: 'Grupos atuais listados com sucesso',
+						data: results
+					});
+				}
+			});
+
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
 	getMatrizById(id: number, res: any) {
 		//Retorna uma matriz pelo id
 		try {
-			connection.query('SELECT * FROM MATRIZES WHERE id = '+id, (err: any, results: any) => {
+			connection.query('SELECT * FROM MATRIZES WHERE id = ' + id, (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -67,7 +97,7 @@ class ModeloGrupoEmpresas {
 			});
 		} catch (error) {
 			console.error(error);
-		} 
+		}
 	}
 
 	getFiliaisByMatriz(id: number, res: any) {
@@ -93,51 +123,89 @@ class ModeloGrupoEmpresas {
 			});
 		} catch (error) {
 			console.error(error);
-		} 
+		}
+	}
+
+	getFullGroupByMatrizCnpj(CNPJ: string, res: any) {
+		//Retorna os integrantes de um grupo pelo cnpj da Matriz do grupo
+		try {
+			connection.query(
+				`	
+				SELECT NOME, NOMEESTABELECIMENTO, SYSLOGINREQUEST.IDCLOUD, 'FILIAL' AS 'TIPO', FILIAIS.IDMATRIZ AS 'GRUPO'
+				FROM SYSLOGINREQUEST 
+				JOIN FILIAIS ON FILIAIS.IDCLOUD = SYSLOGINREQUEST.IDCLOUD
+				WHERE FILIAIS.IDCLOUD IN
+				(SELECT IDCLOUD FROM FILIAIS WHERE IDMATRIZ IN (SELECT ID FROM MATRIZES WHERE ${CNPJ}= MATRIZES.CNPJ))
+				UNION
+				SELECT NOME, NOMEESTABELECIMENTO, SYSLOGINREQUEST.IDCLOUD, 'MATRIZ' AS 'TIPO', MATRIZES.ID AS 'GRUPO'
+				FROM MATRIZES
+				INNER JOIN SYSLOGINREQUEST
+				ON SYSLOGINREQUEST.CNPJ = MATRIZES.CNPJ AND SYSLOGINREQUEST.CNPJ = ${CNPJ}
+				`, (err: any, results: any) => {
+				if (err) {
+					res.status(500).send({
+						message: err
+					});
+				} else {
+					if (results.length > 0) {
+						res.status(200).send({
+							message: `Grupo da matriz de CNPJ ${CNPJ} listadas com sucesso`,
+							data: results
+						});
+					} else {
+						res.status(404).send({
+							message: 'Grupo não encontrado!'
+						});
+					}
+				}
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	}
 
 
 	createFilial(filial: FiliaisType, res: any) {
 		//Cria uma filial
 		try {
-			connection.query('INSERT INTO FILIAIS SET ?', [ filial ],
-			(err: any, results: any) => {
-				if (err) {
-					res.status(500).send({
-						message: err
-					});
-				} else {
-					res.status(200).send({
-						message: `Filial vinculada a matriz ${filial.IDMATRIZ} adicionada com sucesso`,
-						data: results
-					});
-				}
-			});
+			connection.query('INSERT INTO FILIAIS SET ?', [filial],
+				(err: any, results: any) => {
+					if (err) {
+						res.status(500).send({
+							message: err
+						});
+					} else {
+						res.status(200).send({
+							message: `Filial vinculada a matriz ${filial.IDMATRIZ} adicionada com sucesso`,
+							data: results
+						});
+					}
+				});
 		} catch (error) {
 			console.error(error);
-		} 
+		}
 	}
 
 	createMatriz(matrizDash: MatrizType, res: any) {
 		//Cria uma matriz
 		try {
-			connection.query('INSERT INTO MATRIZES SET ?', [ matrizDash ],
-			(err: any, results: any) => {
-				if (err) {
-					res.status(500).send({
-						message: err
-					});
-				} else {
-					res.status(200).send({
-						message: 'Matriz adicionada com sucesso',
-						data: results
-					});
-				}
-			});
-			
+			connection.query('INSERT INTO MATRIZES SET ?', [matrizDash],
+				(err: any, results: any) => {
+					if (err) {
+						res.status(500).send({
+							message: err
+						});
+					} else {
+						res.status(200).send({
+							message: 'Matriz adicionada com sucesso',
+							data: results
+						});
+					}
+				});
+
 		} catch (error) {
 			console.error(error);
-		} 
+		}
 	}
 
 	updateMatriz(id: number, matrizDash: MatrizType, res: any) {
@@ -145,7 +213,7 @@ class ModeloGrupoEmpresas {
 		try {
 			connection.query(
 				'UPDATE MATRIZES SET ? WHERE id = ?',
-				[ matrizDash, id ],
+				[matrizDash, id],
 				(err: any, results: any) => {
 					if (err) {
 						res.status(500).send({
@@ -161,13 +229,13 @@ class ModeloGrupoEmpresas {
 			);
 		} catch (error) {
 			console.error(error);
-		} 
+		}
 	}
 
 	deleteMatriz(id: number, res: any) {
 		//Deleta uma matriz
 		try {
-			connection.query('DELETE FROM MATRIZES WHERE id = ?', [ id ], (err: any, results: any) => {
+			connection.query('DELETE FROM MATRIZES WHERE id = ?', [id], (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -181,13 +249,13 @@ class ModeloGrupoEmpresas {
 			});
 		} catch (error) {
 			console.error(error);
-		} 
+		}
 	}
 
 	deleteFilial(id: number, res: any) {
 		//Deleta uma filial
 		try {
-			connection.query('DELETE FROM FILIAIS WHERE id = ?', [ id ], (err: any, results: any) => {
+			connection.query('DELETE FROM FILIAIS WHERE id = ?', [id], (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -201,7 +269,7 @@ class ModeloGrupoEmpresas {
 			});
 		} catch (error) {
 			console.error(error);
-		} 
+		}
 	}
 
 
