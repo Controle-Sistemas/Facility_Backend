@@ -39,7 +39,7 @@ routes.delete('/filiais/:id', (req: Request, res: Response) => {
     systemloginrequestGroup.deleteFilial(parseInt(req.params.id), res)
 })
 
-routes.get('/completo/:CNPJ', (req: Request, res: Response) =>{
+routes.get('/completo/:cnpj', (req: Request, res: Response) =>{
     systemloginrequestGroup.getFullGroupByMatrizCnpj(req.params.cnpj, res)
 })
 

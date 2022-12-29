@@ -98,4 +98,7 @@
     "skipLibCheck": true,                        /* Skip type checking all .d.ts files. */
   },
   "exclude": ["./Tabelas Banco"],
+  "compilerOptions": {
+    "esModuleInterop": true,
+  }
 }

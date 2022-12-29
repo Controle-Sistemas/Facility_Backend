@@ -128,6 +128,7 @@ class ModeloGrupoEmpresas {
 
 	getFullGroupByMatrizCnpj(CNPJ: string, res: any) {
 		//Retorna os integrantes de um grupo pelo cnpj da Matriz do grupo
+		console.log("Buscando grupo do cnpj:" + CNPJ)
 		try {
 			connection.query(
 				`	
