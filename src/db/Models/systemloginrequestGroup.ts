@@ -168,10 +168,12 @@ class ModeloGrupoEmpresas {
 
 	createFilial(filial: FiliaisType, res: any) {
 		//Cria uma filial
+		console.log(filial)
 		try {
 			connection.query('INSERT INTO FILIAIS SET ?', [filial],
 				(err: any, results: any) => {
 					if (err) {
+						console.log(err)
 						res.status(500).send({
 							message: err
 						});
@@ -253,10 +255,10 @@ class ModeloGrupoEmpresas {
 		}
 	}
 
-	deleteFilial(id: number, res: any) {
+	deleteFilial(cnpj: string, res: any) {
 		//Deleta uma filial
 		try {
-			connection.query('DELETE FROM FILIAIS WHERE id = ?', [id], (err: any, results: any) => {
+			connection.query('DELETE FROM FILIAIS WHERE CNPJ = ?', [cnpj], (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err

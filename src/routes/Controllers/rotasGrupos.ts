@@ -35,8 +35,8 @@ routes.get('/filiais', (req: Request, res: Response) => {
     systemloginrequestGroup.getAllFiliais(res)
 })
 
-routes.delete('/filiais/:id', (req: Request, res: Response) => {
-    systemloginrequestGroup.deleteFilial(parseInt(req.params.id), res)
+routes.delete('/filiais/:cnpj', (req: Request, res: Response) => {
+    systemloginrequestGroup.deleteFilial(req.params.cnpj, res)
 })
 
 routes.get('/completo/:cnpj', (req: Request, res: Response) =>{
