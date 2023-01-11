@@ -447,6 +447,80 @@ class CreateTables {
 		)
 	}
 
+	tableChamadosType() {
+		connection.query(`
+		CREATE TABLE CHAMADOTYPE(
+			ID INT NOT NULL AUTO_INCREMENT,
+			TITLE INT NOT NULL,
+			PRIMARY KEY(ID)
+		);
+		`, (err) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('Tabela CHAMADOSTYPE criada com sucesso');
+			}
+		}
+		)
+	}
+
+	tableChamadosTypeSection() {
+		connection.query(`
+		CREATE TABLE CHAMADOTYPESECTION(
+			ID INT NOT NULL AUTO_INCREMENT,
+			TITLE VARCHAR(20) NOT NULL,
+			IDTYPE INT NOT NULL,
+			PRIMARY KEY (ID)
+		);
+		`, (err) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('Tabela CHAMADOSTYPESECTION criada com sucesso');
+			}
+		}
+		)
+	}
+
+	tableChamadosTypeSectionItem() {
+		connection.query(`
+		CREATE TABLE CHAMADOTYPESECTIONITEM(
+			ID INT NOT NULL AUTO_INCREMENT,
+			IDSECTION INT NOT NULL,
+			DESCRIPTION VARCHAR(100) NOT NULL,
+			REQUIRED INT NOT NULL,
+			PRIMARY KEY(ID)
+		);
+		`, (err) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('Tabela CHAMADOSTYPESECTIONITEM criada com sucesso');
+			}
+		}
+		)
+	}
+
+	tableChamadosSectionItem() {
+		connection.query(`
+		CREATE TABLE CHAMADOSECTIONITEM(
+			ID INT NOT NULL AUTO_INCREMENT,
+			IDSECTIONITEMTYPE INT NOT NULL,
+			IDCHAMADO INT NOT NULL,
+			REQUIRED BOOLEAN NOT NULL DEFAULT 0,
+			DONE BOOLEAN NOT NULL DEFAULT 0,
+			PRIMARY KEY (ID)
+		);
+		`, (err) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('Tabela CHAMADOSSECTIONITEM criada com sucesso');
+			}
+		}
+		)
+	}
+
 }
 
 export default new CreateTables();

@@ -21,7 +21,8 @@ class SendEmailService {
             port: 465,
             secure: true,
             auth: { //Dados de autenticação do servidor de envio de email
-                user: "envionotafiscal@controleautomacao.com.br",
+                user: "envionotafiscal@controleautomacao.com.br", 
+                // user: newpartner@controleautomacao.com.br
                 pass: "envionf123"
             }
         });
@@ -45,7 +46,7 @@ class SendEmailService {
         <table style="width:100%" cellpadding="0" cellspacing="0">
             <tr bgcolor="#003775">
                 <th>
-                    <img src="" alt="logo" style="width:90%;height:80%;">
+                    <img src="https://www.controleautomacao.com.br/images/logo_branca.png" alt="logo" style="width:90%;height:80%;">
                 </th>
                 <th>
                     <h2 style="color:#fff">Cadastro Efetuado</h2>
