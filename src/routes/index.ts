@@ -13,6 +13,7 @@ import rotasTutoriais from './Controllers/rotasTutoriais'
 import rotasTutoriaisCategorias from './Controllers/rotasCategoriasTutorial'
 import rotasEmails from './Controllers/rotasEmails'
 import rotasStatusChamado from './Controllers/rotasStatusChamado'
+import rotasTiposChamado from './Controllers/rotasTiposChamado'
 import rotasOcorrencias from './Controllers/rotasOcorrencias'
 import rotasUsuarioInterno from './Controllers/rotasUsuarioInterno'
 import rotasSetores from './Controllers/rotasSetores'
@@ -37,6 +38,7 @@ routes.use('/setores',rotasSetores)
 routes.use('/internos',rotasUsuarioInterno)
 routes.use('/chamados',rotasChamados)
 routes.use('/status-chamado',rotasStatusChamado)
+routes.use('/tipos-chamado',rotasTiposChamado)
 routes.use('/ocorrencias',rotasOcorrencias)
 routes.use('/produtos',rotasRequisicaoProdutos)
 routes.use('/dashboard',rotasRequisicaoDashboard)

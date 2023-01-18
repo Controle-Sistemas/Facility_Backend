@@ -449,16 +449,16 @@ class CreateTables {
 
 	tableChamadosType() {
 		connection.query(`
-		CREATE TABLE CHAMADOTYPE(
-			ID INT NOT NULL AUTO_INCREMENT,
-			TITLE INT NOT NULL,
+		CREATE TABLE IF NOT EXISTS CHAMADOTYPE(
+			ID VARCHAR(36) NOT NULL,
+			TITLE VARCHAR(25) NOT NULL,
 			PRIMARY KEY(ID)
 		);
 		`, (err) => {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log('Tabela CHAMADOSTYPE criada com sucesso');
+				console.log('Tabela CHAMADOTYPE criada com sucesso');
 			}
 		}
 		)
@@ -466,17 +466,18 @@ class CreateTables {
 
 	tableChamadosTypeSection() {
 		connection.query(`
-		CREATE TABLE CHAMADOTYPESECTION(
-			ID INT NOT NULL AUTO_INCREMENT,
-			TITLE VARCHAR(20) NOT NULL,
-			IDTYPE INT NOT NULL,
-			PRIMARY KEY (ID)
+		CREATE TABLE IF NOT EXISTS CHAMADOTYPESECTION(
+			ID VARCHAR(36) NOT NULL,
+			TITLE VARCHAR(25) NOT NULL,
+			IDTYPE VARCHAR(36) NOT NULL,
+			PRIMARY KEY (ID),
+			FOREIGN KEY(IDTYPE) REFERENCES CHAMADOTYPE(ID) ON DELETE CASCADE
 		);
 		`, (err) => {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log('Tabela CHAMADOSTYPESECTION criada com sucesso');
+				console.log('Tabela CHAMADOTYPESECTION criada com sucesso');
 			}
 		}
 		)
@@ -484,18 +485,19 @@ class CreateTables {
 
 	tableChamadosTypeSectionItem() {
 		connection.query(`
-		CREATE TABLE CHAMADOTYPESECTIONITEM(
-			ID INT NOT NULL AUTO_INCREMENT,
-			IDSECTION INT NOT NULL,
+		CREATE TABLE IF NOT EXISTS CHAMADOTYPESECTIONITEM(
+			ID VARCHAR(36) NOT NULL,
+			IDSECTION VARCHAR(36) NOT NULL,
 			DESCRIPTION VARCHAR(100) NOT NULL,
-			REQUIRED INT NOT NULL,
-			PRIMARY KEY(ID)
+			REQUIRED BOOLEAN NOT NULL,
+			PRIMARY KEY(ID),
+			FOREIGN KEY(IDSECTION) REFERENCES CHAMADOTYPESECTION(ID) ON DELETE CASCADE
 		);
 		`, (err) => {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log('Tabela CHAMADOSTYPESECTIONITEM criada com sucesso');
+				console.log('Tabela CHAMADOTYPESECTIONITEM criada com sucesso');
 			}
 		}
 		)
@@ -503,11 +505,11 @@ class CreateTables {
 
 	tableChamadosSectionItem() {
 		connection.query(`
-		CREATE TABLE CHAMADOSECTIONITEM(
+		CREATE TABLE IF NOT EXISTS CHAMADOSECTIONITEM(
 			ID INT NOT NULL AUTO_INCREMENT,
-			IDSECTIONITEMTYPE INT NOT NULL,
+			IDSECTIONITEMTYPE VARCHAR(36) NOT NULL,
 			IDCHAMADO INT NOT NULL,
-			REQUIRED BOOLEAN NOT NULL DEFAULT 0,
+			REQUIRED BOOLEAN NOT NULL,
 			DONE BOOLEAN NOT NULL DEFAULT 0,
 			PRIMARY KEY (ID)
 		);
@@ -515,7 +517,7 @@ class CreateTables {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log('Tabela CHAMADOSSECTIONITEM criada com sucesso');
+				console.log('Tabela CHAMADOSECTIONITEM criada com sucesso');
 			}
 		}
 		)

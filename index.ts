@@ -48,6 +48,10 @@ connection.connect((err: any) => {
 		CreateTables.tableSetores();
 		CreateTables.tableInternos();
 		CreateTables.tableChamados();
+		CreateTables.tableChamadosType();
+		CreateTables.tableChamadosTypeSection();
+		CreateTables.tableChamadosTypeSectionItem();
+		CreateTables.tableChamadosSectionItem();
 		CreateTables.tableOcorrencias();
 		CreateTables.tableStatusChamados();
 		CreateTables.tableMatrizes();
