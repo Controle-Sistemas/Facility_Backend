@@ -57,8 +57,7 @@ class TiposModel {
     }
 
     getAllItems(res: Response) {
-
-        conn.query(`SELECT * FROM CHAMADOSECTIONITEM`
+         conn.query(`SELECT * FROM CHAMADOSECTIONITEM`
             , (err, results: any) => {
                 if (err) {
                     res.status(500).send(err)
