@@ -1,6 +1,20 @@
 import connection from '..';
 import { Request, Response } from 'express';
 import { ChamadosType } from '../../types';
+import tipoChamadosModel from '../../db/Models/tiposChamado';
+interface CHAMADOTYPE {
+	ID: string,
+	TITLE: string,
+	SECTIONS: Array<{
+		ID: string,
+		TITLE: string,
+		ITENS: Array<{
+			ID: string,
+			DESCRIPTION: string,
+			REQUIRED: boolean
+		}>
+	}>
+}
 
 class Chamados {
 	getDate() {
@@ -220,23 +234,31 @@ class Chamados {
 		}
 	}
 
-	createChamado(chamadoData: any, res: Response) {
-		try {
+	async createChamado(chamadoData: any, res: Response) {
+		 try {
 			connection.query(`INSERT INTO CHAMADOS SET ?`, chamadoData, (err, results: any) => {
 				if (err) {
 					console.log(err);
 					res.status(400).send(err);
 				} else {
-					res.status(200).send({
-						message: 'Chamado criado com sucesso',
-						data: results
-					});
+					connection.query(`INSERT INTO CHAMADOSECTIONITEM SET ?`, chamadoData, (err, results: any) => {
+						if (err) {
+							console.log(err);
+							res.status(400).send(err);
+						} else {
+							res.status(200).send({
+								message: 'Chamado criado com sucesso',
+								data: results
+							})
+						}
+					})
 				}
 			});
 		} catch (error) {
 			console.log(error);
 			res.status(400).send(error);
 		}
+		 
 	}
 
 	updateChamado(id: number, chamadoData: any, res: Response) {
