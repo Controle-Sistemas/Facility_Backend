@@ -145,7 +145,7 @@ router.patch('/:id', (req: Request, res: Response) => {
 router.delete('/:id', (req: Request, res: Response) => {
 	const id = Number(req.params.id);
 	const deleteImageService = new DeleteImageService()
-    conn.query(`SELECT * FROM chamados WHERE ID = ${id}`,async (err, results: any) => {
+    conn.query(`SELECT * FROM CHAMADOS WHERE ID = ${id}`,async (err, results: any) => {
         if(err){
             console.log(err)
         } else {

@@ -263,7 +263,7 @@ class TiposModel {
     }
 
     updateItem(id: number, item: any, res: Response) {
-
+        
         conn.query('UPDATE CHAMADOSECTIONITEM SET DONE = ? WHERE ID = ?', [item.DONE, id], (err, results: any) => {
             if (err) {
                 res.status(500).send(err)

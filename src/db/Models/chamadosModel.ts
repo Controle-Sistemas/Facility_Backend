@@ -235,8 +235,10 @@ class Chamados {
 	}
 
 	async createChamado(chamadoData: any, res: Response) {
+		var chamadoDataAux = chamadoData;
+		chamadoDataAux.DATAVENCIMENTO = chamadoData.PREVISAO;
 		try {
-			connection.query(`INSERT INTO CHAMADOS SET ?`, chamadoData, (err, results: any) => {
+			connection.query(`INSERT INTO CHAMADOS SET ?`, chamadoDataAux, (err, results: any) => {
 				if (err) {
 					console.log(err);
 					res.status(400).send(err);
