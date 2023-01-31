@@ -57,7 +57,7 @@ class TiposModel {
     }
 
     getAllItems(res: Response) {
-         conn.query(`SELECT * FROM CHAMADOSECTIONITEM`
+        conn.query(`SELECT * FROM CHAMADOSECTIONITEM`
             , (err, results: any) => {
                 if (err) {
                     res.status(500).send(err)
@@ -131,7 +131,7 @@ class TiposModel {
                         if (results.length > 0) {
                             res.status(200).send({ message: `Tipo de do chamado de id - ${id} - listado com sucesso`, data: results })
                         } else {
-                            res.status(404).send({
+                            res.status(200).send({
                                 message: 'Checklist não encontrada'
                             })
                         }
@@ -192,10 +192,8 @@ class TiposModel {
                             } else {
                                 res.status(statusCode).send({ message: `Erro`, data: error })
                             }
-                        } else {
-                            res.status(404).send({
-                                message: 'Checklist não encontrada'
-                            })
+                        }else{
+                            res.status(200).send({ message: `Tipo sem itens para incluir!`})
                         }
                     }
                 })
@@ -212,21 +210,23 @@ class TiposModel {
                 if (err) {
                     statusCode = 500;
                 } else {
-                    _.map(tipo.SECTIONS, (section) => (
-                        conn.query(`INSERT INTO CHAMADOTYPESECTION (ID , TITLE, IDTYPE) VALUES ('${section.ID}', '${section.TITLE}', '${tipo.ID}')`, (err, results) => {
-                            if (err) {
-                                statusCode = 500;
-                            } else {
-                                _.map(section.ITENS, (item) => (
-                                    conn.query(`INSERT INTO CHAMADOTYPESECTIONITEM (ID , IDSECTION, DESCRIPTION, REQUIRED) VALUES ('${item.ID}', '${section.ID}', '${item.DESCRIPTION}', ${item.REQUIRED})`, (err, results) => {
-                                        if (err) {
-                                            statusCode = 500;
-                                        }
-                                    })
-                                ))
-                            }
-                        })
-                    ))
+                    if (tipo.SECTIONS) {
+                        _.map(tipo.SECTIONS, (section) => (
+                            conn.query(`INSERT INTO CHAMADOTYPESECTION (ID , TITLE, IDTYPE) VALUES ('${section.ID}', '${section.TITLE}', '${tipo.ID}')`, (err, results) => {
+                                if (err) {
+                                    statusCode = 500;
+                                } else {
+                                    _.map(section.ITENS, (item) => (
+                                        conn.query(`INSERT INTO CHAMADOTYPESECTIONITEM (ID , IDSECTION, DESCRIPTION, REQUIRED) VALUES ('${item.ID}', '${section.ID}', '${item.DESCRIPTION}', ${item.REQUIRED})`, (err, results) => {
+                                            if (err) {
+                                                statusCode = 500;
+                                            }
+                                        })
+                                    ))
+                                }
+                            })
+                        ))
+                    }
                 }
                 if (statusCode != 200) {
                     res.status(statusCode).send({
@@ -263,7 +263,7 @@ class TiposModel {
     }
 
     updateItem(id: number, item: any, res: Response) {
-        
+
         conn.query('UPDATE CHAMADOSECTIONITEM SET DONE = ? WHERE ID = ?', [item.DONE, id], (err, results: any) => {
             if (err) {
                 res.status(500).send(err)

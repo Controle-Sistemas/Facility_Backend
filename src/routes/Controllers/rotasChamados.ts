@@ -142,6 +142,12 @@ router.patch('/:id', (req: Request, res: Response) => {
 	chamadosModel.updateChamado(id, chamadoData, res);
 });
 
+router.patch('/tipo/:id', (req: Request, res: Response) => {
+	const id = Number(req.params.id);
+	const chamadoData = req.body;
+	chamadosModel.updateChamadoType(id, chamadoData, res);
+});
+
 router.delete('/:id', (req: Request, res: Response) => {
 	const id = Number(req.params.id);
 	const deleteImageService = new DeleteImageService()
