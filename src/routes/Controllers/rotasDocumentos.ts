@@ -47,7 +47,7 @@ router.post('/',
         }
         console.log(document)
         if(document.ENVIAREMAIL === "1"){
-            conn.query(`SELECT * FROM sysloginrequest WHERE CNPJ = '${document.CNPJ}'`, (err, result:any) => {
+            conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = '${document.CNPJ}'`, (err, result:any) => {
                 if(err){
                     console.log(err)
                 }else{
@@ -88,7 +88,7 @@ router.patch('/:id', (req: Request, res: Response) => {
 router.delete('/:id', async(req: Request, res: Response) => {
     const id = Number(req.params.id);
     const deleteImageService = new DeleteImageService()
-    conn.query(`SELECT * FROM documentos WHERE ID = ${id}`,async (err, results: any) => {
+    conn.query(`SELECT * FROM DOCUMENTOS WHERE ID = ${id}`,async (err, results: any) => {
         if(err){
             console.log(err)
         } else {
