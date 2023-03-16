@@ -34,11 +34,17 @@ class S3Storage{
         await fs.promises.unlink(originalPath)
     }
 
-    async deleteFile(filename:string,route:string): Promise<void> {
+    async deleteFile(filename:string,folder:string): Promise<void> {
+        const objectBucket = `controlesistemasupload/${folder}`;
+        const finalFileName = filename.includes('+') ?  filename.replace(/[+]/g,' ') : filename
+        const objectkey = `${finalFileName}`
+        console.log('Bucket:',objectBucket)
+        console.log('Key:', objectkey.replace(',',''))
         await this.client.deleteObject({
-            Bucket:`controlesistemasupload/${route}`,
-            Key: filename.includes('+') ?  filename.replace(/[+]/g,' ') : filename
+            Bucket:objectBucket,
+            Key: objectkey.replace(',','')
         }).promise()
+       
     }
 
 }

@@ -22,11 +22,7 @@ connection.connect((err: any) => {
 	} else {
 		console.log('Conectado com sucesso');
 		
-		app.use(cors({
-			origin: 'http://localhost:3000' || 'http://facility.controleautomacao.com.br',
-			optionsSuccessStatus: 200,
-			
-		}));
+		app.use(cors());
 		app.use(bodyParser.json()); //Para o express entender o formato json
 
 		app.use(bodyParser.urlencoded({ extended: true }));

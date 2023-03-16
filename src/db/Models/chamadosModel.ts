@@ -35,7 +35,7 @@ class Chamados {
 		data.forEach((item: ChamadosType) => {
 			const [ano, mes, dia] = item.PREVISAO.split('-');
 			const dataPrevista = new Date(parseInt(ano), parseInt(mes) - 1, parseInt(dia));
-			console.log('Previsão: ' + dataPrevista, 'Data atual: ' + date + ' Atrasado?: ' + (dataPrevista <= new Date() ? 'Sim' : 'Não') )
+			//console.log('Previsão: ' + dataPrevista, 'Data atual: ' + date + ' Atrasado?: ' + (dataPrevista <= new Date() ? 'Sim' : 'Não') )
 			if (
 				item.ATIVO === 1 &&
 				dataPrevista <= new Date()

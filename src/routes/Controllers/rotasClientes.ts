@@ -73,7 +73,7 @@ routes.post(
 							.catch((err) => {
 								console.log(err);
 							});
-						let HASHTOKEN = bcrypt.hash((client.CNPJ+client.IDCLOUD), 8); //Gera um hash para o token
+						let HASHTOKEN = bcrypt.hash((client.CNPJ + client.IDCLOUD), 8); //Gera um hash para o token
 						await HASHTOKEN
 							.then((result) => {
 								client.HASHTOKEN = result; //Adiciona o hash ao usuário
@@ -81,13 +81,13 @@ routes.post(
 							.catch((err) => {
 								console.log(err);
 							})
-							
+
 						if (res.statusCode !== 200) {
 							res.status(400).json({ message: `Erro ao criar o cliente` });
 						} else {
 							try {
 								ClientesModel.createClient(client, res); //Cria o usuário
-								const SendEmailService = new sendEmailService(1,client)
+								const SendEmailService = new sendEmailService(1, client)
 								SendEmailService.sendPasswordEmail(password); //Envia o email com a senha
 								conn.query(
 									`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ =${cnpj}`,
@@ -99,7 +99,7 @@ routes.post(
 											} else {
 												if (results.length > 0) {
 													const tableData = {
-														idTable: [ 1, 2 ],
+														idTable: [1, 2],
 														idUser: results[0].ID
 													};
 													const fieldNamesTable2 = `IDCLOUD,ID,IDCIDADE,IDREPRESENTANTE,NOMEFANTASIA,NOMECONTATO,RAZAOSOCIAL,CNPJ,CNAE,INSCRICAOESTADUAL,EMAIL,RAMOATIVIDADE,REPRESENTANTE,NOVO,STATUS,ATIVO,CEP,BAIRRO,CIDADE,COMPLEMENTO,NUMERO,ENDERECO,UF,DATAVIGENCIA,CADASTRADAPOR,OBSERVACOES,FONECOBRANCA,FONEADICIONAL,DATAINICIO,DIASLICENCAPROVISORIA,VALORMENSALIDADE,VALORIMPLANTACAO,AÇÕES`.split(
@@ -117,7 +117,7 @@ routes.post(
 																	idTable: tableData.idTable[i],
 																	fieldName: field,
 																	fieldCaption: field,
-																	visible:1
+																	visible: 1
 																};
 																UserTableCustomModel.createTable(newData, res); //Cria a tabela na base de dados
 															});
@@ -173,17 +173,17 @@ routes.post('/login', (req: Request, res: Response) => {
 					await bcrypt.compare(PASSWORD, passwordEncrypted).then((result) => {
 						//Compara a senha criptografada com a senha digitada
 						if (result) {
-								let token = jwt.sign(
-									{
-										//Cria o token
-										id: results[0].id,
-										cnpj: results[0].cnpj,
-									},
-									auth.secret,
-									{
-										expiresIn: auth.expireIn
-									}
-								);
+							let token = jwt.sign(
+								{
+									//Cria o token
+									id: results[0].id,
+									cnpj: results[0].cnpj,
+								},
+								auth.secret,
+								{
+									expiresIn: auth.expireIn
+								}
+							);
 
 							/*
 								Status
@@ -197,7 +197,7 @@ routes.post('/login', (req: Request, res: Response) => {
 							*/
 
 							if (result && results[0].STATUS === 1 && results[0].ADMIN === 0) {
-								res.status(200).json({ message: `Cliente logado com sucesso`, token, isAdmin: false}); //Retorna o token e se o usuário é admin
+								res.status(200).json({ message: `Cliente logado com sucesso`, token, isAdmin: false }); //Retorna o token e se o usuário é admin
 							} else if (result && results[0].STATUS === 1 && results[0].ADMIN === 1) {
 								res.status(200).json({
 									message: `Cliente logado com sucesso`,
@@ -241,7 +241,7 @@ routes.patch('/change-password/:cnpj', (req: Request, res: Response) => { //Rota
 	const oldPassword = req.body.oldPassword;  //Pega a senha antiga
 	const newPassword = req.body.newPassword; //Pega a nova senha
 
-	conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = ${CNPJ}`, async (err: any, results: any) => { 
+	conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = ${CNPJ}`, async (err: any, results: any) => {
 		try {
 			if (err) {
 				console.log(err);
@@ -250,7 +250,7 @@ routes.patch('/change-password/:cnpj', (req: Request, res: Response) => { //Rota
 					const oldPasswordEncrypted = results[0].PASSWORD; //Pega a senha criptografada
 					await bcrypt.compare(oldPassword, oldPasswordEncrypted).then((result) => { //Compara a senha antiga com a senha criptografada
 						if (result) { //Se for igual, criptografa a nova senha e atualiza o usuário
-							const passwordEncrypted = bcrypt.hash(newPassword, 5); 
+							const passwordEncrypted = bcrypt.hash(newPassword, 5);
 							passwordEncrypted
 								.then((result) => {
 									if (result) {
@@ -259,7 +259,7 @@ routes.patch('/change-password/:cnpj', (req: Request, res: Response) => { //Rota
 										};
 										conn.query(
 											`UPDATE SYSLOGINREQUEST SET ? WHERE CNPJ = ${CNPJ}`,
-											[ data ],
+											[data],
 											(err: any, results: any) => {
 												if (err) {
 													console.log(err);
@@ -306,11 +306,11 @@ routes.patch('/forgot-password/:cnpj', (req: Request, res: Response) => {  //Rot
 							const data = {
 								PASSWORD: result
 							};
-							conn.query(`UPDATE SYSLOGINREQUEST SET ? WHERE CNPJ = ${cnpj}`, [ data ], (err: any) => {
+							conn.query(`UPDATE SYSLOGINREQUEST SET ? WHERE CNPJ = ${cnpj}`, [data], (err: any) => {
 								if (err) {
 									console.log(err);
 								} else {
-									const SendEmailService = new sendEmailService(1,results[0])
+									const SendEmailService = new sendEmailService(1, results[0])
 									SendEmailService.sendPasswordEmail(password); //Envia o email com a senha
 									res
 										.status(200)
@@ -333,14 +333,33 @@ routes.patch('/forgot-password/:cnpj', (req: Request, res: Response) => {  //Rot
 	});
 });
 
-routes.delete('/:id', (req: Request, res: Response) => { 
+routes.patch('/update-idcloud/:cnpj', (req: Request, res: Response) => {
+	const newIdCloud = req.body.IDCLOUD;
+	const cnpj = req.params.cnpj;
+	conn.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = ${cnpj}`, async (err: any, results: any) => {
+		if (err) {
+			console.log(err);
+		} else {
+			if (results.length > 0) {
+				const data = results[0];
+				data.IDCLOUD = newIdCloud;
+				ClientesModel.updateClient(data.ID, data, res);				
+			} else {
+				res.status(400).json({ message: `Cliente de cnpj ${cnpj} não encontrado!` }).send();
+			}
+		} 
+	});
+	
+});
+
+routes.delete('/:id', (req: Request, res: Response) => {
 	const id = Number(req.params.id);
 	conn.query(`SELECT * FROM SYSSELECTTABLECOLUMN WHERE idUser = ${id}`, (err: any, results: any) => {
 		try {
 			if (err) {
 				console.log(err);
 			} else {
-				if (results.length > 0) { 
+				if (results.length > 0) {
 					conn.query(`DELETE FROM SYSSELECTTABLECOLUMN WHERE idUser = ${id}`, (err: any, result: any) => { //Deleta as colunas do usuário
 						if (err) {
 							console.log(err);

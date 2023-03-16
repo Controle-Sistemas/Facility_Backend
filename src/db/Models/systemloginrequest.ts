@@ -40,8 +40,7 @@ class ModeloClientes {
 					res.status(200).send({
 						message: 'Clientes listados com sucesso',
 						data: results
-					});
-					console.log(results)
+					});					
 				}
 			});
 		} catch (error) {
@@ -50,7 +49,7 @@ class ModeloClientes {
 	}
 
 	getAdmins(res: any) {
-		//Retorna todos os clientes
+		//Retorna todos os admin
 		try {
 			connection.query('SELECT * FROM SYSLOGINREQUEST WHERE ADMIN = 1', (err: any, results: any) => {
 				if (err) {
