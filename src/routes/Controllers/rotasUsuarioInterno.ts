@@ -67,7 +67,7 @@ router.post('/login', (req: Request, res: Response) => {
 									expiresIn: auth.expireIn
 								})
 
-						res.status(200).json({ message: `Interno logado com sucesso`, token, id:results[0].ID,isAdmin:false}); //Retorna o token e se o usuário é admin
+						res.status(200).json({ message: `Interno logado com sucesso`, token, id:results[0].ID,isAdmin:results[0].ADMIN}); //Retorna o token e se o usuário é admin
 						
 					} else {
 						res.status(400).json({ message: `Senha incorreta` }); //Retorna uma mensagem de erro
@@ -85,6 +85,7 @@ router.patch('/:id', (req: Request, res: Response) => {
 	const internalUserData = req.body;
 	internalUserModel.updateInternal(id, internalUserData, res);
 });
+
 router.patch('/forgot-password/:user', (req: Request, res: Response) => {  //Rota para recuperar a senha de um usuário
 	const user = req.params.user;
 	connection.query(`SELECT * FROM internos WHERE USUARIO = '${user}'`, async (err: any, results: any) => {

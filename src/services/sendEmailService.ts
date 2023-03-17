@@ -113,11 +113,7 @@ class SendEmailService {
             to: this.cliente ? this.cliente.EMAIL : this.interno.EMAIL,
             subject: "Senha do sistema",
             html: corpoEmail,
-            attachments: [{
-                filename: 'Logo.png',
-                path: __dirname +'/folder/Logo.png',
-                cid: 'logo' //my mistake was putting "cid:logo@cid" here! 
-           }]
+            attachments: []
         };
     
         this.transporter.sendMail(emailASerEnviado,  (error: any, info: { response: string; }) => { //Envia o email
