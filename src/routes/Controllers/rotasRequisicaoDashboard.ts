@@ -26,10 +26,12 @@ routes.get('/daily-evolution/:idCloud', (req: Request, res: Response) => {
     })
 })
 
-routes.get('/real-time/:idCloud', (req: Request, res: Response) => {
+routes.post('/real-time/:idCloud', (req: Request, res: Response) => {
     const idCloud = parseInt(req.params.idCloud)
     const dashboardRequest = new DashboardRequest(idCloud)
-    const dataPromise = dashboardRequest.getRealTimeByIdCloud()
+    const DateInit = req.body.DateInit;
+    const TimeInit = req.body.DateFinal;
+    var dataPromise = dashboardRequest.getRealTimeByIdCloud(DateInit, TimeInit);
     Promise.resolve(dataPromise).then(response => {
         if (response.error) {
             res.status(400).json({
