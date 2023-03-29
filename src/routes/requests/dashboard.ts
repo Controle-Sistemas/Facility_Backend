@@ -7,6 +7,7 @@ class DashboardRequest {
     constructor(clientIdCloud: number) {
         this.clientIdCloud = clientIdCloud
     }
+
     async getSalesPerMonth() {
         const response = await axios.get(`${EXTERNAL_API}/VWSALESPERMONTH`, {
             headers: {
@@ -23,91 +24,125 @@ class DashboardRequest {
         return response
     }
 
-    async getRealTime() {
-        const response = await axios.get(`${EXTERNAL_API}/RealTime`, {
-            headers: {
-                "socket_client": '@20033038' // '@' + this.clientIdCloud 
-            }
-        }).then(response => {
-            return response.data
+    async getDailyEvolution() {
+    const response = await axios.get(`${EXTERNAL_API}/getDailyEvolution`, {
+        headers: {
+            "socket_client": `@${this.clientIdCloud}`
+        }
+    }).then(response => {
+        if (response.data.Error)
+            return { "error": response.data.Error };
+        var data = response.data.dailyEvolution.map((dia: any) => ({ ...dia, diaDaSemana: getDiaDaSemana(dia.data) }));
+        return data;
+    })
+        .catch(error => {
+            console.log("Erro: " + error.errno + ' - ' + error.code)
+            var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
+            return response;
         })
-            .catch(error => {
-                console.log("Erro: " + error.errno + ' - ' + error.code)
-                var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
-                return response;
-            })
-        return response
-    }
+    return response
+}
 
     async getRealTimeByIdCloud() {
-        const response = await axios.get(`${EXTERNAL_API}/RealTime`, {
-            headers: {
-                "socket_client": `@${this.clientIdCloud}`
-            }
-        }).then(response => {
-            return response.data
+    var params = { DateInit: "27.03.2023", TimeInit: "06:00:00" }
+    const response = await axios.get(`${EXTERNAL_API}/RealTime`, {
+        headers: {
+            "socket_client": `@${this.clientIdCloud}`
+        },
+        data: params,
+    }).then(response => {
+        return response.data
+    })
+        .catch(error => {
+            console.log("Erro: " + error.errno + ' - ' + error.code)
+            var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
+            return response;
         })
-            .catch(error => {
-                console.log("Erro: " + error.errno + ' - ' + error.code)
-                var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
-                return response;
-            })
-        return response
-    }
+    return response
+}
 
     async getValuesFromUsers(startDate: string, finishDate: string) {
 
-        var params = {
-            DateInit: startDate,
-            DateFinal: finishDate,
-            ClosedOrOpen: "C"
-        }
-
-        console.log(params)
-        const response = await axios.get(`${EXTERNAL_API}/getValuesFromUsers`, {
-            headers: {
-                "socket_client": '@20033038' // '@' + this.clientIdCloud 
-            },
-            data: params
-        }).then(response => {
-            return response.data
-        })
-            .catch(error => {
-                console.log("Erro: " + error.errno + ' - ' + error.code)
-                var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
-                return response;
-            })
-        return response
+    var params = {
+        DateInit: startDate,
+        DateFinal: finishDate,
+        ClosedOrOpen: "C"
     }
 
-    async getViewPeriodo( startDate: string, finishDate: string, id?: string) {
-
-        var params = {
-            "id": id,
-            DateInit: startDate,
-            DateFinal: finishDate,
-            ClosedOrOpen: "C"
-        }
-
-        const response = await axios.get(`${EXTERNAL_API}/getViewPeriodo`, {
-            headers: {
-                "socket_client": `@${this.clientIdCloud}`
-            },
-            data: params
-        }).then(response => {
-            return response.data
+    console.log(params)
+    const response = await axios.get(`${EXTERNAL_API}/getValuesFromUsers`, {
+        headers: {
+            "socket_client": '@20033038' // '@' + this.clientIdCloud 
+        },
+        data: params
+    }).then(response => {
+        return response.data
+    })
+        .catch(error => {
+            console.log("Erro: " + error.errno + ' - ' + error.code)
+            var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
+            return response;
         })
-            .catch(error => {
-                console.log("Erro: " + error.errno + ' - ' + error.code)
-                var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
-                return response;
-            })
-        return response
+    return response
+}
+
+    async getViewPeriodoClosed(startDate: string, finishDate: string, id ?: string) {
+
+    var params = {
+        "id": id,
+        DateInit: startDate,
+        DateFinal: finishDate,
+        ClosedOrOpen: "C"
     }
+
+    const response = await axios.get(`${EXTERNAL_API}/getViewPeriodo`, {
+        headers: {
+            "socket_client": `@${this.clientIdCloud}`
+        },
+        data: params
+    }).then(response => {
+        return response.data
+    })
+        .catch(error => {
+            console.log("Erro: " + error.errno + ' - ' + error.code)
+            var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
+            return response;
+        })
+    return response
+}
+    async getViewPeriodoOpen(startDate: string, finishDate: string, id ?: string) {
+
+    var params = {
+        "id": id,
+        DateInit: startDate,
+        DateFinal: finishDate,
+        ClosedOrOpen: "O"
+    }
+
+    const response = await axios.get(`${EXTERNAL_API}/getViewPeriodo`, {
+        headers: {
+            "socket_client": `@${this.clientIdCloud}`
+        },
+        data: params
+    }).then(response => {
+        return response.data
+    })
+        .catch(error => {
+            console.log("Erro: " + error.errno + ' - ' + error.code)
+            var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
+            return response;
+        })
+    return response
+}
 }
 
 
-
+function getDiaDaSemana(date: string) {
+    const weekDays = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"]
+    var dataSplited = date.split('/');
+    var dateFormated = `${dataSplited[1]} ${dataSplited[0]} ${dataSplited[2]}`;
+    return weekDays[new Date(dateFormated).getDay()].toUpperCase();
+}
 
 
 export default DashboardRequest
