@@ -30,7 +30,7 @@ routes.post('/real-time/:idCloud', (req: Request, res: Response) => {
     const idCloud = parseInt(req.params.idCloud)
     const dashboardRequest = new DashboardRequest(idCloud)
     const DateInit = req.body.DateInit;
-    const TimeInit = req.body.DateFinal;
+    const TimeInit = req.body.TimeInit;
     var dataPromise = dashboardRequest.getRealTimeByIdCloud(DateInit, TimeInit);
     Promise.resolve(dataPromise).then(response => {
         if (response.error) {
@@ -97,7 +97,25 @@ routes.get('/registradoras/:idCloud/:id', (req: Request, res: Response) => {
     })
 })
 
+routes.post('/list-products/:idCloud', (req: Request, res: Response) => {
+    const idCloud = parseInt(req.params.idCloud)
+    const dashboardRequest = new DashboardRequest(idCloud)
+    const groupID = req.body.groupID;
+    var dataPromise = dashboardRequest.getProductsByGroupID(groupID);
+    Promise.resolve(dataPromise).then(response => {
+        if (response.error) {
+            res.status(400).json({
+                message: response.message,
+                data: response.error,
+            })
+        } else {
+            return res.status(200).json({ message: `Dados em tempo real da empresa de idcloud ${idCloud} recuperados com sucesso`, data: response })
 
+        }
+
+    })
+
+})
 
 
 

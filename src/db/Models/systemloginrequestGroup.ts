@@ -43,7 +43,6 @@ class ModeloGrupoEmpresas {
 			console.error(error);
 		}
 	}
-
 	getAllGroups(res: any) {
 		try {
 			connection.query(
