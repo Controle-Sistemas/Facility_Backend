@@ -103,13 +103,18 @@ routes.post('/list-products/:idCloud', (req: Request, res: Response) => {
     const groupID = req.body.groupID;
     var dataPromise = dashboardRequest.getProductsByGroupID(groupID);
     Promise.resolve(dataPromise).then(response => {
-        if (response.error) {
-            res.status(400).json({
-                message: response.message,
-                data: response.error,
-            })
-        } else {
-            return res.status(200).json({ message: `Dados em tempo real da empresa de idcloud ${idCloud} recuperados com sucesso`, data: response })
+        if (response) {
+            if (response.error) {
+                res.status(400).json({
+                    message: response.message,
+                    data: response.error,
+                })
+            } else {
+                return res.status(200).json({ message: `Dados em tempo real da empresa de idcloud ${idCloud} recuperados com sucesso`, data: response })
+
+            }
+        }else{
+            return res.status(500).json({ message: `Timeout!`})
 
         }
 

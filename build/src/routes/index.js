@@ -26,6 +26,7 @@ var rotasChamados_1 = __importDefault(require("./Controllers/rotasChamados"));
 var rotasRequisicaoProdutos_1 = __importDefault(require("./Controllers/rotasRequisicaoProdutos"));
 var rotasRequisicaoDashboard_1 = __importDefault(require("./Controllers/rotasRequisicaoDashboard"));
 var rotasGrupos_1 = __importDefault(require("./Controllers/rotasGrupos"));
+var rotasRelatorios_1 = __importDefault(require("./Controllers/rotasRelatorios"));
 routes.use('/tabelas', rotasUserTableCustom_1.default);
 routes.use('/empresas', rotasEmpresas_1.default);
 routes.use('/terminais', rotasTerminais_1.default);
@@ -47,6 +48,7 @@ routes.use('/ocorrencias', rotasOcorrencias_1.default);
 routes.use('/produtos', rotasRequisicaoProdutos_1.default);
 routes.use('/dashboard', rotasRequisicaoDashboard_1.default);
 routes.use('/grupos', rotasGrupos_1.default);
+routes.use('/relatorios', rotasRelatorios_1.default);
 routes.get('/', function (req, res) {
     res.send("\n        <h1>API Facility</h1>\n        <ul>\n            <li>\n                <a href=\"/clientes/\">Clientes</a>\n            </li>\n            <li>\n                <a href=\"/api-config/\">API Config</a>\n            </li>\n            <li>\n                <a href=\"/menu/\">Menu</a>\n            </li>\n            <li>\n                <a href=\"/ramos/\">Ramos</a>\n            </li>\n            <li>\n                <a href=\"/card/\">Card</a>\n            </li>\n            <li>\n                <a href=\"/documentos/\">Documentos</a>\n            </li>\n            <li>\n                <a href=\"/tutoriais/\">Tutoriais</a>\n            </li>\n            <li>\n                <a href=\"/categorias/\">Categorias</a>\n            </li>\n            <li>\n                <a href=\"/emails/\">Emails</a>\n            </li>\n            <li>\n            <a href=\"/grupos/\">Grupos</a>\n        </li>\n        </ul>\n        \n    ");
 });

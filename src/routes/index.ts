@@ -21,28 +21,30 @@ import rotasChamados from './Controllers/rotasChamados'
 import rotasRequisicaoProdutos from './Controllers/rotasRequisicaoProdutos'
 import rotasRequisicaoDashboard from './Controllers/rotasRequisicaoDashboard'
 import rotasGrupos from './Controllers/rotasGrupos'
+import rotasRelatorios from './Controllers/rotasRelatorios';
 
 routes.use('/tabelas', rotasUserTableCustom)
 routes.use('/empresas', rotasEmpresas)
 routes.use('/terminais', rotasTerminais)
-routes.use('/clientes',rotasClientes)
-routes.use('/api-config',rotasApis)
-routes.use('/menu',rotasMenu)
-routes.use('/ramos',rotasRamos)
-routes.use('/card',rotasUserCard)
-routes.use('/documentos',rotasDocumentos)
-routes.use('/tutoriais',rotasTutoriais)
-routes.use('/categorias',rotasTutoriaisCategorias)
-routes.use('/emails',rotasEmails)
-routes.use('/setores',rotasSetores)
-routes.use('/internos',rotasUsuarioInterno)
-routes.use('/chamados',rotasChamados)
-routes.use('/status-chamado',rotasStatusChamado)
-routes.use('/tipos-chamado',rotasTiposChamado)
-routes.use('/ocorrencias',rotasOcorrencias)
-routes.use('/produtos',rotasRequisicaoProdutos)
-routes.use('/dashboard',rotasRequisicaoDashboard)
-routes.use('/grupos',rotasGrupos)
+routes.use('/clientes', rotasClientes)
+routes.use('/api-config', rotasApis)
+routes.use('/menu', rotasMenu)
+routes.use('/ramos', rotasRamos)
+routes.use('/card', rotasUserCard)
+routes.use('/documentos', rotasDocumentos)
+routes.use('/tutoriais', rotasTutoriais)
+routes.use('/categorias', rotasTutoriaisCategorias)
+routes.use('/emails', rotasEmails)
+routes.use('/setores', rotasSetores)
+routes.use('/internos', rotasUsuarioInterno)
+routes.use('/chamados', rotasChamados)
+routes.use('/status-chamado', rotasStatusChamado)
+routes.use('/tipos-chamado', rotasTiposChamado)
+routes.use('/ocorrencias', rotasOcorrencias)
+routes.use('/produtos', rotasRequisicaoProdutos)
+routes.use('/dashboard', rotasRequisicaoDashboard)
+routes.use('/grupos', rotasGrupos)
+routes.use('/relatorios', rotasRelatorios)
 
 routes.get('/', (req: Request, res: Response) => {
     res.send(`

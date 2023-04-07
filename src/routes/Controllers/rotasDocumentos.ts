@@ -4,8 +4,9 @@ import multer from 'multer';
 import multerConfig from '../../config/multer';
 import conn from '../../db';
 import sendEmailService from '../../services/sendEmailService';
-import UploadImageService from '../../services/uploadImageService'
-import DeleteImageService from '../../services/deleteImageService'
+import UploadImageService from '../../services/uploadImageService';
+import DeleteImageService from '../../services/deleteImageService';
+
 
 const upload = multer(multerConfig);
 
@@ -73,11 +74,10 @@ router.post('/',
                 message: "Erro ao adicionar imagem na AmazonS3"
             })
         })
-
-
-
-
     })
+
+
+
 
 router.patch('/:id', (req: Request, res: Response) => {
     const id = Number(req.params.id);
