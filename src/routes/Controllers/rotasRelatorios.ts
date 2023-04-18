@@ -59,7 +59,7 @@ router.post('/pdf/:relatorioType', (req: Request, res: Response) => {
     const infoTime = date.toLocaleTimeString();
     const relatorioType = req.params.relatorioType
     const templatePath = path.join(__dirname, '../', '../', 'utils', 'pdf-templates', `${relatorioType}.ejs`);
-   ejs.renderFile(templatePath, { registry, infoDate, infoTime }, (err, data) => {
+    ejs.renderFile(templatePath, { registry, infoDate, infoTime }, (err, data) => {
         if (err) {
             res.send(`Erro ⚠️${'\n'} Template "${relatorioType}" não encontrado.`)
         } else {

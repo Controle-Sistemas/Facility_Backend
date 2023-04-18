@@ -22,7 +22,6 @@ class DashboardRequest {
             })
         return response
     }
-
     async getDailyEvolution() {
         const response = await axios.get(`${EXTERNAL_API}/getDailyEvolution`, {
             headers: {
@@ -41,7 +40,6 @@ class DashboardRequest {
             })
         return response
     }
-
     async getRealTimeByIdCloud(DateInit: string, TimeInit: string) {
         var params = { DateInit: DateInit, TimeInit: TimeInit }
         const response = await axios.get(`${EXTERNAL_API}/RealTime`, {
@@ -59,7 +57,6 @@ class DashboardRequest {
             })
         return response
     }
-
     async getValuesFromUsers(startDate: string, finishDate: string) {
 
         var params = {
@@ -84,7 +81,6 @@ class DashboardRequest {
             })
         return response
     }
-
     async getViewPeriodoClosed(startDate: string, finishDate: string, id?: string) {
 
         var params = {
@@ -133,7 +129,6 @@ class DashboardRequest {
             })
         return response
     }
-
     async getProductsByGroupID(groupID: string) {
 
         var params = {
@@ -142,7 +137,7 @@ class DashboardRequest {
 
         const response = await axios.get(`${EXTERNAL_API}/ListProductGroup`, {
             headers: {
-                "socket_client": `@${this.clientIdCloud}` 
+                "socket_client": `@${this.clientIdCloud}`
             },
             data: params
         }).then(response => {
@@ -155,6 +150,29 @@ class DashboardRequest {
             })
         return response
     }
+    async getCurveABC(startDate: string, finishDate: string) {
+
+        var params = {
+            DateInit: '01.01.2023',
+            DateFinal: '01.04.2023'
+        }
+
+        const response = await axios.get(`${EXTERNAL_API}/CurveABC`, {
+            headers: {
+                "socket_client": `@${this.clientIdCloud}`
+            },
+            data: params
+        }).then(response => {
+            return response.data
+        })
+            .catch(error => {
+                console.log("Erro: " + error.errno + ' - ' + error.code)
+                var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
+                return response;
+            })
+        return response
+    }
+
 }
 
 
