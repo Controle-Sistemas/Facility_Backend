@@ -113,6 +113,24 @@ routes.post('/list-products/:idCloud', function (req, res) {
             return res.status(500).json({ message: "Timeout!" });
         }
     });
+    routes.post('/curvaABC/:idCloud', function (req, res) {
+        var idCloud = parseInt(req.params.idCloud);
+        var dashboardRequest = new dashboard_1.default(idCloud);
+        var DateInit = req.body.DateInit;
+        var DateFinal = req.body.DateFinal;
+        var dataPromise = dashboardRequest.getCurveABC(DateInit, DateFinal);
+        Promise.resolve(dataPromise).then(function (response) {
+            if (response.cabec.length < 1) {
+                res.status(400).json({
+                    error: true,
+                    data: "Não foram encontrados registros",
+                });
+            }
+            else {
+                return res.status(200).json({ message: "Dados da empresa de idcloud ".concat(idCloud, " recuperados com sucesso"), data: response });
+            }
+        });
+    });
 });
 exports.default = routes;
 //# sourceMappingURL=rotasRequisicaoDashboard.js.map
