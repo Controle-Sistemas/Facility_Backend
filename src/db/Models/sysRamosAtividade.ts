@@ -29,6 +29,23 @@ class sysRamosAtividade {
 		);
 	}
 
+    getSysRamosAtividadeByIdCloud(idCloud: string, res: any) {
+		connection.query('SELECT RAMODEATIVIDADE FROM SYSLOGINREQUEST WHERE IDCLOUD = ?',	[ idCloud ],(error: any, results: any, fields: any) => {
+				if (error) {
+					res.status(400).send(error);
+				} else {
+					if(results.length > 0){
+                        res.status(200).send(results);
+                    } else {
+                        res.status(404).send({
+                            message: `Ramo de atividade do cliente de idCloud ${idCloud} não encontrado`
+                        });
+                    }
+				}
+			}
+		);
+	}
+
     addSysRamosAtividade(sysRamosAtividade: any, res: any) {
         connection.query('INSERT INTO SYSRAMOSATIVIDADE SET ?', sysRamosAtividade, (error: any, results: any, fields: any) => {
             if (error) {

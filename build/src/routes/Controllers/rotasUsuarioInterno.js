@@ -130,6 +130,65 @@ router.post('/login', function (req, res) {
         });
     }); });
 });
+router.patch('/change-password/', function (req, res) {
+    //const CNPJ = req.params.cnpj; //Pega o cnpj do usuário
+    var oldPassword = req.body.oldPassword; //Pega a senha antiga
+    var newPassword = req.body.newPassword; //Pega a nova senha
+    res.status(200).send({
+        message: "Interno atualizado",
+        data: req.body
+    });
+    /**
+     * connection.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = ${CNPJ}`, async (err: any, results: any) => {
+        try {
+            if (err) {
+                console.log(err);
+            } else {
+                if (results.length > 0) { //Verifica se existe algum usuário com o mesmo cnpj
+                    const oldPasswordEncrypted = results[0].PASSWORD; //Pega a senha criptografada
+                    await bcrypt.compare(oldPassword, oldPasswordEncrypted).then((result) => { //Compara a senha antiga com a senha criptografada
+                        if (result) { //Se for igual, criptografa a nova senha e atualiza o usuário
+                            const passwordEncrypted = bcrypt.hash(newPassword, 5);
+                            passwordEncrypted
+                                .then((result) => {
+                                    if (result) {
+                                        const data = {
+                                            PASSWORD: result
+                                        };
+                                        connection.query(
+                                            `UPDATE SYSLOGINREQUEST SET ? WHERE CNPJ = ${CNPJ}`,
+                                            [data],
+                                            (err: any, results: any) => {
+                                                if (err) {
+                                                    console.log(err);
+                                                } else {
+                                                    res.status(200).json({ message: `Senha atualizada com sucesso` });
+                                                }
+                                            }
+                                        );
+                                    } else {
+                                        res.status(400).json({ message: `Erro ao atualizar a senha` });
+                                    }
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                });
+                        } else {
+                            console.log(result);
+
+                            res.status(400).json({ message: `Senha atual incorreta` });
+                        }
+                    });
+                } else {
+                    res.status(400).json({ message: `Usuário não encontrado` });
+                }
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    });
+     */
+});
 router.patch('/:id', function (req, res) {
     var id = Number(req.params.id);
     var internalUserData = req.body;

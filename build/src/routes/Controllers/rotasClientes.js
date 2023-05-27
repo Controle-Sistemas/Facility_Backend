@@ -65,6 +65,41 @@ routes.get('/usuario/:cnpj', function (req, res) {
     var cnpj = Number(req.params.cnpj);
     systemloginrequest_1.default.getClientByCNPJ(cnpj, res);
 });
+routes.get('/idCloud/:idCLoud', function (req, res) {
+    var idCLoud = Number(req.params.idCLoud);
+    systemloginrequest_1.default.getClientByIdCloud(idCLoud, res);
+});
+routes.get('/externo/:clientName', function (req, res) {
+    var clientName = req.params.clientName;
+    var dataPromise = systemloginrequest_1.default.getExternalClients(clientName);
+    Promise.resolve(dataPromise).then(function (response) {
+        if (response.error) {
+            res.status(400).json({
+                message: response.message,
+                data: response.error,
+            });
+        }
+        else {
+            return res.status(200).json({ message: "Clientes encontrados", data: response });
+        }
+    });
+});
+routes.get('/registro/:idCloud', function (req, res) {
+    var idCloud = req.params.idCloud;
+    console.log(idCloud);
+    var dataPromise = systemloginrequest_1.default.getClientRegistry(idCloud);
+    Promise.resolve(dataPromise).then(function (response) {
+        if (response.error) {
+            res.status(400).json({
+                message: response.message,
+                data: response.error,
+            });
+        }
+        else {
+            return res.status(200).json({ message: "Cliente de idCloud ".concat(idCloud, " encontrado"), data: response });
+        }
+    });
+});
 routes.get('/:id', function (req, res) {
     var id = Number(req.params.id);
     systemloginrequest_1.default.getClientById(id, res);
@@ -214,12 +249,13 @@ routes.post('/login', function (req, res) {
                     if (!(results.length > 0)) return [3 /*break*/, 3];
                     passwordEncrypted = results[0].PASSWORD;
                     return [4 /*yield*/, bcrypt_1.default.compare(PASSWORD, passwordEncrypted).then(function (result) {
-                            //Compara a senha criptografada com a senha digitada
+                            //Compara a senha criptografada com a senha digitada						
                             if (result) {
+                                console.log(results);
                                 var token = jsonwebtoken_1.default.sign({
                                     //Cria o token
-                                    id: results[0].id,
-                                    cnpj: results[0].cnpj,
+                                    id: results[0].ID,
+                                    cnpj: results[0].CNPJ,
                                 }, auth_1.default.secret, {
                                     expiresIn: auth_1.default.expireIn
                                 });
@@ -241,7 +277,8 @@ routes.post('/login', function (req, res) {
                                         message: "Cliente logado com sucesso",
                                         token: token,
                                         isAdmin: true,
-                                        id: results[0].ID
+                                        id: results[0].ID,
+                                        ramo: results[0].RAMODEATIVIDADE,
                                     }); //Retorna o token e se o usuário é admin
                                 }
                                 else if (result && results[0].STATUS === 0) {

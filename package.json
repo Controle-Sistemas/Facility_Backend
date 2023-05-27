@@ -28,7 +28,7 @@
     "start": "node index.ts",
     "build": "tsc",
     "build-windows-server": "tsc",
-    "install-linux": "cp -r ./src/utils ./build/utils",
+    "install-linux": "cp -r ./src/utils ./build/src/utils",
     "serve": "ts-node-esm index.ts",
     "pretest": "xcopy ./temp build/temp"
   },

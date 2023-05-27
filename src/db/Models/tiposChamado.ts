@@ -205,7 +205,10 @@ class TiposModel {
 
     create(tipo: CHAMADOTYPE, res: Response) {
         var statusCode = 200;
-        conn.query(`INSERT INTO CHAMADOTYPE (ID , TITLE) VALUES ('${tipo.ID}', '${tipo.TITLE}')`
+        console.log(tipo)
+      /**
+       *   
+       * conn.query(`INSERT INTO CHAMADOTYPE (ID , TITLE) VALUES ('${tipo.ID}', '${tipo.TITLE}')`
             , (err, results) => {
                 if (err) {
                     statusCode = 500;
@@ -241,6 +244,8 @@ class TiposModel {
 
                 }
             })
+       * 
+       */
     }
     update(id: number, item: any, res: Response) {
 

@@ -11,6 +11,11 @@ routes.get("/:name", (req: Request, res: Response) => {
     ApiRamosModel.getSysRamosAtividadeByName(name, res)
 })
 
+routes.get("/cliente/:idCloud", (req: Request, res: Response) => {
+    const idCloud = req.params.idCloud
+    ApiRamosModel.getSysRamosAtividadeByIdCloud(idCloud, res)
+})
+
 routes.post("/", (req: Request, res: Response) => {
     const sysRamosAtividade = req.body
     ApiRamosModel.addSysRamosAtividade(sysRamosAtividade, res)

@@ -30,11 +30,50 @@ routes.get('/usuario/:cnpj', (req: Request, res: Response) => {
 	ClientesModel.getClientByCNPJ(cnpj, res);
 });
 
+routes.get('/idCloud/:idCLoud', (req: Request, res: Response) => {
+	const idCLoud = Number(req.params.idCLoud);
+	ClientesModel.getClientByIdCloud(idCLoud, res);
+});
+
+
+routes.get('/externo/:clientName', (req: Request, res: Response) => {	
+	const clientName = req.params.clientName;
+    var dataPromise =ClientesModel.getExternalClients(clientName);
+    Promise.resolve(dataPromise).then(response => {
+        if (response.error) {
+            res.status(400).json({
+                message: response.message,
+                data: response.error,
+            })
+        } else {
+            return res.status(200).json({ message: `Clientes encontrados`, data: response })
+        }
+
+    })
+});
+
+routes.get('/registro/:idCloud', (req: Request, res: Response) => {	
+	const idCloud = req.params.idCloud;
+	console.log(idCloud);
+    var dataPromise = ClientesModel.getClientRegistry(idCloud);
+    Promise.resolve(dataPromise).then(response => {
+        if (response.error) {
+            res.status(400).json({
+                message: response.message,
+                data: response.error,
+            })
+        } else {
+            return res.status(200).json({ message: `Cliente de idCloud ${idCloud} encontrado`, data: response })
+
+        }
+
+    })
+});
+
 routes.get('/:id', (req: Request, res: Response) => {
 	const id = Number(req.params.id);
 	ClientesModel.getClientById(id, res);
 });
-
 //Rota para cadastrar um novo usuário
 routes.post(
 	'/',
@@ -157,7 +196,6 @@ routes.post(
 		});
 	}
 );
-
 //Rota para Login de um usuário
 routes.post('/login', (req: Request, res: Response) => {
 	const { CNPJ, PASSWORD } = req.body; //Pega os dados do usuário
@@ -171,13 +209,14 @@ routes.post('/login', (req: Request, res: Response) => {
 					//Se existir, verifica a senha
 					const passwordEncrypted = results[0].PASSWORD;
 					await bcrypt.compare(PASSWORD, passwordEncrypted).then((result) => {
-						//Compara a senha criptografada com a senha digitada
+						//Compara a senha criptografada com a senha digitada						
 						if (result) {
+							console.log(results)
 							let token = jwt.sign(
 								{
 									//Cria o token
-									id: results[0].id,
-									cnpj: results[0].cnpj,
+									id: results[0].ID,
+									cnpj: results[0].CNPJ,
 								},
 								auth.secret,
 								{
@@ -203,7 +242,8 @@ routes.post('/login', (req: Request, res: Response) => {
 									message: `Cliente logado com sucesso`,
 									token,
 									isAdmin: true,
-									id: results[0].ID
+									id: results[0].ID,
+									ramo: results[0].RAMODEATIVIDADE,
 								}); //Retorna o token e se o usuário é admin
 							} else if (result && results[0].STATUS === 0) {
 								res.status(400).json({
@@ -223,7 +263,6 @@ routes.post('/login', (req: Request, res: Response) => {
 		}
 	});
 });
-
 //Rota para atualizar um usuário
 routes.patch('/logout', (req: Request, res: Response) => {
 	return { token: null }; //Retorna um token nulo

@@ -41,6 +41,7 @@ class DashboardRequest {
         return response
     }
     async getRealTimeByIdCloud(DateInit: string, TimeInit: string) {
+        
         var params = { DateInit: DateInit, TimeInit: TimeInit }
         const response = await axios.get(`${EXTERNAL_API}/RealTime`, {
             headers: {

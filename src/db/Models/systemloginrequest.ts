@@ -1,5 +1,7 @@
+import axios from 'axios';
 import connection from '..';
 import { SysLoginType } from '../../types';
+import { EXTERNAL_API } from '../../routes/requests/urls';
 
 class ModeloClientes {
 
@@ -94,10 +96,76 @@ class ModeloClientes {
 		} 
 	}
 
+	async getExternalClients(clientName: string){
+		// axios para buscar os clientes
+		var params = {description:clientName} 
+        const response = await axios.get(`${EXTERNAL_API}/ListClientControle`, {
+            headers: {
+                "socket_client": `@ControleLicenca`
+            },
+            data: params,
+        }).then(response => {
+            return response.data
+        })
+            .catch(error => {
+                console.log("Erro: " + error.errno + ' - ' + error.code)
+                var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
+                return response;
+            })
+        return response
+
+	}
+
+	async getClientRegistry(idCloud: string){
+		// axios para buscar os clientes
+		var params = {idCloud:`@${idCloud}`}   
+        const response = await axios.get(`${EXTERNAL_API}/RegisterIdCloud`, {
+            headers: {
+                "socket_client": `@ControleLicenca`
+            },
+            data: params,
+        }).then(response => {
+            return response.data
+        })
+            .catch(error => {
+                console.log("Erro: " + error.errno + ' - ' + error.code)
+                var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
+                return response;
+            })
+        return response
+
+	}
+
 	getClientByCNPJ(cnpj: number, res: any) {
 		//Retorna um cliente pelo cnpj
 		try {
 			connection.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = ${cnpj}`, (err: any, results: any) => {
+				if (err) {
+					res.status(500).send({
+						message: err
+					});
+				} else {
+					if (results.length > 0) {
+						res.status(200).send({
+							message: 'Cliente listado com sucesso',
+							data: results
+						});
+					} else {
+						res.status(404).send({
+							message: 'Cliente não encontrado, verifique se o CNPJ está correto'
+						});
+					}
+				}
+			});
+		} catch (error) {
+			console.error(error);
+		} 
+	}
+
+	getClientByIdCloud(idCLoud: number, res: any) {
+		//Retorna um cliente pelo idCLoud
+		try {
+			connection.query(`SELECT * FROM SYSLOGINREQUEST WHERE IDCLOUD = ${idCLoud}`, (err: any, results: any) => {
 				if (err) {
 					res.status(500).send({
 						message: err
@@ -166,7 +234,7 @@ class ModeloClientes {
 						res.status(500).send({
 							message: err
 						});
-					} else {
+					} else {						
 						res.status(200).send({
 							message: 'Cliente atualizado com sucesso',
 							data: results

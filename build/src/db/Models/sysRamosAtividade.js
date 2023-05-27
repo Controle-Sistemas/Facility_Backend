@@ -34,6 +34,23 @@ var sysRamosAtividade = /** @class */ (function () {
             }
         });
     };
+    sysRamosAtividade.prototype.getSysRamosAtividadeByIdCloud = function (idCloud, res) {
+        __1.default.query('SELECT RAMODEATIVIDADE FROM SYSLOGINREQUEST WHERE IDCLOUD = ?', [idCloud], function (error, results, fields) {
+            if (error) {
+                res.status(400).send(error);
+            }
+            else {
+                if (results.length > 0) {
+                    res.status(200).send(results);
+                }
+                else {
+                    res.status(404).send({
+                        message: "Ramo de atividade do cliente de idCloud ".concat(idCloud, " n\u00E3o encontrado")
+                    });
+                }
+            }
+        });
+    };
     sysRamosAtividade.prototype.addSysRamosAtividade = function (sysRamosAtividade, res) {
         __1.default.query('INSERT INTO SYSRAMOSATIVIDADE SET ?', sysRamosAtividade, function (error, results, fields) {
             if (error) {

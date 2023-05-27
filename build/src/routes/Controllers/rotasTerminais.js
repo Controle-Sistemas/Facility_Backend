@@ -6,25 +6,55 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var sysTerminals_1 = __importDefault(require("../../db/Models/sysTerminals"));
 var express_1 = __importDefault(require("express"));
 var routes = express_1.default.Router();
-routes.get('/', function (req, res) {
-    sysTerminals_1.default.getTerminals(req, res); //Pega todos os terminais da base de dados
+// routes.get('/:id', (req: Request, res: Response) => {
+//     const idCloud = Number(req.params.id); //Pega o id do terminal
+//     TerminalModel.getTerminal(idCloud, res); //Pega o terminal pelo id
+// })
+routes.get('/:idCloud', function (req, res) {
+    var idCloud = Number(req.params.idCloud);
+    var dataPromise = sysTerminals_1.default.getTerminalsByIdCloud(idCloud);
+    Promise.resolve(dataPromise).then(function (response) {
+        if (response.error) {
+            res.status(400).json({
+                message: response.message,
+                data: response.error,
+            });
+        }
+        else {
+            return res.status(200).json({ message: "Terminais encontrados", data: response });
+        }
+    });
 });
-routes.get('/:id', function (req, res) {
-    var idCloud = Number(req.params.id); //Pega o id do terminal
-    sysTerminals_1.default.getTerminal(idCloud, res); //Pega o terminal pelo id
+routes.post('/license', function (req, res) {
+    var data = req.body;
+    var dataPromise = sysTerminals_1.default.refreshLicense(data);
+    Promise.resolve(dataPromise).then(function (response) {
+        if (response.error) {
+            res.status(400).json({
+                message: response.message,
+                data: response.error,
+            });
+        }
+        else {
+            return res.status(200).json({ message: "Terminais encontrados", data: response });
+        }
+    });
 });
-routes.post('/', function (req, res) {
-    var terminalData = req.body; //Pega os dados do terminal
-    sysTerminals_1.default.createTerminal(terminalData, res); //Cria o terminal
-});
-routes.patch('/:id', function (req, res) {
-    var idCloud = Number(req.params.id); //Pega o id do terminal
-    var terminalData = req.body; //Pega os dados do terminal
-    sysTerminals_1.default.updateTerminal(idCloud, terminalData, res); //Atualiza o terminal
-});
-routes.delete('/:id', function (req, res) {
-    var idCloud = Number(req.params.id); //Pega o id do terminal
-    sysTerminals_1.default.deleteTerminal(idCloud, res); //Deleta o terminal
-});
+// routes.get('/', (req: Request, res: Response) => { 
+//     TerminalModel.getTerminals(req, res); //Pega todos os terminais da base de dados
+// })
+// routes.get('/:id', (req: Request, res: Response) => {
+//     const idCloud = Number(req.params.id); //Pega o id do terminal
+//     TerminalModel.getTerminal(idCloud, res); //Pega o terminal pelo id
+// })
+// routes.patch('/:id', (req: Request, res: Response) => {
+//     const idCloud = Number(req.params.id); //Pega o id do terminal
+//     const terminalData = req.body; //Pega os dados do terminal
+//     TerminalModel.updateTerminal(idCloud, terminalData, res); //Atualiza o terminal
+// })
+// routes.delete('/:id', (req: Request, res: Response) => {
+//     const idCloud = Number(req.params.id); //Pega o id do terminal
+//     TerminalModel.deleteTerminal(idCloud, res); //Deleta o terminal
+// })
 exports.default = routes;
 //# sourceMappingURL=rotasTerminais.js.map

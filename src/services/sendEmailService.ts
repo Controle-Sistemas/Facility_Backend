@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer'; 
 import { SysLoginType } from '../types';
+import path from 'path';
 
 class SendEmailService {
     transporter: any;
@@ -21,9 +22,9 @@ class SendEmailService {
             port: 465,
             secure: true,
             auth: { //Dados de autenticação do servidor de envio de email
-                user: "envionotafiscal@controleautomacao.com.br", 
+                user: "chamados@controleautomacao.com.br", 
                 // user: newpartner@controleautomacao.com.br
-                pass: "envionf123"
+                pass: "controlechamados01"
             }
         });
 
@@ -35,10 +36,15 @@ class SendEmailService {
         
     }
             
-
+    
+    logoPath = "http://facility.controleautomacao.com.br/static/media/logoBranca.7d5dfffbd546d74fdeaa.png";
 
     sendPasswordEmail(password: string) { // Dados do cliente e a senha gerada são recebidos por parametro
 
+        this.transporter.auth = {
+            user: "newpartner@controleautomacao.com.br",
+            pass: "controleparceiro01"
+        }
         let corpoEmail:string;
         if(this.cliente){
             corpoEmail = `
@@ -46,7 +52,7 @@ class SendEmailService {
         <table style="width:100%" cellpadding="0" cellspacing="0">
             <tr bgcolor="#003775">
                 <th>
-                    <img src="https://www.controleautomacao.com.br/images/logo_branca.png" alt="logo" style="width:90%;height:80%;">
+                    <img src=${this.logoPath} alt="logo" style="width:25%; margin-left:10px">
                 </th>
                 <th>
                     <h2 style="color:#fff">Cadastro Efetuado</h2>
@@ -69,7 +75,6 @@ class SendEmailService {
                 <p> Senha: ${password} </p>
                 <p> Acesse o portal pelo link abaixo: </p>
                 <a href="http://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>
-                <p> Em caso de dúvidas, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
                 </td>
             </tr>
         </table>
@@ -80,12 +85,12 @@ class SendEmailService {
     
         <table style="width:100%" cellpadding="0" cellspacing="0">
             <tr bgcolor="#003775">
-                <th>
-                    <img src="" alt="logo" style="width:90%;height:80%;">
-                </th>
-                <th>
-                    <h2 style="color:#fff">Cadastro Efetuado</h2>
-                </th>
+            <th>
+                <img src=${this.logoPath} alt="logo" style="width:25%; margin-left:10px">
+            </th>
+            <th>
+                <h2 style="color:#fff">Cadastro Efetuado</h2>
+            </th>
             </tr>
 
             <tr bgcolor="#fff">
@@ -97,7 +102,6 @@ class SendEmailService {
                 <p> Senha: ${password} </p>
                 <p> Acesse o portal pelo link abaixo: </p>
                 <a href="http://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>
-                <p> Em caso de dúvidas, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
                 </td>
             </tr>
         </table>
@@ -109,7 +113,7 @@ class SendEmailService {
         
     
         const emailASerEnviado = { //Dados do email a ser enviado
-            from: "envionotafiscal@controleautomacao.com.br",
+            from: "newpartner@controleautomacao.com.br",
             to: this.cliente ? this.cliente.EMAIL : this.interno.EMAIL,
             subject: "Senha do sistema",
             html: corpoEmail,
@@ -128,13 +132,17 @@ class SendEmailService {
     }
 
     sendDocumentEmail(document:any) { 
-
+        
+        this.transporter.auth = {
+            user: "newpartner@controleautomacao.com.br",
+            pass: "controleparceiro01"
+        }
         const corpoEmail = `
     
         <table style="width:100%" cellpadding="0" cellspacing="0">
             <tr bgcolor="#003775">
                 <th>
-                    <img src="" alt="logo" style="width:90%;height:80%;">
+                    <img src=${this.logoPath} alt="logo" style="width:25%; margin-left:10px">
                 </th>
                 <th>
                     <h2 style="color:#fff">Um documento foi enviado a você</h2>
@@ -154,8 +162,7 @@ class SendEmailService {
                 <h1> Olá, ${this.cliente.NOME} </h1>
                 <h5> O documento ${document.NOME} foi enviado para você no dia ${document.DATAINCLUSAO}</h5>
                 <p> Acesse o portal pelo link abaixo para consultar ele: </p>
-                <a href="http://facility.controleautomacao.com.br"> https://facility.controleautomacao.com.br </a>
-                <p> Em caso de dúvidas, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
+                <a href="http://facility.controleautomacao.com.br"> https://facility.controleautomacao.com.br </a>	
                 </td>
             </tr>
         </table>
@@ -165,7 +172,7 @@ class SendEmailService {
         
     
         const emailASerEnviado = { //Dados do email a ser enviado
-            from: "envionotafiscal@controleautomacao.com.br",
+            from: "newpartner@controleautomacao.com.br",
             to: this.cliente.EMAIL,
             subject: "Novo documento",
             html: corpoEmail,
@@ -184,12 +191,17 @@ class SendEmailService {
     }
 
     sendEmailDuvida(duvida:any){
+        
+          this.transporter.auth = {
+            user: "chamados@controleautomacao.com.br",
+            pass: "controlechamados01"
+        }
         const corpoEmail = `
     
         <table style="width:100%" cellpadding="0" cellspacing="0">
             <tr bgcolor="#003775">
                 <th>
-                    <img src="" alt="logo" style="width:90%;height:80%;">
+                    <img src=${this.logoPath} alt="logo" style="width:25%; margin-left:10px">
                 </th>
                 <th>
                     <h2 style="color:#fff">Dúvida</h2>
@@ -209,8 +221,7 @@ class SendEmailService {
                 <h5> Sua dúvida foi enviada ao nosso suporte</h5>
                 <p> ${duvida.mensagem} </p>
                 <p> Acesse o portal pelo link abaixo para consultar ele: </p>
-                <a href="http://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>
-                <p> Em caso de demora, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
+                <a href="http://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>	
                 </td>
             </tr>
         </table>
@@ -220,7 +231,7 @@ class SendEmailService {
         
     
         const emailASerEnviado = { //Dados do email a ser enviado
-            from: "envionotafiscal@controleautomacao.com.br",
+            from: "chamados@controleautomacao.com.br",
             to: duvida.email,
             subject: duvida.assunto,
             html: corpoEmail,
@@ -242,7 +253,7 @@ class SendEmailService {
         <table style="width:100%" cellpadding="0" cellspacing="0">
             <tr bgcolor="#003775">
                 <th>
-                    <img src="" alt="logo" style="width:90%;height:80%;">
+                    <img src=${this.logoPath} alt="logo" style="width:25%; margin-left:10px">
                 </th>
                 <th>
                     <h2 style="color:#fff">Dúvida</h2>
@@ -259,8 +270,7 @@ class SendEmailService {
                 <h5> Você tem recebeu um novo chamado</h5>
                 <h3> ${chamado.TITULO} </h3>
                 <p> Acesse o portal pelo link abaixo para consultar ele: </p>
-                <a href="http://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>
-                <p> Em caso de demora, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
+                <a href="http://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>	
                 </td>
             </tr>
         </table>
@@ -270,7 +280,7 @@ class SendEmailService {
         
     
         const emailASerEnviado = { //Dados do email a ser enviado
-            from: "envionotafiscal@controleautomacao.com.br",
+            from: "chamados@controleautomacao.com.br",
             to: this.interno.EMAIL,
             subject: "Novo chamado",
             html: corpoEmail,
@@ -287,11 +297,15 @@ class SendEmailService {
     }
 
     sendEmailChamadosRecorrentes(chamados:any){
+          this.transporter.auth = {
+            user: "chamados@controleautomacao.com.br",
+            pass: "controlechamados01"
+        }
         const corpoEmail = `
         <table style="width:100%" cellpadding="0" cellspacing="0">
             <tr bgcolor="#003775">
                 <th>
-                    <img src="" alt="logo" style="width:90%;height:80%;">
+                    <img src=${this.logoPath} alt="logo" style="width:25%; margin-left:10px">
                 </th>
                 <th>
                     <h2 style="color:#fff">Dúvida</h2>
@@ -307,8 +321,7 @@ class SendEmailService {
                 <h1> Olá, ${this.interno.NOME} </h1>
                 <h5> Você tem ${chamados.length} chamados recorrentes que devem ser efetuados</h5>
                 <p> Acesse o portal pelo link abaixo para consultar ele: </p>
-                <a href="http://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>
-                <p> Em caso de demora, entre em contato com nosso suporte <b><a href="https://wa.link/3i5b7x" style="text-decoration:none;color:#000;">clicando aqui</a></b> </p>	
+                <a href="http://facility.controleautomacao.com.br"> facility.controleautomacao.com.br </a>	
                 </td>
             </tr>
         </table>
@@ -318,7 +331,7 @@ class SendEmailService {
         
     
         const emailASerEnviado = { //Dados do email a ser enviado
-            from: "envionotafiscal@controleautomacao.com.br",
+            from: "chamados@controleautomacao.com.br",
             to: this.interno.EMAIL,
             subject: "Novo chamado",
             html: corpoEmail,

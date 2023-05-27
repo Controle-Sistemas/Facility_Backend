@@ -13,6 +13,10 @@ routes.get("/:name", function (req, res) {
     var name = req.params.name;
     sysRamosAtividade_1.default.getSysRamosAtividadeByName(name, res);
 });
+routes.get("/cliente/:idCloud", function (req, res) {
+    var idCloud = req.params.idCloud;
+    sysRamosAtividade_1.default.getSysRamosAtividadeByIdCloud(idCloud, res);
+});
 routes.post("/", function (req, res) {
     var sysRamosAtividade = req.body;
     sysRamosAtividade_1.default.addSysRamosAtividade(sysRamosAtividade, res);

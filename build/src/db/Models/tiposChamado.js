@@ -183,39 +183,47 @@ var TiposModel = /** @class */ (function () {
     };
     TiposModel.prototype.create = function (tipo, res) {
         var statusCode = 200;
-        __1.default.query("INSERT INTO CHAMADOTYPE (ID , TITLE) VALUES ('".concat(tipo.ID, "', '").concat(tipo.TITLE, "')"), function (err, results) {
-            if (err) {
-                statusCode = 500;
-            }
-            else {
-                if (tipo.SECTIONS) {
-                    lodash_1.default.map(tipo.SECTIONS, function (section) { return (__1.default.query("INSERT INTO CHAMADOTYPESECTION (ID , TITLE, IDTYPE) VALUES ('".concat(section.ID, "', '").concat(section.TITLE, "', '").concat(tipo.ID, "')"), function (err, results) {
-                        if (err) {
-                            statusCode = 500;
-                        }
-                        else {
-                            lodash_1.default.map(section.ITENS, function (item) { return (__1.default.query("INSERT INTO CHAMADOTYPESECTIONITEM (ID , IDSECTION, DESCRIPTION, REQUIRED) VALUES ('".concat(item.ID, "', '").concat(section.ID, "', '").concat(item.DESCRIPTION, "', ").concat(item.REQUIRED, ")"), function (err, results) {
-                                if (err) {
-                                    statusCode = 500;
-                                }
-                            })); });
-                        }
-                    })); });
-                }
-            }
-            if (statusCode != 200) {
-                res.status(statusCode).send({
-                    data: err,
-                    message: "Algo deu errado com a requisi\u00E7\u00E3o"
-                });
-            }
-            else {
-                res.status(statusCode).send({
-                    data: tipo,
-                    message: "Tipo '".concat(tipo.TITLE, "' criado com sucesso")
-                });
-            }
-        });
+        console.log(tipo);
+        /**
+         *
+         * conn.query(`INSERT INTO CHAMADOTYPE (ID , TITLE) VALUES ('${tipo.ID}', '${tipo.TITLE}')`
+              , (err, results) => {
+                  if (err) {
+                      statusCode = 500;
+                  } else {
+                      if (tipo.SECTIONS) {
+                          _.map(tipo.SECTIONS, (section) => (
+                              conn.query(`INSERT INTO CHAMADOTYPESECTION (ID , TITLE, IDTYPE) VALUES ('${section.ID}', '${section.TITLE}', '${tipo.ID}')`, (err, results) => {
+                                  if (err) {
+                                      statusCode = 500;
+                                  } else {
+                                      _.map(section.ITENS, (item) => (
+                                          conn.query(`INSERT INTO CHAMADOTYPESECTIONITEM (ID , IDSECTION, DESCRIPTION, REQUIRED) VALUES ('${item.ID}', '${section.ID}', '${item.DESCRIPTION}', ${item.REQUIRED})`, (err, results) => {
+                                              if (err) {
+                                                  statusCode = 500;
+                                              }
+                                          })
+                                      ))
+                                  }
+                              })
+                          ))
+                      }
+                  }
+                  if (statusCode != 200) {
+                      res.status(statusCode).send({
+                          data: err,
+                          message: `Algo deu errado com a requisição`
+                      })
+                  } else {
+                      res.status(statusCode).send({
+                          data: tipo,
+                          message: `Tipo '${tipo.TITLE}' criado com sucesso`
+                      })
+  
+                  }
+              })
+         *
+         */
     };
     TiposModel.prototype.update = function (id, item, res) {
         __1.default.query('UPDATE CHAMADOSECTIONITEM SET DONE ? WHERE ID = ?', [item.DONE, id], function (err, results) {
