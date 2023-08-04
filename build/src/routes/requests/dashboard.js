@@ -80,26 +80,29 @@ var DashboardRequest = /** @class */ (function () {
             });
         });
     };
-    DashboardRequest.prototype.getDailyEvolution = function () {
+    DashboardRequest.prototype.getDailyEvolution = function (range) {
         return __awaiter(this, void 0, void 0, function () {
             var response;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, axios_1.default.get("".concat(urls_1.EXTERNAL_API, "/getDailyEvolution"), {
-                            headers: {
-                                "socket_client": "@".concat(this.clientIdCloud)
-                            }
-                        }).then(function (response) {
-                            if (response.data.Error)
-                                return { "error": response.data.Error };
-                            var data = response.data.dailyEvolution.map(function (dia) { return (__assign(__assign({}, dia), { diaDaSemana: getDiaDaSemana(dia.data) })); });
-                            return data;
-                        })
-                            .catch(function (error) {
-                            console.log("Erro: " + error.errno + ' - ' + error.code);
-                            var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
-                            return response;
-                        })];
+                    case 0:
+                        console.log(range);
+                        return [4 /*yield*/, axios_1.default.get("".concat(urls_1.EXTERNAL_API, "/getDailyEvolution"), {
+                                headers: {
+                                    "socket_client": "@".concat(this.clientIdCloud)
+                                },
+                                data: { DateInit: range.DateInit, DateFinal: range.DateFinal }
+                            }).then(function (response) {
+                                if (response.data.Error)
+                                    return { "error": response.data.Error };
+                                var data = response.data.dailyEvolution.map(function (dia) { return (__assign(__assign({}, dia), { diaDaSemana: getDiaDaSemana(dia.data) })); });
+                                return data;
+                            })
+                                .catch(function (error) {
+                                console.log("Erro: " + error.errno + ' - ' + error.code);
+                                var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
+                                return response;
+                            })];
                     case 1:
                         response = _a.sent();
                         return [2 /*return*/, response];

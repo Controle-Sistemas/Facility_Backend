@@ -8,10 +8,11 @@ var dashboard_1 = __importDefault(require("../requests/dashboard"));
 var routes = express_1.default.Router();
 routes.get('/', function (req, res) {
 });
-routes.get('/daily-evolution/:idCloud', function (req, res) {
+routes.patch('/daily-evolution/:idCloud', function (req, res) {
     var idCloud = parseInt(req.params.idCloud);
+    var range = req.body;
     var dashboardRequest = new dashboard_1.default(idCloud);
-    var dataPromise = dashboardRequest.getDailyEvolution();
+    var dataPromise = dashboardRequest.getDailyEvolution(range);
     Promise.resolve(dataPromise).then(function (response) {
         if (response.error || response.Error) {
             res.status(400).json({

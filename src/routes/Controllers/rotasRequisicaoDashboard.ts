@@ -3,15 +3,13 @@ import DashboardRequest from '../requests/dashboard'
 const routes = express.Router()
 
 routes.get('/', (req: Request, res: Response) => {
-
-
-
 })
 
-routes.get('/daily-evolution/:idCloud', (req: Request, res: Response) => {
+routes.patch('/daily-evolution/:idCloud', (req: Request, res: Response) => {
     const idCloud = parseInt(req.params.idCloud)
+    const range = req.body;
     const dashboardRequest = new DashboardRequest(idCloud)
-    const dataPromise = dashboardRequest.getDailyEvolution()
+    const dataPromise = dashboardRequest.getDailyEvolution(range)
     Promise.resolve(dataPromise).then(response => {
         if (response.error || response.Error) {
             res.status(400).json({

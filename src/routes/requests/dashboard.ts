@@ -22,11 +22,13 @@ class DashboardRequest {
             })
         return response
     }
-    async getDailyEvolution() {
+    async getDailyEvolution(range: {DateInit: string, DateFinal: string}) {
+        console.log(range)
         const response = await axios.get(`${EXTERNAL_API}/getDailyEvolution`, {
             headers: {
                 "socket_client": `@${this.clientIdCloud}`
-            }
+            },
+            data: {DateInit: range.DateInit, DateFinal: range.DateFinal}
         }).then(response => {
             if (response.data.Error)
                 return { "error": response.data.Error };
@@ -40,8 +42,7 @@ class DashboardRequest {
             })
         return response
     }
-    async getRealTimeByIdCloud(DateInit: string, TimeInit: string) {
-        
+    async getRealTimeByIdCloud(DateInit: string, TimeInit: string) {        
         var params = { DateInit: DateInit, TimeInit: TimeInit }
         const response = await axios.get(`${EXTERNAL_API}/RealTime`, {
             headers: {
