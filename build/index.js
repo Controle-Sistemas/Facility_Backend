@@ -25,8 +25,11 @@ db_1.default.connect(function (err) {
     else {
         console.log('Conectado com sucesso');
         app.use((0, cors_1.default)());
-        app.use(body_parser_1.default.json()); //Para o express entender o formato json
-        app.use(body_parser_1.default.urlencoded({ extended: true }));
+        // app.use(bodyParser.json()); //Para o express entender o formato json
+        // app.use(bodyParser.urlencoded({ extended: true }));
+        app.use(body_parser_1.default.json({ limit: '200mb' }));
+        app.use(body_parser_1.default.urlencoded({ limit: '200mb', extended: true }));
+        app.use(body_parser_1.default.text({ limit: '200mb' }));
         //Criando as tabelas do banco de dados
         createTables_1.default.tableCliente();
         createTables_1.default.tableSysApiConf();

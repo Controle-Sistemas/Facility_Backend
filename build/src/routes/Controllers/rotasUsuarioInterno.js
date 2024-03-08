@@ -130,65 +130,64 @@ router.post('/login', function (req, res) {
         });
     }); });
 });
-router.patch('/change-password/', function (req, res) {
-    //const CNPJ = req.params.cnpj; //Pega o cnpj do usuário
-    var oldPassword = req.body.oldPassword; //Pega a senha antiga
-    var newPassword = req.body.newPassword; //Pega a nova senha
-    res.status(200).send({
-        message: "Interno atualizado",
-        data: req.body
-    });
-    /**
-     * connection.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = ${CNPJ}`, async (err: any, results: any) => {
-        try {
-            if (err) {
-                console.log(err);
-            } else {
-                if (results.length > 0) { //Verifica se existe algum usuário com o mesmo cnpj
-                    const oldPasswordEncrypted = results[0].PASSWORD; //Pega a senha criptografada
-                    await bcrypt.compare(oldPassword, oldPasswordEncrypted).then((result) => { //Compara a senha antiga com a senha criptografada
-                        if (result) { //Se for igual, criptografa a nova senha e atualiza o usuário
-                            const passwordEncrypted = bcrypt.hash(newPassword, 5);
-                            passwordEncrypted
-                                .then((result) => {
-                                    if (result) {
-                                        const data = {
-                                            PASSWORD: result
-                                        };
-                                        connection.query(
-                                            `UPDATE SYSLOGINREQUEST SET ? WHERE CNPJ = ${CNPJ}`,
-                                            [data],
-                                            (err: any, results: any) => {
-                                                if (err) {
-                                                    console.log(err);
-                                                } else {
-                                                    res.status(200).json({ message: `Senha atualizada com sucesso` });
-                                                }
-                                            }
-                                        );
-                                    } else {
-                                        res.status(400).json({ message: `Erro ao atualizar a senha` });
+router.patch('/change-password/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var oldPassword, newPassword, id;
+    return __generator(this, function (_a) {
+        oldPassword = req.body.oldPassword;
+        newPassword = req.body.newPassword;
+        id = parseInt(req.params.id);
+        console.log(req.params);
+        // const data = {
+        // 	oldPassword: req.body.oldPassword,
+        // 	newPassword: req.body.newPassword
+        // }
+        db_1.default.query("SELECT * FROM internos WHERE ID = '".concat(parseInt(req.params.id), "'"), function (err, results) { return __awaiter(void 0, void 0, void 0, function () {
+            var passwordEncrypted_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!err) return [3 /*break*/, 1];
+                        return [2 /*return*/, res.status(500).json({ message: "Erro interno", data: results })];
+                    case 1:
+                        console.log(results);
+                        if (!(results.length > 0)) return [3 /*break*/, 3];
+                        passwordEncrypted_1 = results[0].SENHA;
+                        return [4 /*yield*/, bcrypt_1.default.compare(oldPassword, passwordEncrypted_1).then(function (result) { return __awaiter(void 0, void 0, void 0, function () {
+                                return __generator(this, function (_a) {
+                                    switch (_a.label) {
+                                        case 0:
+                                            if (!result) return [3 /*break*/, 2];
+                                            return [4 /*yield*/, bcrypt_1.default.hash(newPassword, 5).then(function (encryptedNewPassword) {
+                                                    db_1.default.query("UPDATE INTERNOS SET SENHA='".concat(encryptedNewPassword, "' WHERE ID=").concat(id), function (err, results) {
+                                                        if (err) {
+                                                            console.log(err);
+                                                        }
+                                                        else {
+                                                            if (results.affectedRows > 0) {
+                                                                return res.status(200).json({ message: "Senha do interno atualizada com sucesso", data: result });
+                                                            }
+                                                        }
+                                                    });
+                                                })];
+                                        case 1:
+                                            _a.sent();
+                                            return [3 /*break*/, 3];
+                                        case 2: return [2 /*return*/, res.status(400).json({ message: "Senha atual incorreta", data: passwordEncrypted_1 })];
+                                        case 3: return [2 /*return*/];
                                     }
-                                })
-                                .catch((err) => {
-                                    console.log(err);
                                 });
-                        } else {
-                            console.log(result);
-
-                            res.status(400).json({ message: `Senha atual incorreta` });
-                        }
-                    });
-                } else {
-                    res.status(400).json({ message: `Usuário não encontrado` });
+                            }); })];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3: return [2 /*return*/, res.status(404).json({ message: "Interno n\u00E3o encontrado", data: results })];
+                    case 4: return [2 /*return*/];
                 }
-            }
-        } catch (error) {
-            console.error(error);
-        }
+            });
+        }); });
+        return [2 /*return*/];
     });
-     */
-});
+}); });
 router.patch('/:id', function (req, res) {
     var id = Number(req.params.id);
     var internalUserData = req.body;

@@ -97,6 +97,7 @@ routes.post('/list-products/:idCloud', function (req, res) {
     var idCloud = parseInt(req.params.idCloud);
     var dashboardRequest = new dashboard_1.default(idCloud);
     var groupID = req.body.groupID;
+    console.log("Buscando dados do idCloud: ", idCloud);
     var dataPromise = dashboardRequest.getProductsByGroupID(groupID);
     Promise.resolve(dataPromise).then(function (response) {
         if (response) {
