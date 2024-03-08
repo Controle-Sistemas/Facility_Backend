@@ -13,9 +13,10 @@ let connection: mysql.Connection;
 connection = mysql.createConnection({
 	host: "localhost",
 	user:"root",
-	password:"controle*302109",
-	database:"projeto-portal" ,
+	password:"admin",
+	database:"dbprojetoportal" ,
 	port: 3306
 })
 
 export default connection; //exportando a conexão o modulo da conexão
+
