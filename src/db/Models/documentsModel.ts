@@ -49,7 +49,7 @@ class DocumentsModel{
                     if(results.length > 0){
                         res.status(200).send({data:results, message: 'Documento encontrado'});
                     } else {
-                        res.status(404).send({message: 'Documento não encontrado'});
+                        res.status(200).send({message: 'Documento não encontrado'});
                     }
                 }
             }

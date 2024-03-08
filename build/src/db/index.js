@@ -15,8 +15,8 @@ var connection;
 connection = mysql2_1.default.createConnection({
     host: "localhost",
     user: "root",
-    password: "controle*302109",
-    database: "projeto-portal",
+    password: "admin",
+    database: "dbprojetoportal",
     port: 3306
 });
 exports.default = connection; //exportando a conexão o modulo da conexão

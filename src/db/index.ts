@@ -13,7 +13,7 @@ let connection: mysql.Connection;
 connection = mysql.createConnection({
 	host: "localhost",
 	user:"root",
-	password:"admin",
+	password:"root",
 	database:"dbprojetoportal" ,
 	port: 3306
 })

@@ -41,9 +41,9 @@ db_1.default.connect(function (err) {
         createTables_1.default.tableTutoriaisCategoria();
         createTables_1.default.tableSetores();
         createTables_1.default.tableInternos();
-        createTables_1.default.tableChamados();
         createTables_1.default.tableChamadosType();
         createTables_1.default.tableChamadosTypeSection();
+        createTables_1.default.tableChamados();
         createTables_1.default.tableChamadosTypeSectionItem();
         createTables_1.default.tableChamadosSectionItem();
         createTables_1.default.tableOcorrencias();

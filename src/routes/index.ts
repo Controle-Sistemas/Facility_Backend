@@ -22,6 +22,7 @@ import rotasRequisicaoProdutos from './Controllers/rotasRequisicaoProdutos'
 import rotasRequisicaoDashboard from './Controllers/rotasRequisicaoDashboard'
 import rotasGrupos from './Controllers/rotasGrupos'
 import rotasRelatorios from './Controllers/rotasRelatorios';
+import rotasProdutos from './Controllers/rotasProdutos'
 
 routes.use('/tabelas', rotasUserTableCustom)
 routes.use('/empresas', rotasEmpresas)
@@ -41,7 +42,7 @@ routes.use('/chamados', rotasChamados)
 routes.use('/status-chamado', rotasStatusChamado)
 routes.use('/tipos-chamado', rotasTiposChamado)
 routes.use('/ocorrencias', rotasOcorrencias)
-routes.use('/produtos', rotasRequisicaoProdutos)
+routes.use('/produtos', rotasProdutos)
 routes.use('/dashboard', rotasRequisicaoDashboard)
 routes.use('/grupos', rotasGrupos)
 routes.use('/relatorios', rotasRelatorios)

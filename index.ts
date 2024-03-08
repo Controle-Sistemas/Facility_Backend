@@ -21,12 +21,13 @@ connection.connect((err: any) => {
 		console.log('Não foi possível conectar ao banco de dados');
 	} else {
 		console.log('Conectado com sucesso');
-		
-		app.use(cors());
-		app.use(bodyParser.json()); //Para o express entender o formato json
 
-		app.use(bodyParser.urlencoded({ extended: true }));
-		
+		app.use(cors());
+		// app.use(bodyParser.json()); //Para o express entender o formato json
+		// app.use(bodyParser.urlencoded({ extended: true }));
+		app.use(bodyParser.json({ limit: '200mb' }));
+		app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
+		app.use(bodyParser.text({ limit: '200mb' }));
 
 
 		//Criando as tabelas do banco de dados
@@ -43,20 +44,19 @@ connection.connect((err: any) => {
 		CreateTables.tableTutoriaisCategoria();
 		CreateTables.tableSetores();
 		CreateTables.tableInternos();
-		CreateTables.tableChamados();
 		CreateTables.tableChamadosType();
 		CreateTables.tableChamadosTypeSection();
+		CreateTables.tableChamados();
 		CreateTables.tableChamadosTypeSectionItem();
 		CreateTables.tableChamadosSectionItem();
 		CreateTables.tableOcorrencias();
 		CreateTables.tableStatusChamados();
 		CreateTables.tableMatrizes();
 		CreateTables.tableFiliais();
-
 		//utilizar as rotas
 		app.use(routes);
 		app.listen(PORT, () => {
-			console.log('Server running on port '+PORT);
+			console.log('Server running on port ' + PORT);
 		});
 	}
 });

@@ -122,6 +122,32 @@ class Internos {
         }
     }
 
+    changeInternalPasswrod(id:number, oldPassword:string, newPassord:string, res: Response) {
+        try {
+            connection.query(`DELETE FROM INTERNOS WHERE ID = ${id}`, (err, results: any) => {
+                if (err) {
+                    console.log(err);
+                    res.status(400).send(err);
+                } else {
+                    if (results.affectedRows > 0) {
+                        res.status(200).send({
+                            message: "Interno deletado",
+                            data: results
+                        });
+                    } else {
+                        res.status(404).send({
+                            message: "Nenhum interno deletado"
+                        });
+                    }
+                }
+            })
+        } catch (error) {
+            console.log(error);
+            res.status(400).send(error);
+        }
+    }
+
+
     deleteInternal(id:number, res: Response) {
         try {
             connection.query(`DELETE FROM INTERNOS WHERE ID = ${id}`, (err, results: any) => {

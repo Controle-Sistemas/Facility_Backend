@@ -80,16 +80,17 @@ router.post('/login', (req: Request, res: Response) => {
 	})
 });
 
-router.patch('/change-password/', (req: Request, res: Response) => { //Rota para alterar a senha de um usuário
+router.patch('/change-password/:id', (req: Request, res: Response) => { //Rota para alterar a senha de um usuário
 	//const CNPJ = req.params.cnpj; //Pega o cnpj do usuário
 	const oldPassword = req.body.oldPassword;  //Pega a senha antiga
 	const newPassword = req.body.newPassword; //Pega a nova senha
+	console.log(req.params.id, req.body)
 	res.status(200).send({
 		message: "Interno atualizado",
 		data: req.body
 	});
 	/**
-	 * connection.query(`SELECT * FROM SYSLOGINREQUEST WHERE CNPJ = ${CNPJ}`, async (err: any, results: any) => {
+	 * connection.query(`SELECT * FROM INTERNOS WHERE CNPJ = ${CNPJ}`, async (err: any, results: any) => {
 		try {
 			if (err) {
 				console.log(err);
