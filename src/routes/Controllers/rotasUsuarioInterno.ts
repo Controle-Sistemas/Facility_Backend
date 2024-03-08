@@ -39,7 +39,7 @@ router.post('/', async (req: Request, res: Response) => {
 		} else {
 			console.log(internalUserData);
 			internalUserModel.createInternal(internalUserData, res); //Cria o usuário
-			const SendEmailService = new sendEmailService(2,internalUserData);
+			const SendEmailService = new sendEmailService(2, internalUserData);
 			SendEmailService.sendPasswordEmail(password); //Envia o email com a senha
 		}
 	}
@@ -47,28 +47,28 @@ router.post('/', async (req: Request, res: Response) => {
 
 router.post('/login', (req: Request, res: Response) => {
 	const internalUserData = req.body;
-    connection.query(`SELECT * FROM INTERNOS WHERE USUARIO = '${internalUserData.USUARIO}'`, async(err, results:any) => {
-		if(err){
+	connection.query(`SELECT * FROM INTERNOS WHERE USUARIO = '${internalUserData.USUARIO}'`, async (err, results: any) => {
+		if (err) {
 			console.log(err)
 		} else {
-			if(results.length > 0){
+			if (results.length > 0) {
 				const passwordEncrypted = results[0].SENHA
 				await bcrypt.compare(internalUserData.SENHA, passwordEncrypted).then((result) => {
 					//Compara a senha criptografada com a senha digitada
 					if (result) {
-							let token = jwt.sign(
-								{
-									//Cria o token
-									id: results[0].ID,
-									usuario: results[0].USUARIO,
-								},
-								auth.secret,
-								{
-									expiresIn: auth.expireIn
-								})
+						let token = jwt.sign(
+							{
+								//Cria o token
+								id: results[0].ID,
+								usuario: results[0].USUARIO,
+							},
+							auth.secret,
+							{
+								expiresIn: auth.expireIn
+							})
 
-						res.status(200).json({ message: `Interno logado com sucesso`, token, id:results[0].ID,isAdmin:results[0].ADMIN}); //Retorna o token e se o usuário é admin
-						
+						res.status(200).json({ message: `Interno logado com sucesso`, token, id: results[0].ID, isAdmin: results[0].ADMIN }); //Retorna o token e se o usuário é admin
+
 					} else {
 						res.status(400).json({ message: `Senha incorreta` }); //Retorna uma mensagem de erro
 					}
@@ -76,19 +76,53 @@ router.post('/login', (req: Request, res: Response) => {
 			} else {
 				res.status(400).json({ message: `Usuario não cadastrado` });
 			}
-			}
+		}
 	})
 });
 
-router.patch('/change-password/:id', (req: Request, res: Response) => { //Rota para alterar a senha de um usuário
-	//const CNPJ = req.params.cnpj; //Pega o cnpj do usuário
+router.patch('/change-password/:id', async (req: Request, res: Response) => { //Rota para alterar a senha de um interno
 	const oldPassword = req.body.oldPassword;  //Pega a senha antiga
 	const newPassword = req.body.newPassword; //Pega a nova senha
-	console.log(req.params.id, req.body)
-	res.status(200).send({
-		message: "Interno atualizado",
-		data: req.body
+	const id = parseInt(req.params.id);
+	console.log(req.params)
+	// const data = {
+	// 	oldPassword: req.body.oldPassword,
+	// 	newPassword: req.body.newPassword
+	// }
+	connection.query(`SELECT * FROM internos WHERE ID = '${parseInt(req.params.id)}'`, async (err, results: any) => {
+		if (err) {
+			return res.status(500).json({ message: `Erro interno`, data: results })
+		} else {
+			console.log(results)
+			if (results.length > 0) {
+				const passwordEncrypted = results[0].SENHA
+				await bcrypt.compare(oldPassword, passwordEncrypted).then(async (result) => {
+					if (result) {
+						await bcrypt.hash(newPassword, 5).then((encryptedNewPassword) => {
+							connection.query(`UPDATE INTERNOS SET SENHA='${encryptedNewPassword}' WHERE ID=${id}`, (err, results: any) => {
+								if (err) {
+									console.log(err);
+								} else {
+									if (results.affectedRows > 0) {
+										return res.status(200).json({ message: `Senha do interno atualizada com sucesso`, data: result })
+									}
+								}
+							});
+						});
+					}
+					else {
+						return res.status(400).json({ message: `Senha atual incorreta`, data: passwordEncrypted })
+					}
+
+				});
+			}else{
+				return res.status(404).json({ message: `Interno não encontrado`, data: results })
+			}
+		}
 	});
+	// console.log(req.params.id, req.body);
+	// internalUserModel.changeInternalPassword(id, oldPassword, newPassword, res);
+	// res.send();
 	/**
 	 * connection.query(`SELECT * FROM INTERNOS WHERE CNPJ = ${CNPJ}`, async (err: any, results: any) => {
 		try {
@@ -126,7 +160,7 @@ router.patch('/change-password/:id', (req: Request, res: Response) => { //Rota p
 								});
 						} else {
 							console.log(result);
-
+	
 							res.status(400).json({ message: `Senha atual incorreta` });
 						}
 					});
@@ -162,11 +196,11 @@ router.patch('/forgot-password/:user', (req: Request, res: Response) => {  //Rot
 							const data = {
 								SENHA: result
 							};
-							connection.query(`UPDATE internos SET ? WHERE USUARIO = '${user}'`, [ data ], (err: any) => {
+							connection.query(`UPDATE internos SET ? WHERE USUARIO = '${user}'`, [data], (err: any) => {
 								if (err) {
 									console.log(err);
 								} else {
-									const SendEmailService = new sendEmailService(2,results[0])
+									const SendEmailService = new sendEmailService(2, results[0])
 									SendEmailService.sendPasswordEmail(password); //Envia o email com a senha
 									res
 										.status(200)
