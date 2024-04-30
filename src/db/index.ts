@@ -11,10 +11,10 @@ let connection: mysql.Connection;
 
 
 connection = mysql.createConnection({
-	host: "localhost",
-	user:"root",
-	password:"root",
-	database:"dbprojetoportal" ,
+	host: "sistema.vpscronos0367.mysql.dbaas.com.br",
+	user:"sistema",
+	password:"Controleautomaca@2024",
+	database:"sistema" ,
 	port: 3306
 })
 

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>Pedido Estoque</title>
+</head>
+<style>
+  body {
+    font-family: 'Courier New';
+  }
+</style>
+
+<body class="h-full w-full text-[0.75em] px-4">
+  <div class="font-bold w-full pt-4 border-b border-dotted border-black border-t-0 border-x-0">
+    <p class="mt-2"><%= empresa %></p>
+    <p class="mt-2">ANALISE DE LUCRATIVIDADE-PRODUTOS VENDIDOS POR PERIODO/POR GRUPO</p>
+    <p class="mt-2 text-center">PERIODO ENTRE <%= dateInit%> AS <%= timeInit%> E <%= dateFinal%> AS <%= timeFinal%>
+    </p>
+  </div>
+  <% if (groups.length> 0) { %>
+  <% groups.forEach(group=> { %>
+  <ul class="w-full p-0 mt-2">
+    <li class="w-full p-0 ">
+      <p class="font-bold">GRUPO: <%= group.nome %>
+      </p>
+      <table class="w-full mt-2">
+        <tr class="w-full border-b border-dotted border-2 border-black border-t-0 border-x-0">
+          <th class="w-[43%] font-light ">PRODUTO</th>
+          <th class="w-[13%] text-right font-light ">QTDE</th>
+          <th class="w-[13%] text-right font-light ">VL TOTAL</th>
+          <th class="w-[13%] text-right font-light ">C TOTAL</th>
+          <th class="w-[13%] text-right font-light ">L TOTAL</th>
+          <th class="w-[5%] text-center font-light ">%</th>
+        </tr>
+        <tbody class="border-b border-dotted border-2 border-black border-t-0 border-x-0">
+          <% if (group.products.length> 0) { %>
+          <% group.products.forEach((product, index)=> { %>
+          <% if(index %2 > 0){ %>
+          <tr class="bg-cyan-100">
+            <td class="w-[43%] font-light"><%= product.produto %></td>
+            <td class="w-[13%] text-right font-light "><%= product.qtdeVendida.toFixed(2).replace('.',',') %></td>
+            <td class="w-[13%] text-right font-light "><%= product.valorTotal.toFixed(2).replace('.',',') %></td>
+            <td class="w-[13%] text-right font-light "><%= product.custoTotal.toFixed(2).replace('.',',') %></td>
+            <td class="w-[13%] text-right font-light "><%= product.lucroTotal.toFixed(2).replace('.',',') %></td>
+            <td class="w-[5%] text-center font-light"><%= product.lucroTotalPerc+'%' %></td>
+          </tr>
+          <% } else{ %>
+
+          <tr class="bg-white">
+            <td class="w-[43%] font-light"><%= product.produto %></td>
+            <td class="w-[13%] text-right font-light "><%= product.qtdeVendida.toFixed(2).replace('.',',') %></td>
+            <td class="w-[13%] text-right font-light "><%= product.valorTotal.toFixed(2).replace('.',',') %></td>
+            <td class="w-[13%] text-right font-light "><%= product.custoTotal.toFixed(2).replace('.',',') %></td>
+            <td class="w-[13%] text-right font-light "><%= product.lucroTotal.toFixed(2).replace('.',',') %></td>
+            <td class="w-[5%] text-center font-light"><%= product.lucroTotalPerc+'%' %></td>
+          </tr>
+          <% } %>
+          <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+      <div class="w-full flex text-right font-bold">
+        <span class="w-[43%] font-bold ">TOTAIS DO GRUPO:</span>
+        <span class="w-[13%] text-right font-light  "><%= group.qtde %></span>
+        <span class="w-[13%] text-right font-light "><%= group.vlTotal %></span>
+        <span class="w-[13%] text-right font-light "><%= group.cTotal %></span>
+        <span class="w-[13%] text-right font-light "><%= group.lTotal %></span>
+        <span class="w-[5%] text-right font-light "><%= group.percentual %></span>
+      </div>
+    </li>
+  </ul>
+  <% }) %>
+  <% } %>
+  <div class="w-full flex text-right font-bold">
+    <span class="w-[43%] font-bold ">TOTAL GERAL:</span>
+    <span class="w-[13%] text-right font-light "><%= qtdeTotal %></span>
+    <span class="w-[13%] text-right font-light "><%= vlTotal %></span>
+    <span class="w-[13%] text-right font-light "><%= cTotal %></span>
+    <span class="w-[13%] text-right font-light "><%= lTotal %></span>
+    <span class="w-[5%] text-right font-light "><%= percentualTotal %></span>
+  </div>
+
+</body>
+
+</html>

@@ -16,7 +16,7 @@ class SendEmailService {
 
     constructor(tipo:number,userData?: any) {
         this.transporter = nodemailer.createTransport({ //Configuração do servidor de envio de email
-            host: "revendabr.theangelz.com.br",
+            host: "mail.cronos-painel.com",
             service: "Webmail",
             name: "Controle Sistemas",
             port: 465,
@@ -43,7 +43,7 @@ class SendEmailService {
 
         this.transporter.auth = {
             user: "newpartner@controleautomacao.com.br",
-            pass: "controleparceiro01"
+            pass: "Newpartner@2024"
         }
         let corpoEmail:string;
         if(this.cliente){

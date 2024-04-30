@@ -22,13 +22,13 @@ class DashboardRequest {
             })
         return response
     }
-    async getDailyEvolution(range: {DateInit: string, DateFinal: string}) {
+    async getDailyEvolution(range: { DateInit: string, DateFinal: string }) {
         console.log(range)
         const response = await axios.get(`${EXTERNAL_API}/getDailyEvolution`, {
             headers: {
                 "socket_client": `@${this.clientIdCloud}`
             },
-            data: {DateInit: range.DateInit, DateFinal: range.DateFinal}
+            data: { DateInit: range.DateInit, DateFinal: range.DateFinal }
         }).then(response => {
             if (response.data.Error)
                 return { "error": response.data.Error };
@@ -42,7 +42,7 @@ class DashboardRequest {
             })
         return response
     }
-    async getRealTimeByIdCloud(DateInit: string, TimeInit: string) {        
+    async getRealTimeByIdCloud(DateInit: string, TimeInit: string) {
         var params = { DateInit: DateInit, TimeInit: TimeInit }
         const response = await axios.get(`${EXTERNAL_API}/RealTime`, {
             headers: {
@@ -166,6 +166,28 @@ class DashboardRequest {
             data: params
         }).then(response => {
             return response.data
+        })
+            .catch(error => {
+                console.log("Erro: " + error.errno + ' - ' + error.code)
+                var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
+                return response;
+            })
+        return response
+    }
+
+
+    async getProductsProfitabilityByGroups(groupID: string) {
+        var params = {
+            groupID: groupID
+        }
+
+        const response = await axios.get(`${EXTERNAL_API}/ListProductGroup`, {
+            headers: {
+                "socket_client": `@${this.clientIdCloud}`
+            },
+            data: params
+        }).then(response => {
+            return response.data.listProductGroup
         })
             .catch(error => {
                 console.log("Erro: " + error.errno + ' - ' + error.code)

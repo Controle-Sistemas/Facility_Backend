@@ -95,6 +95,7 @@ routes.get('/registradoras/:idCloud/:id', (req: Request, res: Response) => {
     })
 })
 
+
 routes.post('/list-products/:idCloud', (req: Request, res: Response) => {
     const idCloud = parseInt(req.params.idCloud)
     const dashboardRequest = new DashboardRequest(idCloud)
@@ -137,6 +138,26 @@ routes.post('/list-products/:idCloud', (req: Request, res: Response) => {
             }
         })
     })
+
+    
+routes.get('/lucratividade/:idCloud/:id', (req: Request, res: Response) => {
+    const idCloud = parseInt(req.params.idCloud)
+    const dashboardRequest = new DashboardRequest(idCloud)
+    const DateInit = req.body.DateInit;
+    const DateFinal = req.body.DateFinal;
+    const dataPromise = dashboardRequest.getViewPeriodoClosed(DateInit, DateFinal, req.params.id)
+    Promise.resolve(dataPromise).then(response => {
+        if (response.cabec.length < 1) {
+            res.status(400).json({
+                error: true,
+                data: "Não foram encontrados registros no período",
+            })
+        } else {
+            return res.status(200).json({ message: `Dados da empresa de idcloud ${idCloud} recuperados com sucesso`, data: response })
+
+        }
+    })
+})
 
 })
 
