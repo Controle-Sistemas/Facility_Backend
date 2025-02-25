@@ -141,7 +141,7 @@ router.patch('/change-password/:id', function (req, res) { return __awaiter(void
         // 	oldPassword: req.body.oldPassword,
         // 	newPassword: req.body.newPassword
         // }
-        db_1.default.query("SELECT * FROM internos WHERE ID = '".concat(parseInt(req.params.id), "'"), function (err, results) { return __awaiter(void 0, void 0, void 0, function () {
+        db_1.default.query("SELECT * FROM INTERNOS WHERE ID = '".concat(parseInt(req.params.id), "'"), function (err, results) { return __awaiter(void 0, void 0, void 0, function () {
             var passwordEncrypted_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -211,7 +211,7 @@ router.patch('/forgot-password/:user', function (req, res) {
                             var data = {
                                 SENHA: result
                             };
-                            db_1.default.query("UPDATE internos SET ? WHERE USUARIO = '".concat(user, "'"), [data], function (err) {
+                            db_1.default.query("UPDATE INTERNOS SET ? WHERE USUARIO = '".concat(user, "'"), [data], function (err) {
                                 if (err) {
                                     console.log(err);
                                 }

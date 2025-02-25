@@ -14,15 +14,15 @@ var SendEmailService = /** @class */ (function () {
     function SendEmailService(tipo, userData) {
         this.logoPath = "http://facility.controleautomacao.com.br/static/media/logoBranca.7d5dfffbd546d74fdeaa.png";
         this.transporter = nodemailer_1.default.createTransport({
-            host: "revendabr.theangelz.com.br",
+            host: "mail.cronos-painel.com",
             service: "Webmail",
             name: "Controle Sistemas",
             port: 465,
             secure: true,
             auth: {
-                user: "chamados@controleautomacao.com.br",
+                user: "nao-responda@controleautomacao.com.br",
                 // user: newpartner@controleautomacao.com.br
-                pass: "controlechamados01"
+                pass: "Naoresponda@2025"
             }
         });
         if (tipo === 1) {
@@ -36,7 +36,7 @@ var SendEmailService = /** @class */ (function () {
         var _this = this;
         this.transporter.auth = {
             user: "newpartner@controleautomacao.com.br",
-            pass: "controleparceiro01"
+            pass: "Newpartner@2025"
         };
         var corpoEmail;
         if (this.cliente) {
@@ -55,6 +55,7 @@ var SendEmailService = /** @class */ (function () {
         this.transporter.sendMail(emailASerEnviado, function (error, info) {
             if (error) {
                 console.log(error);
+                console.log(_this.transporter.auth.user + '\n' + _this.transporter.auth.pass);
             }
             else {
                 console.log("Email enviado para ".concat(_this.cliente ? _this.cliente.EMAIL : _this.interno.EMAIL, ":") + info.response);

@@ -8,6 +8,19 @@ var dashboard_1 = __importDefault(require("../requests/dashboard"));
 var routes = express_1.default.Router();
 routes.get('/', function (req, res) {
 });
+routes.get('/grupos/:idCloud', function (req, res) {
+    var idCloud = parseInt(req.params.idCloud);
+    var dashboardRequest = new dashboard_1.default(idCloud);
+    var dataPromise = dashboardRequest.getProductGroupsByIdCloudClient();
+    Promise.resolve(dataPromise).then(function (response) {
+        return res.status(200).json({ message: "Dados da empresa de idcloud ".concat(idCloud, " recuperados com sucesso"), data: response });
+    }).catch(function (error) {
+        res.status(400).json({
+            error: true,
+            data: "Não foram encontrados registros no período",
+        });
+    });
+});
 routes.patch('/daily-evolution/:idCloud', function (req, res) {
     var idCloud = parseInt(req.params.idCloud);
     var range = req.body;
@@ -91,6 +104,22 @@ routes.get('/registradoras/:idCloud/:id', function (req, res) {
         else {
             return res.status(200).json({ message: "Dados da empresa de idcloud ".concat(idCloud, " recuperados com sucesso"), data: response });
         }
+    });
+});
+routes.post('/lucratividade/:idCloud', function (req, res) {
+    var idCloud = parseInt(req.params.idCloud);
+    var dashboardRequest = new dashboard_1.default(idCloud);
+    var dataPromise = dashboardRequest.getProductsProfitabilityByGroup(req.body);
+    Promise.resolve(dataPromise).then(function (response) {
+        if (response.error)
+            throw Error;
+        else
+            return res.status(200).json({ message: "Dados da empresa de idcloud ".concat(idCloud, " recuperados com sucesso"), data: response });
+    }).catch(function (error) {
+        res.status(400).json({
+            error: true,
+            data: "Não foram encontrados registros no período",
+        });
     });
 });
 routes.post('/list-products/:idCloud', function (req, res) {

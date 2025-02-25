@@ -43,6 +43,7 @@ var express_1 = __importDefault(require("express"));
 var ejs_1 = __importDefault(require("ejs"));
 var path_1 = __importDefault(require("path"));
 var puppeteer_1 = __importDefault(require("puppeteer"));
+var lodash_1 = __importDefault(require("lodash"));
 var router = express_1.default.Router();
 router.post('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
@@ -103,20 +104,51 @@ router.post('/:relatorioType', function (req, res) { return __awaiter(void 0, vo
     });
 }); });
 router.post('/pdf/:relatorioType', function (req, res) {
-    var registry = req.body;
-    var date = new Date();
-    var infoDate = date.toLocaleDateString();
-    var infoTime = date.toLocaleTimeString();
     var relatorioType = req.params.relatorioType;
     var templatePath = path_1.default.join(__dirname, '../', '../', 'utils', 'pdf-templates', "".concat(relatorioType, ".ejs"));
-    ejs_1.default.renderFile(templatePath, { registry: registry, infoDate: infoDate, infoTime: infoTime }, function (err, data) {
+    // console.log(req.body)
+    ejs_1.default.renderFile(templatePath, getParamsByRelatoryType(req.body, relatorioType), function (err, data) {
         if (err) {
-            res.send("Erro \u26A0\uFE0F".concat('\n', " Template \"").concat(relatorioType, "\" n\u00E3o encontrado."));
+            console.log(err.message);
+            res.send("Erro \u26A0\uFE0F".concat('\n', " ").concat(err.name, ": ").concat(err.message));
         }
         else {
             res.send(data);
         }
     });
 });
+function getParamsByRelatoryType(data, relatorioType) {
+    switch (relatorioType) {
+        case 'lucratividadeProdutos':
+            var groups = data.groups;
+            var dateInit = data.dateInit;
+            var dateFinal = data.dateFinal;
+            var timeInit = data.timeInit;
+            var timeFinal = data.timeFinal;
+            var empresa = data.empresa;
+            var qtdeTotal = void 0;
+            var vlTotal = void 0;
+            var cTotal = void 0;
+            var lTotal = void 0;
+            var percentualTotal = void 0;
+            formatLucratividadeData(data);
+            return { groups: groups, dateInit: dateInit, dateFinal: dateFinal, qtdeTotal: qtdeTotal, empresa: empresa, vlTotal: vlTotal, cTotal: cTotal, lTotal: lTotal, percentualTotal: percentualTotal, timeInit: timeInit, timeFinal: timeFinal };
+            break;
+        case 'pedidoEstoque':
+            var registry = data;
+            var date = new Date();
+            var infoDate = date.toLocaleDateString();
+            var infoTime = date.toLocaleTimeString();
+            return { registry: registry, infoDate: infoDate, infoTime: infoTime };
+            break;
+        default:
+            return {};
+            break;
+    }
+}
+function formatLucratividadeData(data) {
+    var aux = lodash_1.default.groupBy(data);
+    console.log(data);
+}
 exports.default = router;
 //# sourceMappingURL=rotasRelatorios.js.map

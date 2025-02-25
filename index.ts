@@ -7,12 +7,11 @@ import CreateTables from './src/db/Models/createTables';
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 8000;
-// const corsOptions = {
-// 	origin: 'http://localhost:3000' || 'http://facility.controleautomacao.com.br',
-// 	optionsSuccessStatus: 200,
-
-// };
+const PORT = process.env.PORT;
+const corsOptions = {
+	origin: `${process.env.FRONT_DEPLOY_URL}` || 'http://localhost:3000',
+	optionsSuccessStatus: 200,
+};
 
 //Verificando se a conexão com o banco de dados está funcionando
 connection.connect((err: any) => {
@@ -23,12 +22,12 @@ connection.connect((err: any) => {
 		console.log('Conectado com sucesso');
 
 		app.use(cors());
+		app.use(cors(corsOptions));
 		// app.use(bodyParser.json()); //Para o express entender o formato json
 		// app.use(bodyParser.urlencoded({ extended: true }));
 		app.use(bodyParser.json({ limit: '200mb' }));
 		app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
 		app.use(bodyParser.text({ limit: '200mb' }));
-
 
 		//Criando as tabelas do banco de dados
 		CreateTables.tableCliente();

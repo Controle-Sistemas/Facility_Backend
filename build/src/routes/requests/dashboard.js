@@ -292,6 +292,63 @@ var DashboardRequest = /** @class */ (function () {
             });
         });
     };
+    DashboardRequest.prototype.getProductsProfitabilityByGroup = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var params, response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        params = {
+                            Type: "M",
+                            DateInit: data.DateInit,
+                            TimeInit: data.TimeInit,
+                            DateFinal: data.DateFinal,
+                            TimeFinal: data.TimeFinal,
+                            GroupID: data.GroupID
+                        };
+                        console.log(this.clientIdCloud);
+                        return [4 /*yield*/, axios_1.default.get("".concat(urls_1.EXTERNAL_API, "/ReportProductGroup"), {
+                                headers: {
+                                    "socket_client": "@".concat(this.clientIdCloud)
+                                },
+                                data: params
+                            }).then(function (response) {
+                                return response.data.reportProductGroup;
+                            }).catch(function (error) {
+                                console.log("Erro: " + error.errno + ' - ' + error.code);
+                                var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
+                                return response;
+                            })];
+                    case 1:
+                        response = _a.sent();
+                        return [2 /*return*/, response];
+                }
+            });
+        });
+    };
+    DashboardRequest.prototype.getProductGroupsByIdCloudClient = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, axios_1.default.get("".concat(urls_1.EXTERNAL_API, "/Groups"), {
+                            headers: {
+                                "socket_client": "@".concat(this.clientIdCloud)
+                            }
+                        }).then(function (response) {
+                            return response.data.groups;
+                        }).catch(function (error) {
+                            console.log("Erro: " + error.errno + ' - ' + error.code);
+                            var response = { "error": error.Error + ' - ' + error.code };
+                            return response;
+                        })];
+                    case 1:
+                        response = _a.sent();
+                        return [2 /*return*/, response];
+                }
+            });
+        });
+    };
     return DashboardRequest;
 }());
 function getDiaDaSemana(date) {

@@ -11,11 +11,11 @@ var db_1 = __importDefault(require("./src/db"));
 var createTables_1 = __importDefault(require("./src/db/Models/createTables"));
 require('dotenv').config();
 var app = (0, express_1.default)();
-var PORT = process.env.PORT || 8000;
-// const corsOptions = {
-// 	origin: 'http://localhost:3000' || 'http://facility.controleautomacao.com.br',
-// 	optionsSuccessStatus: 200,
-// };
+var PORT = process.env.PORT;
+var corsOptions = {
+    origin: "".concat(process.env.FRONT_DEPLOY_URL) || 'http://localhost:3000',
+    optionsSuccessStatus: 200,
+};
 //Verificando se a conexão com o banco de dados está funcionando
 db_1.default.connect(function (err) {
     if (err) {
@@ -25,6 +25,7 @@ db_1.default.connect(function (err) {
     else {
         console.log('Conectado com sucesso');
         app.use((0, cors_1.default)());
+        app.use((0, cors_1.default)(corsOptions));
         // app.use(bodyParser.json()); //Para o express entender o formato json
         // app.use(bodyParser.urlencoded({ extended: true }));
         app.use(body_parser_1.default.json({ limit: '200mb' }));

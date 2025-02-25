@@ -176,24 +176,45 @@ class DashboardRequest {
     }
 
 
-    async getProductsProfitabilityByGroups(groupID: string) {
+    async getProductsProfitabilityByGroup(data: any) {
         var params = {
-            groupID: groupID
+            Type: "M",
+            DateInit: data.DateInit,
+            TimeInit: data.TimeInit,
+            DateFinal: data.DateFinal,
+            TimeFinal: data.TimeFinal,
+            GroupID: data.GroupID
         }
 
-        const response = await axios.get(`${EXTERNAL_API}/ListProductGroup`, {
+        console.log(this.clientIdCloud)
+
+        const response = await axios.get(`${EXTERNAL_API}/ReportProductGroup`, {
             headers: {
                 "socket_client": `@${this.clientIdCloud}`
             },
             data: params
         }).then(response => {
-            return response.data.listProductGroup
+            return response.data.reportProductGroup
+        }).catch(error => {
+            console.log("Erro: " + error.errno + ' - ' + error.code)
+            var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
+            return response;
         })
-            .catch(error => {
-                console.log("Erro: " + error.errno + ' - ' + error.code)
-                var response = { "message": "Timeout! API fora do ar!", "error": error.errno + ' - ' + error.code, };
-                return response;
-            })
+        return response
+    }
+
+    async getProductGroupsByIdCloudClient() {
+        const response = await axios.get(`${EXTERNAL_API}/Groups`, {
+            headers: {
+                "socket_client": `@${this.clientIdCloud}`
+            }
+        }).then(response => {
+            return response.data.groups
+        }).catch(error => {
+            console.log("Erro: " + error.errno + ' - ' + error.code)
+            var response = { "error": error.Error + ' - ' + error.code };
+            return response;
+        })
         return response
     }
 

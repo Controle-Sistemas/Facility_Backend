@@ -4,6 +4,7 @@ import multerConfig from '../../config/multer';
 import ejs from 'ejs';
 import path from 'path';
 import puppeteer from 'puppeteer';
+import _ from 'lodash'
 
 const router = express.Router();
 
@@ -55,6 +56,7 @@ router.post('/:relatorioType', async (req: Request, res: Response) => {
 router.post('/pdf/:relatorioType', (req: Request, res: Response) => {
     let relatorioType = req.params.relatorioType
     let templatePath = path.join(__dirname, '../', '../', 'utils', 'pdf-templates', `${relatorioType}.ejs`);
+    // console.log(req.body)
     ejs.renderFile(templatePath, getParamsByRelatoryType(req.body, relatorioType), (err, data) => {
         if (err) {
             console.log(err.message)
@@ -68,56 +70,7 @@ router.post('/pdf/:relatorioType', (req: Request, res: Response) => {
 function getParamsByRelatoryType(data: any, relatorioType: string) {
     switch (relatorioType) {
         case 'lucratividadeProdutos':
-            let groups: any[] = [{
-                nome: '01-BEBIDAS', products: [{
-                    "produto": "1564-COCA COLA LATA",
-                    "qtdeVendida": 2,
-                    "valorTotal": 10.00,
-                    "precoMedio": 5.00,
-                    "lucroMedio": 2.5,
-                    "custoMedio": 2.5,
-                    "lucroTotal": 5.00,
-                    "lucroMedioPerc": 50.00,
-                    "lucroTotalPerc": 50.00,
-                    "custoTotal": 2.5,
-                },
-                {
-                    "produto": "1565-FANTA",
-                    "qtdeVendida": 2,
-                    "valorTotal": 10.00,
-                    "precoMedio": 5.00,
-                    "lucroMedio": 2.5,
-                    "custoMedio": 2.5,
-                    "lucroTotal": 5.00,
-                    "lucroMedioPerc": 50.00,
-                    "lucroTotalPerc": 50.00,
-                    "custoTotal": 2.5
-                },
-                {
-                    "produto": "1565-FANTA",
-                    "qtdeVendida": 2,
-                    "valorTotal": 10.00,
-                    "precoMedio": 5.00,
-                    "lucroMedio": 2.5,
-                    "custoMedio": 2.5,
-                    "lucroTotal": 5.00,
-                    "lucroMedioPerc": 50.00,
-                    "lucroTotalPerc": 50.00,
-                    "custoTotal": 2.5
-                },
-                {
-                    "produto": "1565-FANTA",
-                    "qtdeVendida": 2,
-                    "valorTotal": 10.00,
-                    "precoMedio": 5.00,
-                    "lucroMedio": 2.5,
-                    "custoMedio": 2.5,
-                    "lucroTotal": 5.00,
-                    "lucroMedioPerc": 50.00,
-                    "lucroTotalPerc": 50.00,
-                    "custoTotal": 2.5
-                },]
-            }];
+            let groups: any[] = data.groups;
             let dateInit = data.dateInit;
             let dateFinal = data.dateFinal;
             let timeInit = data.timeInit;
@@ -128,6 +81,7 @@ function getParamsByRelatoryType(data: any, relatorioType: string) {
             let cTotal;
             let lTotal;
             let percentualTotal;
+            formatLucratividadeData(data);
             return { groups, dateInit, dateFinal, qtdeTotal, empresa, vlTotal, cTotal, lTotal, percentualTotal, timeInit, timeFinal }
             break;
         case 'pedidoEstoque':
@@ -142,6 +96,11 @@ function getParamsByRelatoryType(data: any, relatorioType: string) {
             return {}
             break;
     }
+}
+
+function formatLucratividadeData(data:any){
+    let aux = _.groupBy(data)
+    console.log(data)
 }
 
 export default router;

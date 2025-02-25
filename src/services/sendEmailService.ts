@@ -22,9 +22,9 @@ class SendEmailService {
             port: 465,
             secure: true,
             auth: { //Dados de autenticação do servidor de envio de email
-                user: "chamados@controleautomacao.com.br", 
+                user: "nao-responda@controleautomacao.com.br", 
                 // user: newpartner@controleautomacao.com.br
-                pass: "controlechamados01"
+                pass: "Naoresponda@2025"
             }
         });
 
@@ -43,7 +43,7 @@ class SendEmailService {
 
         this.transporter.auth = {
             user: "newpartner@controleautomacao.com.br",
-            pass: "Newpartner@2024"
+            pass: "Newpartner@2025"
         }
         let corpoEmail:string;
         if(this.cliente){
@@ -108,9 +108,6 @@ class SendEmailService {
         
         ` //Corpo do email
         }
-        
-    
-        
     
         const emailASerEnviado = { //Dados do email a ser enviado
             from: "newpartner@controleautomacao.com.br",
@@ -123,6 +120,7 @@ class SendEmailService {
         this.transporter.sendMail(emailASerEnviado,  (error: any, info: { response: string; }) => { //Envia o email
             if (error) {
                 console.log(error);
+                console.log(this.transporter.auth.user+'\n'+this.transporter.auth.pass)
             } else {
                 console.log(`Email enviado para ${this.cliente ? this.cliente.EMAIL : this.interno.EMAIL}:` + info.response);
             }

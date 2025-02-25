@@ -1,8 +1,24 @@
 import express, { Request, Response } from "express";
 import DashboardRequest from '../requests/dashboard'
+import { error } from "console";
 const routes = express.Router()
 
 routes.get('/', (req: Request, res: Response) => {
+})
+
+routes.get('/grupos/:idCloud', (req: Request, res: Response) => {
+    const idCloud = parseInt(req.params.idCloud)
+    const dashboardRequest = new DashboardRequest(idCloud)
+    const dataPromise = dashboardRequest.getProductGroupsByIdCloudClient()
+    Promise.resolve(dataPromise).then(response => {
+        return res.status(200).json({ message: `Dados da empresa de idcloud ${idCloud} recuperados com sucesso`, data: response })
+
+    }).catch(error => {
+        res.status(400).json({
+            error: true,
+            data: "Não foram encontrados registros no período",
+        })
+    })
 })
 
 routes.patch('/daily-evolution/:idCloud', (req: Request, res: Response) => {
@@ -95,6 +111,22 @@ routes.get('/registradoras/:idCloud/:id', (req: Request, res: Response) => {
     })
 })
 
+routes.post('/lucratividade/:idCloud', (req: Request, res: Response) => {
+    const idCloud = parseInt(req.params.idCloud)
+    const dashboardRequest = new DashboardRequest(idCloud)
+    const dataPromise = dashboardRequest.getProductsProfitabilityByGroup(req.body)
+    Promise.resolve(dataPromise).then(response => {
+        if (response.error)
+            throw Error
+        else
+            return res.status(200).json({ message: `Dados da empresa de idcloud ${idCloud} recuperados com sucesso`, data: response })
+    }).catch(error => {
+        res.status(400).json({
+            error: true,
+            data: "Não foram encontrados registros no período",
+        })
+    })
+})
 
 routes.post('/list-products/:idCloud', (req: Request, res: Response) => {
     const idCloud = parseInt(req.params.idCloud)
@@ -113,12 +145,14 @@ routes.post('/list-products/:idCloud', (req: Request, res: Response) => {
                 return res.status(200).json({ message: `Dados em tempo real da empresa de idcloud ${idCloud} recuperados com sucesso`, data: response })
 
             }
-        }else{
-            return res.status(500).json({ message: `Timeout!`})
+        } else {
+            return res.status(500).json({ message: `Timeout!` })
 
         }
 
     })
+
+
 
     routes.post('/curvaABC/:idCloud', (req: Request, res: Response) => {
         const idCloud = parseInt(req.params.idCloud)
@@ -134,30 +168,12 @@ routes.post('/list-products/:idCloud', (req: Request, res: Response) => {
                 })
             } else {
                 return res.status(200).json({ message: `Dados da empresa de idcloud ${idCloud} recuperados com sucesso`, data: response })
-    
+
             }
         })
     })
 
-    
-routes.get('/lucratividade/:idCloud/:id', (req: Request, res: Response) => {
-    const idCloud = parseInt(req.params.idCloud)
-    const dashboardRequest = new DashboardRequest(idCloud)
-    const DateInit = req.body.DateInit;
-    const DateFinal = req.body.DateFinal;
-    const dataPromise = dashboardRequest.getViewPeriodoClosed(DateInit, DateFinal, req.params.id)
-    Promise.resolve(dataPromise).then(response => {
-        if (response.cabec.length < 1) {
-            res.status(400).json({
-                error: true,
-                data: "Não foram encontrados registros no período",
-            })
-        } else {
-            return res.status(200).json({ message: `Dados da empresa de idcloud ${idCloud} recuperados com sucesso`, data: response })
 
-        }
-    })
-})
 
 })
 

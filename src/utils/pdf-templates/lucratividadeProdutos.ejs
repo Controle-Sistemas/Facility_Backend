@@ -33,34 +33,46 @@
       </p>
       <table class="w-full mt-2">
         <tr class="w-full border-b border-dotted border-2 border-black border-t-0 border-x-0">
-          <th class="w-[43%] font-light ">PRODUTO</th>
-          <th class="w-[13%] text-right font-light ">QTDE</th>
-          <th class="w-[13%] text-right font-light ">VL TOTAL</th>
-          <th class="w-[13%] text-right font-light ">C TOTAL</th>
-          <th class="w-[13%] text-right font-light ">L TOTAL</th>
-          <th class="w-[5%] text-center font-light ">%</th>
+          <th class="w-[19%] font-light ">PRODUTO</th>
+          <th class="w-[9%] text-right font-light ">QTDE</th>
+          <th class="w-[9%] text-right font-light ">VL TOTAL</th>
+          <th class="w-[9%] text-right font-light ">P MEDIO</th>
+          <th class="w-[9%] text-right font-light ">L MEDIO</th>
+          <th class="w-[9%] text-right font-light ">C MEDIO</th>
+          <th class="w-[9%] text-right font-light ">L TOTAL</th>
+          <th class="w-[9%] text-right font-light ">L MEDIO %</th>
+          <th class="w-[9%] text-right font-light ">L TOTAL %</th>
+          <th class="w-[9%] text-right font-light ">C TOTAL</th>
         </tr>
         <tbody class="border-b border-dotted border-2 border-black border-t-0 border-x-0">
           <% if (group.products.length> 0) { %>
           <% group.products.forEach((product, index)=> { %>
           <% if(index %2 > 0){ %>
           <tr class="bg-cyan-100">
-            <td class="w-[43%] font-light"><%= product.produto %></td>
-            <td class="w-[13%] text-right font-light "><%= product.qtdeVendida.toFixed(2).replace('.',',') %></td>
-            <td class="w-[13%] text-right font-light "><%= product.valorTotal.toFixed(2).replace('.',',') %></td>
-            <td class="w-[13%] text-right font-light "><%= product.custoTotal.toFixed(2).replace('.',',') %></td>
-            <td class="w-[13%] text-right font-light "><%= product.lucroTotal.toFixed(2).replace('.',',') %></td>
-            <td class="w-[5%] text-center font-light"><%= product.lucroTotalPerc+'%' %></td>
+            <td class="w-[24%] font-light"><%= product.produto %></td>
+            <td class="w-[9%] text-right font-light "><%= product.qtdeVendida.toFixed(2).replace('.',',')%></td>
+            <td class="w-[9%] text-right font-light "><%= product.valorTotal.toFixed(2).replace('.',',')%></td>
+            <td class="w-[9%] text-right font-light "><%= product.precoMedio.toFixed(2).replace('.',',')%></td>
+            <td class="w-[9%] text-right font-light "><%= product.lucroMedio.toFixed(2).replace('.',',')%></td>
+            <td class="w-[9%] text-right font-light "><%= product.custoMedio.toFixed(2).replace('.',',')%></td>
+            <td class="w-[9%] text-right font-light "><%= product.lucroTotal.toFixed(2).replace('.',',')%></td>
+            <td class="w-[9%] text-right font-light "><%= product.lucroMedioPerc.toFixed(2).replace('.',',')+'%' %></td>
+            <td class="w-[9%] text-right font-light"><%= product.lucroTotalPerc.toFixed(2).replace('.',',')+'%' %></td>
+            <td class="w-[9%] text-right font-light "><%= product.custoTotal.toFixed(2).replace('.',',')%></td>
           </tr>
           <% } else{ %>
 
           <tr class="bg-white">
-            <td class="w-[43%] font-light"><%= product.produto %></td>
-            <td class="w-[13%] text-right font-light "><%= product.qtdeVendida.toFixed(2).replace('.',',') %></td>
-            <td class="w-[13%] text-right font-light "><%= product.valorTotal.toFixed(2).replace('.',',') %></td>
-            <td class="w-[13%] text-right font-light "><%= product.custoTotal.toFixed(2).replace('.',',') %></td>
-            <td class="w-[13%] text-right font-light "><%= product.lucroTotal.toFixed(2).replace('.',',') %></td>
-            <td class="w-[5%] text-center font-light"><%= product.lucroTotalPerc+'%' %></td>
+            <td class="w-[24%] font-light"><%= product.produto %></td>
+            <td class="w-[9%] text-right font-light "><%= product.qtdeVendida.toFixed(2).replace('.',',')%></td>
+            <td class="w-[9%] text-right font-light "><%= product.valorTotal.toFixed(2).replace('.',',')%></td>
+            <td class="w-[9%] text-right font-light "><%= product.precoMedio.toFixed(2).replace('.',',')%></td>
+            <td class="w-[9%] text-right font-light "><%= product.lucroMedio.toFixed(2).replace('.',',')%></td>
+            <td class="w-[9%] text-right font-light "><%= product.custoMedio.toFixed(2).replace('.',',')%></td>
+            <td class="w-[9%] text-right font-light "><%= product.lucroTotal.toFixed(2).replace('.',',')%></td>
+            <td class="w-[9%] text-right font-light "><%= product.lucroMedioPerc.toFixed(2).replace('.',',') %></td>
+            <td class="w-[9%] text-right font-light"><%= product.lucroTotalPerc.toFixed(2).replace('.',',') %></td>
+            <td class="w-[9%] text-right font-light "><%= product.custoTotal.toFixed(2).replace('.',',')%></td>
           </tr>
           <% } %>
           <% }) %>
@@ -68,24 +80,24 @@
         </tbody>
       </table>
       <div class="w-full flex text-right font-bold">
-        <span class="w-[43%] font-bold ">TOTAIS DO GRUPO:</span>
-        <span class="w-[13%] text-right font-light  "><%= group.qtde %></span>
-        <span class="w-[13%] text-right font-light "><%= group.vlTotal %></span>
-        <span class="w-[13%] text-right font-light "><%= group.cTotal %></span>
-        <span class="w-[13%] text-right font-light "><%= group.lTotal %></span>
-        <span class="w-[5%] text-right font-light "><%= group.percentual %></span>
+        <span class="w-[24%] font-bold ">TOTAIS DO GRUPO:</span>
+        <span class="w-[9%] text-right font-light  "><%= group.totaisDoGrupo.qtdeVendida.replace('.',',') %></span>
+        <span class="w-[9%] text-right font-light "><%= group.totaisDoGrupo.valorTotal.replace('.',',') %></span>
+        <span class="w-[9%] text-right font-light "><%= group.totaisDoGrupo.custoTotal.replace('.',',') %></span>
+        <span class="w-[9%] text-right font-light "><%= group.totaisDoGrupo.lucroTotal %></span>
+        <span class="w-[9%] text-right font-light "><%= group.totaisDoGrupo.lucroTotalPerc %></span>
       </div>
     </li>
   </ul>
   <% }) %>
   <% } %>
   <div class="w-full flex text-right font-bold">
-    <span class="w-[43%] font-bold ">TOTAL GERAL:</span>
-    <span class="w-[13%] text-right font-light "><%= qtdeTotal %></span>
-    <span class="w-[13%] text-right font-light "><%= vlTotal %></span>
-    <span class="w-[13%] text-right font-light "><%= cTotal %></span>
-    <span class="w-[13%] text-right font-light "><%= lTotal %></span>
-    <span class="w-[5%] text-right font-light "><%= percentualTotal %></span>
+    <span class="w-[24%] font-bold ">TOTAL GERAL:</span>
+    <span class="w-[9%] text-right font-light "><%= qtdeTotal %></span>
+    <span class="w-[9%] text-right font-light "><%= vlTotal %></span>
+    <span class="w-[9%] text-right font-light "><%= cTotal %></span>
+    <span class="w-[9%] text-right font-light "><%= lTotal %></span>
+    <span class="w-[9%] text-right font-light "><%= percentualTotal %></span>
   </div>
 
 </body>

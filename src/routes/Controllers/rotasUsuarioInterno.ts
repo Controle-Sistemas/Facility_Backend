@@ -89,7 +89,7 @@ router.patch('/change-password/:id', async (req: Request, res: Response) => { //
 	// 	oldPassword: req.body.oldPassword,
 	// 	newPassword: req.body.newPassword
 	// }
-	connection.query(`SELECT * FROM internos WHERE ID = '${parseInt(req.params.id)}'`, async (err, results: any) => {
+	connection.query(`SELECT * FROM INTERNOS WHERE ID = '${parseInt(req.params.id)}'`, async (err, results: any) => {
 		if (err) {
 			return res.status(500).json({ message: `Erro interno`, data: results })
 		} else {
@@ -196,7 +196,7 @@ router.patch('/forgot-password/:user', (req: Request, res: Response) => {  //Rot
 							const data = {
 								SENHA: result
 							};
-							connection.query(`UPDATE internos SET ? WHERE USUARIO = '${user}'`, [data], (err: any) => {
+							connection.query(`UPDATE INTERNOS SET ? WHERE USUARIO = '${user}'`, [data], (err: any) => {
 								if (err) {
 									console.log(err);
 								} else {
